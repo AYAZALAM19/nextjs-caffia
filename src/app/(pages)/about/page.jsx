@@ -37,11 +37,11 @@ function AboutPage() {
         />
       </div>
 
-      <div className="container mx-auto ">
-        <h1 className="font-heading text-2xl md:text-6xl font-bold inli text-black text-center">
+      <div className="container mx-auto my-10">
+        <h1 className="font-heading text-2xl md:text-5xl font-bold my-3.5 text-Greytext text-center">
           Our Values
         </h1>
-        <p className="my-8 text-Greytext font-semibold md:text-2xl text-base md:px-64 text-center">
+        <p className="my-8 text-Greytext font-semibold md:text-xl text-lg md:px-64 text-center">
           These core principles guide everything we do, from sourcing beans to
           serving customers.
         </p>

@@ -1,17 +1,19 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Nunito, Quicksand } from "next/font/google";
 // import type { Metadata } from "next"
 import Header from "../app/components/Header";
 import Fotter from "./components/Fotter";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const nunito = Nunito({
   subsets: ["latin"],
+  variable: "--font-heading",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Load Quicksand for body text
+const quicksand = Quicksand({
   subsets: ["latin"],
+  variable: "--font-body",
+ 
 });
 
 // export const metadata: Metadata = {
@@ -23,7 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${quicksand.className} ${quicksand.className}`}
       >
         <Header/>
         {children}

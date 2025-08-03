@@ -86,7 +86,7 @@ function page() {
                 </div>
 
                 {/* Enhanced main heading */}
-                <div className="text-5xl md:text-7xl font-bold font-serif leading-tight">
+                <div className="text-5xl md:text-7xl font-bold leading-tight">
                   <span
                     className="inline-block animate-slide-up"
                     style={{ animationDelay: "0.2s" }}
@@ -97,16 +97,16 @@ function page() {
                       alt=""
                     />
                   </span>
-                  <h1
-                    className="block text-3xl font-heading md:text-4xl font-extrabold text-amber-300 animate-slide-up"
+                  <p
+                    className="block text-3xl font-heading uppercase md:text-4xl text-amber-300 animate-slide-up"
                     style={{ animationDelay: "0.4s" }}
                   >
                     Premium Coffee
-                  </h1>
+                  </p>
                 </div>
 
                 <p
-                  className="text-xl md:text-2xl text-amber-100 max-w-lg leading-relaxed animate-slide-up"
+                  className="text-xl font-medium md:text-2xl text-amber-100 max-w-lg leading-relaxed animate-slide-up"
                   style={{ animationDelay: "0.6s" }}
                 >
                   Enjoy the finest coffee from farm to your doorstep. Every sip
@@ -197,17 +197,104 @@ function page() {
           </div>
         </div>
       </section>
+
+   <section className="my-20 bg-pink-300/10">
+  <div className="flex justify-center items-center py-5">
+    <p className="font-body font-semibold md:text-base text-base bg-amberLight/15 hover:bg-amberLight/80 duration-200 text-amberLight hover:text-white px-3.5 pb-0.5 inline-flex items-center justify-center rounded-xl">
+      Featured Products
+    </p>
+  </div>
+  <div>
+    <h1 className="text-center font-bold font-heading uppercase text-Greytext md:text-5xl text-lg py-8">
+      Premium Coffee Collection
+    </h1>
+    <p className="font-semibold text-grey7 md:text-xl text-base md:px-80 text-center">
+      Discover our most popular coffee blends, carefully selected for their exceptional quality and taste.
+    </p>
+  </div>
+  <div className="mx-auto my-20 grid justify-center grid-cols-1 md:grid-cols-3 gap-10">
+    {/* Product Card 1 */}
+    <div className="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+      <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-amber to-amberLight"></div>
+      <div className="p-6">
+        <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+          Tailwind card
+        </h5>
+        <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc felis ligula.
+        </p>
+      </div>
+      <div className="p-6 pt-0">
+        <button
+          data-ripple-light="true"
+          type="button"
+          className="select-none rounded-lg bg-amberLight py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-amberLight/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        >
+          Read More
+        </button>
+      </div>
+    </div>
+    {/* Product Card 2 */}
+    <div className="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+      <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-amber to-amberLight"></div>
+      <div className="p-6">
+        <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+          Tailwind card
+        </h5>
+        <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc felis ligula.
+        </p>
+      </div>
+      <div className="p-6 pt-0">
+        <button
+          data-ripple-light="true"
+          type="button"
+          className="select-none rounded-lg bg-amberLight py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-amberLight/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        >
+          Read More
+        </button>
+      </div>
+    </div>
+    {/* Product Card 3 */}
+    <div className="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+      <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-amber to-amberLight"></div>
+      <div className="p-6">
+        <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+          Tailwind card
+        </h5>
+        <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc felis ligula.
+        </p>
+      </div>
+      <div className="p-6 pt-0">
+        <button
+          data-ripple-light="true"
+          type="button"
+          className="select-none rounded-lg bg-amberLight py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-amberLight/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        >
+          Read More
+        </button>
+      </div>
+    </div>
+  </div>
+  <div className="flex justify-center items-center">
+    <button className="hover:bg-amberLight text-amber duration-300 border-amberLight border bg-white font-body font-semibold hover:text-white py-2 px-4 rounded-lg">
+      View All Product
+    </button>
+  </div>
+</section>
+
       <section className="my-10">
         <div className=" flex justify-center items-center ">
           <p className=" font-body font-semibold md:text-base  text-base bg-amberLight/15 hover:bg-amberLight/80 duration-200 text-amberLight hover:text-white px-3.5 pb-0.5 inline-flex items-center justify-center rounded-xl">
-            Why Choose Caffie
+            About Caffie
           </p>
         </div>
         <div>
-          <h2 className="font-heading md:text-5xl text-2xl my-2.5 text-center text-Greytext font-bold py-5">
+          <h2 className="md:text-4xl text-2xl uppercase my-2.5 text-center text-Greytext font-bold py-5">
             Where Coffee Meets Comfort
           </h2>
-          <p className="font-body md:text-xl text-lg md:px-52 px-10 text-grey text-center">
+          <p className="font-body md:text-xl font-semibold text-lg md:px-52 px-10 text-grey text-center">
             At Caffie, every sip tells a story. Whether you're rushing into a
             busy morning or slowing down for an afternoon breather, we're here
             to make each moment special. Our brews aren't just drinks — they're
@@ -287,99 +374,60 @@ function page() {
           </div>
         </div>
       </section>
-      <section className="my-20 bg-pink-300/10">
-        <div className=" flex justify-center items-center py-5">
-          <p className=" font-body font-semibold md:text-base  text-base bg-amberLight/15 hover:bg-amberLight/80 duration-200 text-amberLight hover:text-white px-3.5 pb-0.5 inline-flex items-center justify-center rounded-xl">
-            Featured Products
-          </p>
-        </div>
-        <div className="">
-          <h2 className="text-center font-semibold font-heading text-Greytext md:text-5xl text-lg py-8 ">
-            Premium Coffee Collection
-          </h2>
-          <p className="font-semibold text-grey md:text-xl text-base md:px-80 text-center">
-            Discover our most popular coffee blends, carefully selected for
-            their exceptional quality and taste.
-          </p>
-        </div>
-        <div className=" my-10 flex justify-center grid-cols-3 gap-16 mx-auto">
 
-          <div className="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-            <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-amber to-amberLight"></div>
-            <div className="p-6">
-              <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                Tailwind card
-              </h5>
-              <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                felis ligula.
-              </p>
-            </div>
-            <div className="p-6 pt-0">
-              <button
-                data-ripple-light="true"
-                type="button"
-                className="select-none rounded-lg bg-amberLight py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-amberLight/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              >
-                Read More
-              </button>
-            </div>
-          </div>
-          {/*  */}
-           <div className="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-            <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-amber to-amberLight"></div>
-            <div className="p-6">
-              <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                Tailwind card
-              </h5>
-              <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                felis ligula.
-              </p>
-            </div>
-            <div className="p-6 pt-0">
-              <button
-                data-ripple-light="true"
-                type="button"
-                className="select-none rounded-lg bg-amberLight py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-amberLight/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              >
-                Read More
-              </button>
-            </div>
-          </div>
-          {/*  */}
-           <div className="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-            <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-amber to-amberLight"></div>
-            <div className="p-6">
-              <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                Tailwind card
-              </h5>
-              <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                felis ligula.
-              </p>
-            </div>
-            <div className="p-6 pt-0">
-              <button
-                data-ripple-light="true"
-                type="button"
-                className="select-none rounded-lg bg-amberLight py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-amberLight/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              >
-                Read More
-              </button>
-            </div>
-          </div>
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="font-heading md:text-4xl text-lg mx-auto my-4 text-Greytext uppercase text-center">About Product</h2>
+      <div className="flex flex-col md:flex-row justify-center items-start gap-6">
+        {/* First block */}
+        <div className="w-full md:w-1/3 flex flex-col items-center text-center space-y-4">
+          <img
+            src="/assets/images/about_product/process_1_1080x.avif"
+            alt="Product process step 1"
+            className="rounded-2xl object-cover "
+          />
+          <p className="text-base md:px-2.5 font-semibold text-grey">
+            Made from Grade A coffee, roasted in small batches.
+          </p>
+          <Link href="#" className="text-blue-600 hover:underline">
+            Hello
+          </Link>
         </div>
-        <div className="flex justify-center items-center">
-          <button className="hover:bg-amberLight text-amber duration-300 border-amberLight border bg-white  font-body font-semibold hover:text-white py-2 px-4 rounded-lg">
-            View All Product
-          </button>
-        </div>
-      </section>
 
+        {/* Second block */}
+        <div className="w-full md:w-1/3 flex flex-col items-center text-center space-y-4">
+          <img
+            src="/assets/images/about_product/process_3_1080x.avif"
+            alt="Product process step 3"
+            className="rounded-2xl object-cover "
+          />
+          <p className="text-base md:px-2.5 font-semibold text-grey">
+            Made from Grade A coffee, roasted in small batches.
+          </p>
+          <Link href="#" className="text-blue-600 hover:underline">
+            Hello
+          </Link>
+        </div>
+
+        {/* Third block */}
+        <div className="w-full md:w-1/3 flex flex-col items-center text-center space-y-4">
+          <img
+            src="/assets/images/about_product/packeg_of_product.jpg"
+            alt="Packaged product"
+            className="rounded-2xl object-cover w-72"
+          />
+          <p className="text-base md:px-2.5 font-semibold text-grey">
+            Made from Grade A coffee, roasted in small batches.
+          </p>
+          <Link href="#" className="">
+            Hello
+          </Link>
+        </div>
+      </div>
+    </div>
+
+    
       <Newsletter />
     </>
   );
 }
-
 export default page;

@@ -24,9 +24,12 @@ function page() {
       <CoffeeSliderBanner />
       <section className="my-20 bg-pink-300/10">
         <div className="flex justify-center items-center py-5">
-          <p className="font-body font-semibold md:text-base text-base bg-amberLight/15 hover:bg-amberLight/80 duration-200 text-amberLight hover:text-white px-3.5 pb-0.5 inline-flex items-center justify-center rounded-xl">
-            Featured Products
-          </p>
+          <p className="inline-block text-base font-semibold text-amber bg-gradient-to-r from-amber-50 to-orange-50 px-6 py-2 rounded-full border-2 border-amber-200 shadow-sm hover:shadow-md hover:from-amber hover:via-amber-200 hover:to-amberLight hover:bg-gradient-to-bl transition-colors duration-500 ease-in-out">
+  Featured Products
+</p>
+
+
+
         </div>
         <div>
           <h1 className="text-center font-bold font-heading uppercase text-Greytext md:text-5xl text-lg py-8">

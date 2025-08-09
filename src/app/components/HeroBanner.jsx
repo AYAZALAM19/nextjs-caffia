@@ -1,25 +1,27 @@
 import React from "react";
+import {Star} from "lucide-react"
 
 function HeroBanner({ img, title, description, subTitle }) {
   return (
-    <div className="relative">
+    <div className="relative bg-gradient-to-br from-amber to-amberLight">
       <img
         src={img}
-        className="object-cover object-center  w-full h-[500px] "
-        alt=""
+        className="object-cover object-center  w-full h-[350px] md:h-[500px] "
+        alt={title}
       />
-      <div className="absolute inset-0  bg-amber/75"></div>
-      <div className="absolute inset-0 z-10 flex items-center justify-center">
-        <div className="py-4 px-6 text-center">
-          <div className=" flex justify-center items-center ">
-            <p className=" font-body font-semibold md:text-base  text-base bg-amberLight/15 hover:bg-amberLight/80 duration-200 text-amberLight hover:text-white px-3.5 pb-0.5 inline-flex items-center justify-center rounded-xl">
-              {subTitle}
-            </p>
+      <div className="absolute inset-0 bg-gradient-to-r from-darkAmber/55 via-black/40 to-transparent"></div>
+      <div className="absolute inset-0 z-10 flex items-center ">
+        <div className="py-4 px-4 md:px-16">
+          <div
+            className="inline-flex items-center gap-2 px-3 md:px-4 md:py-2 py-1 my-2 rounded-full bg-gradient-to-r from-darkAmber/85 to-amberLight/100 text-amber-200 text-base md:text-base font-semibold transition-all duration-700 translate-y-0 opacity-100"
+          >
+            <Star className="w-4 h-4" />
+             {subTitle}
           </div>
-          <h1 className="text-center font-heading font-bold md:text-6xl mb-4 text-white">
+          <h1 className=" font-heading font-bold text-3xl md:text-5xl lg:text-6xl mb-4 text-white">
             {title}
           </h1>
-          <p className="font-body md:text-xl text-lg font-semibold md:px-80 text-white">
+          <p className="font-body md:text-xl lg:text-2xl max-w-3xl text-start text-lg font-semibold  text-white">
             {description}
           </p>
         </div>

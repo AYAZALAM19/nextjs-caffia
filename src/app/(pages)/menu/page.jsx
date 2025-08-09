@@ -1,8 +1,12 @@
 import React from 'react'
+import GooglePay from '@/app/components/GoogelPay'
 
 function Menu() {
   return (
-    <div>Menu</div>
+    <div>Menu
+
+      <GooglePay />
+    </div>
   )
 }
 

@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Star, Coffee } from 'lucide-react';
 
@@ -59,7 +60,7 @@ const CoffeeSliderBanner = () => {
         setTimeout(() => {
           sliderRef.current.style.transition = 'transform 0.7s cubic-bezier(0.23, 1, 0.32, 1)';
         }, 50);
-      } else if (currentIndex === slides.length + 1) {
+      } else if (currentIndex === slides.length + 1)  {
         sliderRef.current.style.transition = 'none';
         setCurrentIndex(1);
         setTimeout(() => {

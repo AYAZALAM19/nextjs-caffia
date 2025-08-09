@@ -9,21 +9,21 @@ const CoffeeSliderBanner = () => {
 
   const slides = [
     {
-      src: "/assets/images/home-banner/coffee-beans-cup-packaging.jpg",
+      src: "/assets/images/home-banner/banner_3.jpeg",
       title: "Premium Coffee Experience",
       subtitle: "Discover our carefully selected coffee beans from around the world",
       cta: "Shop Now",
       accent: "New Arrival"
     },
     {
-      src: "/assets/images/home-banner/roasted-coffee-beans-cinnamon.jpg",
+      src: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
       title: "Artisan Roasted Beans",
       subtitle: "Perfectly roasted with aromatic spices for the ultimate flavor",
       cta: "Explore",
       accent: "Best Seller"
     },
     {
-      src: "/assets/images/home-banner/top-view-coffee-with-copy-space.jpg",
+      src: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
       title: "Coffee Moments",
       subtitle: "Every cup tells a story of passion, quality, and craftsmanship",
       cta: "Learn More",
@@ -87,36 +87,38 @@ const CoffeeSliderBanner = () => {
   };
 
   return (
-    <section className="relative w-full h-80 md:h-96 lg:h-[550px] overflow-hidden bg-gradient-to-br from-amber to-amberLight rounded-sm shadow-2xl group">
+    <section className="relative w-full h-80 md:h-96 lg:h-[550px] overflow-hidden bg-gradient-to-br from-amber-600 to-amber-400 rounded-sm shadow-2xl group">
       {/* Slides Container */}
       <div 
         ref={sliderRef}
-        className="flex h-full"
+        className="flex h-full w-full"
         style={{ 
           transform: `translateX(-${currentIndex * 100}%)`,
           transition: 'transform 0.7s cubic-bezier(0.23, 1, 0.32, 1)'
         }}
       >
         {extendedSlides.map((slide, index) => (
-          <div key={index} className="relative w-full h-full flex-shrink-0">
-            {/* Background Image */}
-            <div 
-              className="absolute inset-0 bg-cover bg-center  transition-transform duration-[5s] ease-linear"
-              style={{ 
-                backgroundImage: `url('${slide.src}')`,
-                
-                transform: currentIndex === index ? 'scale(1.05)' : 'scale(1)'
-              }}
-            >
+          <div key={index} className="relative w-full h-full min-w-full">
+            
+            {/* Image with scaling effect */}
+            <div className="absolute inset-0 overflow-hidden">
+              <img
+                src={slide.src}
+                alt={slide.title}
+                className={`w-full h-full object-cover transition-transform duration-[5s] ease-linear ${
+                  currentIndex === index ? 'scale-105' : 'scale-100'
+                }`}
+              />
+              {/* Overlays */}
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </div>
-            
+
             {/* Content */}
             <div className="relative z-10 h-full flex items-center px-6 md:px-12 lg:px-16">
               <div className="max-w-3xl space-y-3">
                 {/* Badge */}
-                <div className={`inline-flex items-center gap-2 px-3 md:px-4 md:py-3 py-2 rounded-full bg-amberLight/95 text-amber text-sm md:text-lg font-bold transition-all duration-700 ${
+                <div className={`inline-flex items-center gap-2 px-3 md:px-4 md:py-2 py-1 rounded-full bg-gradient-to-r from-amber-800/85 to-amber-600/100 text-amber-200 text-base md:text-base font-semibold transition-all duration-700 ${
                   Math.abs(currentIndex - index) <= 0 ? 'translate-y-0 opacity-100' : 'md:translate-y-8 opacity-0'
                 }`}>
                   <Star className="w-4 h-4" />
@@ -125,21 +127,21 @@ const CoffeeSliderBanner = () => {
 
                 {/* Title */}
                 <h1 className={`text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight transition-all duration-700 delay-200 ${
-                  Math.abs(currentIndex - index) <= 0 ? 'translate-y-0 opacity-100' : 'md:translate-y-12 translate-y-4  opacity-0'
+                  Math.abs(currentIndex - index) <= 0 ? 'translate-y-0 opacity-100' : 'md:translate-y-12 translate-y-4 opacity-0'
                 }`}>
                   {slide.title}
                 </h1>
 
                 {/* Subtitle */}
-                <p className={`text-lg md:text-xl lg:text-2xl text-amber-50/90  leading-relaxed transition-all duration-700 delay-300 ${
+                <p className={`text-lg md:text-xl lg:text-2xl text-amber-50/90 leading-relaxed transition-all duration-700 delay-300 ${
                   Math.abs(currentIndex - index) <= 0 ? 'translate-y-0 opacity-100' : 'md:translate-y-12 opacity-0'
                 }`}>
                   {slide.subtitle}
                 </p>
 
                 {/* CTA Button */}
-                <button className={`group/btn inline-flex items-center gap-3 md:px-8 md:py-4 py-1 px-2 bg-gradient-to-r from-darkAmber/85 to-amberLight/100 hover:from-darkAmber/80 hover:to-amberLight
-                text-white font-bold rounded-full transition-all duration-700 delay-500 hover:scale-105 hover:shadow-xl ${
+                <button className={`group/btn inline-flex items-center gap-3 md:px-8 md:py-3 py-1 px-2 bg-gradient-to-r from-amber-800/85 to-amber-600/100 hover:from-amber-800/80 hover:to-amber-600
+                  text-amber-200 text-base md:text-base rounded-full transition-all duration-700 delay-500 font-semibold hover:scale-105 hover:shadow-xl ${
                   Math.abs(currentIndex - index) <= 0 ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
                 }`}>
                   <Coffee className="w-5 h-5" />

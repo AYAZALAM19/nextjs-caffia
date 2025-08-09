@@ -1,5 +1,3 @@
-"use client";
-
 // import { Button } from "@/components/ui/button"
 // import { Card } from "@/components/ui/card"
 import {
@@ -17,6 +15,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import CoffeeSliderBanner from "../components/CoffeeSliderBanner";
+// import CoffeeCard from "../components/CoffeeCard";
 import Newsletter from "../components/Newsletter";
 
 function page() {

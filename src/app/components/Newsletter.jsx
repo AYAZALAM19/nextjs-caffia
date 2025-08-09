@@ -18,15 +18,15 @@ import { Mail } from "lucide-react";
 function Newsletter() {
   return (
     <section className="bg-amber py-10">
-      <h2 className="font-heading text-center font-semibold md:text-5xl text-white text-lg md:pt-10">
+      <h2 className="font-heading uppercase text-center font-semibold md:text-5xl text-white text-lg md:pt-10">
         Stay Connected
       </h2>
       <div className="my-9">
-        <p className="md:px-80 text-amber-100 text-center font-body font-semibold md:text-xl text-base">
+        <p className="md:px-80 px-4 text-amber-100 text-center font-body font-semibold md:text-xl text-base">
           Get the latest updates on new blends, exclusive offers, and coffee
           brewing tips delivered to your inbox.
         </p>
-        <div className="flex justify-center items-center my-8 gap-6">
+        <div className="flex justify-center px-4 items-center my-8 gap-1.5 md:gap-6">
           <input
             type="email"
             placeholder="Enter Email"

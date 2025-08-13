@@ -28,7 +28,7 @@ function Contact() {
             Leave us a message!
           </p>
         </div>
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center mx-5">
           <form
             action=""
             className="md:px-28 mx-8 p-10 border-2 border-caffia rounded-xl w-full max-w-6xl"

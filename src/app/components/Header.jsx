@@ -35,8 +35,8 @@ function Header() {
   return (
     <>
       {/* Top Bar */}
-      <div className='flex bg-gradient-to-r from-amberLight to-amber-500 py-3 px-1 justify-between text-white shadow-sm'>
-        <div className='flex gap-1 items-center'>
+      <div className='flex bg-gradient-to-r from-caffia to-caffia py-3 px-2 justify-between text-white shadow-sm'>
+        <div className='flex md:gap-5 items-center'>
           <div className='flex whitespace-nowrap gap-0.5 md:text-base text-xs items-center hover:text-amber-100 transition-colors'>
             <div className="p-1 bg-white/20 rounded-full">
               <Phone size={14} />
@@ -63,13 +63,13 @@ function Header() {
       <nav className={`md:block hidden sticky top-0 z-40 transition-all duration-300 ${
         isScrolled ? 'shadow-lg bg-white/95 backdrop-blur-sm' : 'bg-white'
       }`}>
-        <div className='flex px-6 items-center py-4 mx-auto max-w-7xl'>
+        <div className='flex px-6 items-center py-3 mx-auto max-w-7xl'>
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href='/'>
             <img 
               src="/assets/images/caffia.png" 
-              className='w-24 hover:scale-105 transition-transform duration-200' 
+              className='w-36 hover:scale-105 transition-transform duration-200' 
               alt="Caffia Logo" 
             />
             </Link>
@@ -77,54 +77,54 @@ function Header() {
           
           {/* Center: Navigation Menu */}
           <div className='flex-1 flex justify-center'>
-            <ul className="flex gap-8 font-semibold text-lg text-gray-700 ">
+            <ul className="flex gap-8 font-extrabold text-lg text-Greytext ">
 
-              <li className={`${pathname === '/' ? 'text-amberLight' : ''} relative group`}>
+              <li className={`${pathname === '/' ? 'text-caffia' : ''} relative group`}>
                 <Link href='/'>
-                    <span className="hover:text-amberLight uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
+                    <span className="hover:text-caffia uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
                       Home
-                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-amberLight transition-all duration-300 group-hover:w-full ${pathname === '/' ? 'w-full' :'group-hover:w-full'}`}></span>
+                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-caffia/90  transition-all duration-300 group-hover:w-full ${pathname === '/' ? 'w-full' :'group-hover:w-full'}`}></span>
                     </span>
                   </Link>
               </li>
 
-               <li className={`${pathname === '/about' ? 'text-amberLight' : ''} relative group`}>
+               <li className={`${pathname === '/about' ? 'text-caffia' : ''} relative group`}>
                 <Link href='/about'>
-                    <span className="hover:text-amberLight uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
+                    <span className="hover:text-caffia uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
                       About Us
-                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-amberLight transition-all duration-300 group-hover:w-full ${pathname === '/about' ? 'w-full':'group-hover:w-full'}`}></span>
+                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-caffia transition-all duration-300 group-hover:w-full ${pathname === '/about' ? 'w-full':'group-hover:w-full'}`}></span>
                     </span>
                   </Link>
               </li>
-               <li className={`${pathname === '/menu' ? 'text-amberLight' : ''} relative group`}>
+               <li className={`${pathname === '/menu' ? 'text-caffia' : ''} relative group`}>
                 <Link href='/menu'>
-                    <span className="hover:text-amberLight uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
+                    <span className="hover:text-caffia uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
                       Menu
-                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-amberLight transition-all duration-300 group-hover:w-full ${pathname === '/menu' ? 'w-full':'group-hover:w-full'}`}></span>
+                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-caffia transition-all duration-300 group-hover:w-full ${pathname === '/menu' ? 'w-full':'group-hover:w-full'}`}></span>
                     </span>
                   </Link>
               </li>
-               <li className={`${pathname === '/product' ? 'text-amberLight' : ''} relative group`}>
+               <li className={`${pathname === '/product' ? 'text-caffia' : ''} relative group`}>
                 <Link href='/product'>
-                    <span className="hover:text-amberLight uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
+                    <span className="hover:text-caffia uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
                       Product
-                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-amberLight transition-all duration-300 group-hover:w-full ${pathname === '/product' ? 'w-full':'group-hover:w-full'}`}></span>
+                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-caffia transition-all duration-300 group-hover:w-full ${pathname === '/product' ? 'w-full':'group-hover:w-full'}`}></span>
                     </span>
                   </Link>
               </li>
-               <li className={`${pathname === '/blog' ? 'text-amberLight' : ''} relative group`}>
+               <li className={`${pathname === '/blog' ? 'text-caffia' : ''} relative group`}>
                 <Link href='/blog'>
-                    <span className="hover:text-amberLight uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
+                    <span className="hover:text-caffia uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
                       Blog
-                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-amberLight transition-all duration-300 group-hover:w-full ${pathname === '/blog' ? 'w-full':'group-hover:w-full'}`}></span>
+                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-caffia transition-all duration-300 group-hover:w-full ${pathname === '/blog' ? 'w-full':'group-hover:w-full'}`}></span>
                     </span>
                   </Link>
               </li>
-               <li className={`${pathname === '/contact' ? 'text-amberLight' : ''} relative group`}>
+               <li className={`${pathname === '/contact' ? 'text-caffia' : ''} relative group`}>
                 <Link href='/contact'>
-                    <span className="hover:text-amberLight uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
+                    <span className="hover:text-caffia uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
                       Contact
-                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-amberLight transition-all duration-300 group-hover:w-full ${pathname === '/contact' ? 'w-full':'group-hover:w-full'}`}></span>
+                      <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-caffia transition-all duration-300 group-hover:w-full ${pathname === '/contact' ? 'w-full':'group-hover:w-full'}`}></span>
                     </span>
                   </Link>
               </li>
@@ -134,11 +134,11 @@ function Header() {
           {/* Right side: Search and Cart */}
           <div className='flex gap-4 items-center'>
             <button className='p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative group'>
-              <Search className='text-gray-700 group-hover:text-amberLight transition-colors' size={22} />
+              <Search className='text-caffia font-bold group-hover:text-amberLight transition-colors' size={22} />
             </button>
             <button className='p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative group'>
-              <ShoppingCart className='text-gray-700 group-hover:textamberLight transition-colors' size={22} />
-              <span className="absolute -top-1 -right-1 bg-amber-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+              <ShoppingCart className='text-caffia font-bold group-hover:textamberLight transition-colors' size={22} />
+              <span className="absolute -top-1 -right-1 bg-caffia text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                 2
               </span>
             </button>

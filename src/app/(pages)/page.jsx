@@ -32,9 +32,9 @@ function page() {
 
         </div>
         <div>
-          <h1 className="text-center font-bold font-heading uppercase text-Greytext md:text-5xl text-lg py-8">
+          <h2 className="text-center font-bold font-heading uppercase text-caffia md:text-5xl text-lg py-8">
             Premium Coffee Collection
-          </h1>
+          </h2>
           <p className="font-semibold text-grey7 md:text-xl text-base md:px-80 text-center">
             Discover our most popular coffee blends, carefully selected for
             their exceptional quality and taste.
@@ -122,7 +122,7 @@ function page() {
           </p>
         </div>
         <div>
-          <h2 className="md:text-4xl text-2xl uppercase my-2.5 text-center text-Greytext font-bold py-5">
+          <h2 className="md:text-4xl text-2xl uppercase my-2.5 text-center text-caffia font-bold py-5">
             Where Coffee Meets Comfort
           </h2>
           <p className="font-body md:text-xl font-semibold text-lg md:px-52 px-10 text-grey text-center">
@@ -207,7 +207,7 @@ function page() {
       </section>
 
       <div className="container mx-auto px-4 py-8">
-        <h2 className="font-heading md:text-4xl text-lg mx-auto my-4 text-Greytext uppercase text-center">
+        <h2 className="font-heading md:text-4xl text-lg mx-auto my-4 text-caffia uppercase text-center">
           About Product
         </h2>
         <div className="flex flex-col md:flex-row justify-center items-start gap-6">

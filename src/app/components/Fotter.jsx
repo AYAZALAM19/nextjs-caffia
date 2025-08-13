@@ -2,7 +2,7 @@ import React from 'react'
 import {Instagram, Facebook,Youtube,Twitter, Mail,Phone,MapPin} from "lucide-react"
 function Fotter() {
   return (
-    <div className='bg-[#a54610] px-10 py-8'>
+    <div className='bg-caffia px-10 py-8'>
   <div className='flex md:flex-row flex-col gap-8'>
     {/* Logo and Description Section */}
     <div className='w-full md:w-1/4'>

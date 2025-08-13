@@ -90,7 +90,7 @@ function Menu() {
               {/* Special Badge */}
               {item.isSpecial && (
                 <div className="absolute top-4 left-4 z-10">
-                  <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                  <span className="bg-gradient-to-r from-amber to-amberLight text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
                     ✨ Chef's Special
                   </span>
                 </div>
@@ -114,17 +114,17 @@ function Menu() {
                   <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between h-full">
                     <div className="flex-1 lg:pr-8">
                       {/* Category */}
-                      <span className="inline-block text-xs font-semibold tracking-wide uppercase text-amber bg-amberLight/55 px-2 py-1 rounded mb-3">
+                      <span className="inline-block text-sm font-bold tracking-wide uppercase text-caffia bg-amberLight/30 px-2 py-1 rounded mb-3">
                         {item.category}
                       </span>
 
                       {/* Title */}
-                      <h3 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-3 group-hover:text-amber transition-colors duration-300">
+                      <h3 className="text-2xl lg:text-3xl font-bold text-caffia mb-3 group-hover:text-amberLight transition-colors duration-300">
                         {item.name}
                       </h3>
 
                       {/* Description */}
-                      <p className="text-gray-600 font-semibold leading-relaxed mb-6 lg:mb-0">
+                      <p className="text-Greytext text-sm md:text-base font-semibold mb-6 lg:mb-0">
                         {item.description}
                       </p>
                     </div>
@@ -145,7 +145,7 @@ function Menu() {
               </div>
 
               {/* Decorative line */}
-              <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-amber/90 to-amberLight group-hover:w-full transition-all duration-700"></div>
+              <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-caffia to-amberLight group-hover:w-full transition-all duration-700"></div>
             </div>
           ))}
         </div>

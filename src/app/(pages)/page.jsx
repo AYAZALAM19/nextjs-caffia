@@ -19,17 +19,65 @@ import CoffeeSliderBanner from "../components/CoffeeSliderBanner";
 import Newsletter from "../components/Newsletter";
 
 function page() {
+  const products = [
+    {
+      id: 1,
+      title: "French Vanilla",
+      description:
+        "Smooth medium roast with creamy vanilla notes. Perfect for a mellow, aromatic cup.",
+      image: "/assets/images/products/product-5.jfif", // replace with your path or keep gradient
+      gradientFrom: "from-amber",
+      gradientTo: "to-amberLight",
+      href: "/menu",
+      cta: "Read More",
+      tags: ["Medium roast", "Vanilla", "Aromatic"],
+    },
+    {
+      id: 2,
+      title: "Original Classic",
+      description:
+        "Balanced everyday brew with a clean finish. Ideal for black coffee or with milk.",
+      image: "/assets/images/products/product-6.jfif",
+      gradientFrom: "from-amberLight",
+      gradientTo: "to-amber",
+      href: "/menu",
+      cta: "Read More",
+      tags: ["Balanced", "Daily brew", "Clean finish"],
+    },
+    {
+      id: 3,
+      title: "Turkish Hazelnut",
+      description:
+        "Rich, nutty profile with Turkish-style depth. Best enjoyed finely ground.",
+      image: "/assets/images/products/product-7.jfif",
+      gradientFrom: "from-amber",
+      gradientTo: "to-amberLight",
+      href: "/menu",
+      cta: "Read More",
+      tags: ["Nutty", "Bold", "Fine grind"],
+    },
+    {
+      id: 4,
+      title: "Mocha Caramel",
+      description:
+        "Chocolate-forward blend with caramel sweetness and a silky mouthfeel.",
+      image: "/assets/images/products/product-8.jfif",
+      gradientFrom: "from-amberLight",
+      gradientTo: "to-amber",
+      href: "/menu",
+      cta: "Read More",
+      tags: ["Chocolate", "Sweet", "Silky"],
+    },
+  ];
+
   return (
     <>
       <CoffeeSliderBanner />
       <section className="my-20 bg-pink-300/10">
         <div className="flex justify-center items-center py-5">
           <p className="inline-block text-base font-semibold text-amber bg-gradient-to-r from-amber-50 to-orange-50 px-6 py-2 rounded-full border-2 border-amber-200 shadow-sm hover:shadow-md hover:from-amber hover:via-amber-200 hover:to-amberLight hover:bg-gradient-to-bl transition-colors duration-500 ease-in-out">
-  Featured Products
-</p>
-
-
-
+            Featured Products
+          </p>
         </div>
         <div>
           <h2 className="text-center font-bold font-heading uppercase text-caffia md:text-5xl text-lg py-8">
@@ -40,79 +88,70 @@ function page() {
             their exceptional quality and taste.
           </p>
         </div>
-        <div className="mx-auto my-20 grid justify-center justify-items-center grid-cols-1 md:grid-cols-3 gap-10">
-          {/* Product Card 1 */}
-          <div className="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-            <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-amber to-amberLight"></div>
-            <div className="p-6">
-              <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                Tailwind card
-              </h5>
-              <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                felis ligula.
-              </p>
+        <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {products.map((item) => (
+          <div
+            key={item.id}
+            className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+          >
+            {/* Image/Gradient Section */}
+            <div className="h-48 w-full">
+              {item.image ? (
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div
+                  className={`w-full h-full bg-gradient-to-r ${item.gradientFrom || 'from-gray-300'} ${item.gradientTo || 'to-gray-400'}`}
+                />
+              )}
             </div>
-            <div className="p-6 pt-0">
-              <button
-                data-ripple-light="true"
-                type="button"
-                className="select-none rounded-lg bg-amberLight py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-amberLight/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+
+            {/* Content Section */}
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-Greytext mb-3">
+                {item.title}
+              </h3>
+              
+              <p className="text-Greytext/75 font-semibold text-base leading-relaxed mb-4">
+                {item.description}
+              </p>
+
+              {/* Tags */}
+              {item.tags?.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {item.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 text-sm font-semibold bg-amber/45 text-caffia rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* CTA Button */}
+              <a
+                href={item.href}
+                className="inline-block w-full text-center bg-caffia hover:bg-amberLigh text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
               >
-                Read More
-              </button>
+                {item.cta || "Read More"}
+              </a>
             </div>
           </div>
-          {/* Product Card 2 */}
-          <div className="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-            <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-amber to-amberLight"></div>
-            <div className="p-6">
-              <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                Tailwind card
-              </h5>
-              <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                felis ligula.
-              </p>
-            </div>
-            <div className="p-6 pt-0">
-              <button
-                data-ripple-light="true"
-                type="button"
-                className="select-none rounded-lg bg-amberLight py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-amberLight/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              >
-                Read More
-              </button>
-            </div>
-          </div>
-          {/* Product Card 3 */}
-          <div className="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-            <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-amber to-amberLight"></div>
-            <div className="p-6">
-              <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                Tailwind card
-              </h5>
-              <p className="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                felis ligula.
-              </p>
-            </div>
-            <div className="p-6 pt-0">
-              <button
-                data-ripple-light="true"
-                type="button"
-                className="select-none rounded-lg bg-amberLight py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-amberLight/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              >
-                Read More
-              </button>
-            </div>
-          </div>
-        </div>
+        ))}
+      </div>
+    </div>
+
         <div className="flex justify-center items-center">
           <Link href="/product">
-          <button className="hover:bg-amberLight text-amber duration-300 border-amberLight border bg-white font-body font-semibold hover:text-white py-2 px-4 rounded-lg">
-            View All Product
-          </button>
+            <button className="hover:bg-amberLight text-amber duration-300 border-amberLight border bg-white font-body font-semibold hover:text-white py-2 px-4 rounded-lg">
+              View All Product
+            </button>
           </Link>
         </div>
       </section>

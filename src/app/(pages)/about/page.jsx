@@ -1,5 +1,7 @@
 "use client";
+import { motion } from "framer-motion";
 import React, { useState } from "react";
+import Timeline from "@/app/components/ui/Timeline";
 import HeroBanner from "@/app/components/HeroBanner";
 import {
   Heart,
@@ -16,7 +18,67 @@ import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 function AboutPage() {
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("story");
+
+  const storyData = [
+    {
+      id: 1,
+      year: "2021",
+      title: "Started Learning Web Development",
+      description: "HTML, CSS aur basic JavaScript se journey shuru ki.",
+      img: "/assets/images/about_banner1.webp" || null,
+    },
+    {
+      id: 2,
+      year: "2022",
+      title: "Built First Project",
+      description: "Ek portfolio website banaya aur GitHub pe dala.",
+      img: "/assets/images/about_banner1.webp" || null,
+    },
+    {
+      id: 3,
+      year: "2022",
+      title: "Built First Project",
+      description: "Ek portfolio website banaya aur GitHub pe dala.",
+      img: "/assets/images/about_banner1.webp" || null,
+    },
+    {
+      id: 4,
+      year: "2022",
+      title: "Built First Project",
+      description: "Ek portfolio website banaya aur GitHub pe dala.",
+      img: "/assets/images/about_banner1.webp" || null,
+    },
+  ];
+  const owners = [
+    {
+      id: 1,
+      name: "Arjun Mehta",
+      role: "Product Designer",
+      status: { text: "Available for collab", color: "bg-green-500" },
+      img: "/assets/images/about_img/owners_1.jpg",
+      badge: "Co-Founder",
+      bio: "6+ years in UX/UI. Coffee-fueled creator focused on accessible, conversion-friendly interfaces across web and mobile.",
+      links: [
+        { label: "LinkedIn", href: "#" },
+        { label: "GitHub", href: "#" },
+      ],
+    },
+    {
+      id: 2,
+      name: "Sara Khan",
+      role: "Frontend Engineer",
+      status: { text: "Mentoring interns", color: "bg-gray-400" },
+      img: "/assets/images/about_img/owner_2.jpg",
+      badge: "Co-Founder",
+      bio: "React/Next.js specialist. Builds fast, accessible UIs with a strong focus on DX and performance budgets.",
+      links: [
+        { label: "Twitter", href: "#" },
+        { label: "Portfolio", href: "#" },
+      ],
+    },
+  ];
+
   // const [] = useState('')
   const stats = [
     { icon: <Users size={32} />, value: "50K+", label: "Happy Customers" },
@@ -31,7 +93,7 @@ function AboutPage() {
       <div>
         <HeroBanner
           title="Our Story"
-          img="/assets/images/about_banner.jpg"
+          img="/assets/images/about_img/about_banner.jpg"
           description="From a small neighborhood coffee shop to a premium coffee experience, discover the journey that makes Caffie special."
           subTitle="About Caffie"
         />
@@ -90,141 +152,135 @@ function AboutPage() {
         </div>
       </section>
 
-      <div className="container md:px-44 mx-auto">
-        <div className="flex flex-wrap justify-evenly  bg-pink-500/15 p-4 gap-4">
-          <button
-            onClick={() => setActiveTab("story")}
-            className={`font-body font-semibold text-black md:text-lg text-base py-2 px-9 rounded-lg ${
-              activeTab === "story" ? "bg-amberLight text-white" : ""
-            }`}
-          >
-            Story
-          </button>
-          <button
-            onClick={() => setActiveTab("value")}
-            className={`font-body font-semibold text-black md:text-lg text-base py-2 rounded-lg px-9 ${
-              activeTab === "value" ? "bg-amberLight text-white" : ""
-            } `}
-          >
-            Values
-          </button>
-          <button
-            onClick={() => setActiveTab("team")}
-            className={`font-body font-semibold text-black md:text-lg text-base py-2 rounded-lg px-9 ${
-              activeTab === "team" ? "bg-amberLight text-white" : ""
-            }`}
-          >
-            Teams
-          </button>
-          <button
-            onClick={() => setActiveTab("impact")}
-            className={`font-body font-semibold text-black md:text-lg text-base py-2 rounded-lg px-9 ${
-              activeTab === "impact" ? "bg-amberLight text-white" : ""
-            }`}
-          >
-            Impact
-          </button>
-        </div>
-      </div>
-
-      <div className="" value="story">
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-center items-center mx-auto md:px-20 px-4 py-10">
-          <div>
-            <h2 className="font-heading font-semibold md:text-5xl text-lg text-gray-700 mb-6">
-              Where Coffee Meets Comfort
-            </h2>
-            <p className="mb-4 text-grey font-body font-semibold md:text-lg text-base text-start leading-relaxed">
-              At Caffie, every sip tells a story. Whether you're rushing into a
-              busy morning or slowing down for an afternoon breather, we're here
-              to make each moment special. Our brews aren't just drinks —
-              they're comfort in a cup, carefully crafted with ethically sourced
-              beans and served with heart.
-            </p>
-            <p className="mb-6 text-grey font-body font-semibold md:text-lg text-base text-start leading-relaxed">
-              Step inside, breathe in the aroma, and discover your new favorite
-              ritual. From single-origin masterpieces to signature blends, we're
-              passionate about delivering the perfect cup that speaks to your
-              soul.
-            </p>
-            <button className="py-2 px-4 inline-flex items-center justify-center font-semibold font-body text-base bg-amberLight hover:bg-amber text-white rounded-lg transition-colors duration-200">
-              View Our Store
+      <section className="my-3">
+        <div className=" flex justify-center md:mx-auto mx-2 px-4 rounded-xl bg-caffia py-4 w-auto md:w-4xl  ">
+          <div className="flex justify-center gap-3.5">
+            <button
+              className={`md:px-4 px-2 py-2 md:py-2 ${
+                activeTab === "story" ? "bg-amberLight" : "bg-amber-200"
+              } transition duration-300 rounded-xl font-semibold font-heading uppercase md:text-lg text-base cursor-pointer`}
+              onClick={() => setActiveTab("story")}
+            >
+              Story
+            </button>
+            <button
+              className={`md:px-4 px-2 py-2 md:py-2 ${
+                activeTab === "teams" ? "bg-amberLight" : "bg-amber-200"
+              } transition duration-300 rounded-xl font-semibold font-heading uppercase md:text-lg text-base cursor-pointer`}
+              onClick={() => setActiveTab("teams")}
+            >
+              Teams
+            </button>
+            <button
+              className={`md:px-4 px-2 py-2 md:py-2  ${
+                activeTab === "values" ? "bg-amberLight" : "bg-amber-200"
+              } transition duration-300 rounded-xl font-semibold uppercase font-heading md:text-lg text-base cursor-pointer`}
+              onClick={() => setActiveTab("values")}
+            >
+              Values
+            </button>
+            <button
+              className={`md:px-4 px-2 py-2 md:py-2  ${
+                activeTab === "impact" ? "bg-amberLight" : "bg-amber-200"
+              } transition duration-300 rounded-xl font-semibold uppercase font-heading md:text-lg text-base cursor-pointer`}
+              onClick={() => setActiveTab("impact")}
+            >
+              Impact
             </button>
           </div>
-          <div className="flex justify-center items-center">
-            <img
-              src="/placeholder.svg?height=400&width=400"
-              alt="Coffee cup with steam rising, representing comfort and warmth"
-              className="max-h-96 w-full object-contain rounded-lg"
-            />
+        </div>
+        {/* Tab Content  */}
+        <div
+          className={` ${
+            activeTab == "story" ? "flex justify-center" : "hidden"
+          }`}
+        >
+          <div className="relative mx-auto my-10">
+            {/* Vertical line */}
+            <Timeline storyData={storyData} />
           </div>
-        </section>
-        <section>
-          <div className="relative flex flex-col items-center w-full px-4 py-16">
-            {/* Timeline vertical line */}
-            <div
-              className="absolute top-0 left-8 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full z-0"
-              style={{
-                background:
-                  "linear-gradient(to bottom, #F8DCC2, #D28B55, #A14E1C, #78350F)",
-              }}
-            ></div>
-
-            {/* Timeline items */}
-            {/* Item 1 */}
-            <div className="absolute left-2 mx-1 md:mx-0 md:relative top-52 bg-amber bg-gradient-to-r p-3 md:p-5 rounded-full text-white">
-              <Coffee className="text-white" />
-            </div>
-            <div className="relative z-10 mb-20 w-full mr-auto px-16 md:w-1/2">
-              <div className="bg-white  shadow-Greytext shadow-2xl p-6 rounded-lg ">
-                <span className="text-sm font-semibold bg-[#F8DCC2] text-[#78350F] px-2 py-1 rounded">
-                  First Store Opened
-                </span>
-                <h3 className="text-xl font-bold text-[#78350F] mt-2">2015</h3>
-                <p className="font-semibold text-gray-700">The Beginning</p>
-                <p className="text-gray-600">
-                  Started as a small neighborhood coffee shop with a dream to
-                  serve exceptional coffee.
-                </p>
-                <img
-                  src="/assets/images/about_banner.jpg"
-                  className="h-[150px] w-full rounded-md my-1"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <div className="container mx-auto my-10">
-        <h2 className="uppercase font-heading text-black font-bold md:text-5xl text-xl  text-center">
-          Our Impact
-        </h2>
-
-        <div className="py-10">
-          <p className="text-center md:px-36 text-Greytext px-4 font-body font-semibold md:text-xl text-lg">
-            We measure our success not just in cups sold, but in the positive
-            impact we create for our community, farmers, and environment.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 lg:px-20 py-10">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="bg-pink-500/10 hover:shadow-xl hover:shadow-black/30 py-6 px-6 flex flex-col items-center justify-center text-center transition-shadow duration-300 rounded-lg"
-            >
-              <div className="mb-4 text-amberLight">{stat.icon}</div>
-              <p className="md:text-lg text-base font-body font-semibold text-Greytext">
-                {stat.value}
-              </p>
-              <p className="md:text-lg text-base font-body font-semibold text-grey">
-                {stat.label}
-              </p>
+        <div
+          className={activeTab == "teams" ? "flex justify-center" : "hidden"}
+        >
+          <div className="w-full max-w-5xl mx-2 md:mx-4 my-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {owners.map((item, idx) => (
+                <motion.article
+                  key={item.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.2 }}
+                  transition={{ duration: 0.6 + idx * 0.15, ease: "easeOut" }}
+                  className="overflow-hidden rounded-2xl bg-amberLight shadow-md ring-1 ring-amber-200/40 hover:-translate-y-0.5 hover:shadow-lg transition"
+                >
+                  <div className="relative">
+                    <img
+                      src={item.img}
+                      alt={`${item.name} portrait`}
+                      className="h-72 w-full object-cover object-center"
+                    />
+                    {item.badge && (
+                      <span className="absolute left-3 top-3 rounded-full bg-caffia px-3 py-1 text-xs font-semibold text-amber-900 shadow">
+                        {item.badge}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="p-5">
+                    <h3 className="md:text-2xl text-base font-bold text-Greytext text-center">
+                      {item.name}
+                    </h3>
+                    <p className=" text-center font-semibold text-Greytext md:text-xl text-base">
+                      {item.role}
+                    </p>
+
+                    {item.bio && (
+                      <p className="mt-3 md:text-lg text-base font-semibold text-Greytext">
+                        {item.bio}
+                      </p>
+                    )}
+
+                    <div className="mt-5 flex items-center justify-between">
+                      {/* Status */}
+                      <div className="flex items-center font-semibold md:text-base gap-2 text-xs text-white">
+                        <span
+                          className={`inline-block shadow-sm shadow-Greytext/70 h-2 w-2 rounded-full ${
+                            item.status?.color || "bg-gray-300"
+                          }`}
+                        ></span>
+                        {item.status?.text || "—"}
+                      </div>
+
+                      {/* Links */}
+                      <div className="flex items-center gap-2">
+                        {item.links?.map((l) => (
+                          <a
+                            key={l.label}
+                            href={l.href}
+                            className="rounded-lg bg-caffia/90 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:shadow transition"
+                            aria-label={`Open ${l.label}`}
+                          >
+                            {l.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
-      </div>
+
+        <div className={` ${activeTab == "values" ? "block" : "hidden"}`}>
+          <p>home3</p>
+        </div>
+        <div className={`${activeTab == "impact" ? "block" : "hidden"}`}>
+          <p>h00ome4</p>
+        </div>
+      </section>
     </>
   );
 }

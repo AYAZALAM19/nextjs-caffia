@@ -109,9 +109,11 @@ function page() {
           </div>
         </div>
         <div className="flex justify-center items-center">
+          <Link href="/product">
           <button className="hover:bg-amberLight text-amber duration-300 border-amberLight border bg-white font-body font-semibold hover:text-white py-2 px-4 rounded-lg">
             View All Product
           </button>
+          </Link>
         </div>
       </section>
 

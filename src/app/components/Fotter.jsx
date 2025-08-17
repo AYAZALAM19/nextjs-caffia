@@ -7,7 +7,7 @@ function Fotter() {
     {/* Logo and Description Section */}
     <div className='w-full md:w-1/4'>
       <div className='mb-4'>
-        <img src="/assets/images/caffia.png" className='w-44' alt="" />
+        <img src="/assets/images/caffiaDark.png" className='w-44' alt="" />
       </div>
       <p className='text-white mb-6 leading-relaxed font-body font-medium md:text-xl text-base '>
         Premium coffee from farm to your doorstep. Every sip tells a story of quality, passion, and sustainability.

@@ -78,6 +78,11 @@ function AboutPage() {
       ],
     },
   ];
+  // const value = [
+  //   {
+  //     icon:
+  //   }
+  // ]
 
   // const [] = useState('')
   const stats = [
@@ -196,6 +201,64 @@ function AboutPage() {
           }`}
         >
           <div className="relative mx-auto my-10">
+            <div className="flex flex-col md:flex-row md:mx-20 md:gap-8 justify-center items-center">
+              <motion.div
+                className="w-full md:w-1/2"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                <div className="md:px-10 px-4">
+                  <h2 className="text-4xl font-bold text-caffia mb-4">
+                    Where Coffee Meets Comfort
+                  </h2>
+                  <p className="mb-4 font-semibold text-Greytext md:text-xl text-lg">
+                    At Caffie, every sip tells a story. Whether you're rushing
+                    into a busy morning or slowing down for an afternoon
+                    breather, we're here to make each moment special. Our brews
+                    aren't just drinks — they're comfort in a cup, carefully
+                    crafted with ethically sourced beans and served with heart.
+                  </p>
+                  <p className="mb-6 font-semibold text-Greytext md:text-xl text-lg">
+                    Step inside, breathe in the aroma, and discover your new
+                    favorite ritual. From single-origin masterpieces to
+                    signature blends, we're passionate about delivering the
+                    perfect cup that speaks to your soul.
+                  </p>
+                  <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                   className="flex justify-between">
+                    <div>
+                      <h3 className="text-xl font-bold text-center text-caffia">2015</h3>
+                      <p className="font-semibold text-Greytext">Founded</p>
+                    </div>
+                    <div>
+                      <h3 className="text-xl text-center font-bold text-caffia ">5</h3>
+                      <p className="font-semibold text-Greytext">Locations</p>
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+              <motion.div
+                className="w-full md:w-1/2 h-auto my-6 md:my-0"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                transition={{ duration: 0.9, ease: "easeOut" }}
+              >
+                <picture>
+                  <img
+                    src="/assets/images/about_banner1.webp"
+                    alt="Caffie ambiance"
+                    className="rounded-xl shadow-lg w-full object-cover h-64 md:h-auto"
+                  />
+                </picture>
+              </motion.div>
+            </div>
             {/* Vertical line */}
             <Timeline storyData={storyData} />
           </div>
@@ -205,6 +268,13 @@ function AboutPage() {
           className={activeTab == "teams" ? "flex justify-center" : "hidden"}
         >
           <div className="w-full max-w-5xl mx-2 md:mx-4 my-10">
+            <h2 className="text-center text-caffia md:text-4xl font-bold uppercase text-base">
+              Meet Our Team
+            </h2>
+            <p className="md:px-24 md:mt-6 md:mb-10 text-center font-semibold text-Greytext md:text-xl text-base">
+              Behind every great cup of coffee is a passionate team dedicated to
+              excellence. Meet the people who make Caffie special.
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {owners.map((item, idx) => (
                 <motion.article
@@ -275,7 +345,12 @@ function AboutPage() {
         </div>
 
         <div className={` ${activeTab == "values" ? "block" : "hidden"}`}>
-          <p>home3</p>
+          <motion.div>
+            <h3 className="text-center text-caffia font-bold md:text-4xl text-base mt-14 uppercase">Our Core Values</h3>
+            <p className=" text-center md:px-52 font-semibold text-Greytext md:text-xl my-6 text-base">
+              These principles guide everything we do, from sourcing beans to serving customers, ensuring we deliver excellence in every aspect of our business.
+            </p>
+          </motion.div>
         </div>
         <div className={`${activeTab == "impact" ? "block" : "hidden"}`}>
           <p>h00ome4</p>

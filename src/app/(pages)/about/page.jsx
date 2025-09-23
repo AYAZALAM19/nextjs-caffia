@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import React, { useState } from "react";
 import Timeline from "@/app/components/ui/Timeline";
 import HeroBanner from "@/app/components/HeroBanner";
+import { useId } from "react";
 import {
   Heart,
   Globe,
@@ -13,12 +14,15 @@ import {
   Calendar,
   Target,
   MapPin,
+  icons,
 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 function AboutPage() {
   const [activeTab, setActiveTab] = useState("story");
+
+  const id = useId();
 
   const storyData = [
     {
@@ -78,11 +82,89 @@ function AboutPage() {
       ],
     },
   ];
-  // const value = [
-  //   {
-  //     icon:
-  //   }
-  // ]
+  const value = [
+    {
+      id: "leaf",
+      icon: <Leaf />,
+      title: "Sustainability",
+      description:
+        "We're committed to ethical sourcing and environmental responsibility in every step of our process.",
+      description2:
+        "100% sustainable farming practices with direct farmer partnerships",
+      color: {
+        text: "text-green-700",
+        bg: "bg-green-500/10",
+      },
+    },
+    {
+      id: "award",
+      icon: <Award size={32} />,
+      title: " Quality Excellence",
+      description:
+        "Our expert roasters ensure every batch meets the highest standards of flavor and aroma.",
+      description2: "Award-winning roasting techniques perfected over 8 years",
+      color: {
+        text: "text-caffia",
+        bg: "bg-amberLight/45",
+      },
+    },
+    {
+      id: "heart",
+      icon: <Heart size={32} />,
+      title: "Passion Driven",
+      description:
+        " Coffee isn't just our business—it's our passion, and it shows in every cup we serve.",
+      description2: "Handcrafted with love by our passionate coffee artisans",
+      color: {
+        text: "text-red-700",
+        bg: "bg-red-600/20",
+      },
+    },
+    {
+      id: "users",
+      icon: <Users size={32} />,
+      title: "Community Focus",
+      description:
+        "We believe in building strong relationships with our farmers, customers, and local community.",
+      description2: "Supporting 50+ farming communities worldwide",
+      color: {
+        text: "text-blue-700",
+        bg: "bg-blue-700/30",
+      },
+    },
+  ];
+  const impact = [
+    {
+      icons: <Users size={32} />,
+      value: "50K+",
+      label: "Happy Customers",
+    },
+    {
+      icons: <Globe size={32} />,
+      value: "15",
+      label: "Coffee Origins",
+    },
+    {
+      icons: <Calendar size={32} />,
+      value: "8",
+      label: "Years Experience",
+    },
+    {
+      icons: <Target size={32} />,
+      value: "100%",
+      label: "Satisfaction Rate",
+    },
+    {
+      icons: <Coffee size={32} />,
+      value: "24/7",
+      label: "Fresh Roasting",
+    },
+    {
+      icons: <MapPin size={32} />,
+      value: "5",
+      label: "Store Locations",
+    },
+  ];
 
   // const [] = useState('')
   const stats = [
@@ -104,60 +186,7 @@ function AboutPage() {
         />
       </div>
 
-      <div className="container mx-auto my-10">
-        <h1 className="font-heading text-2xl md:text-5xl font-bold my-3.5 text-Greytext text-center">
-          Our Values
-        </h1>
-        <p className="my-8 text-Greytext font-semibold md:text-xl text-lg md:px-64 text-center">
-          These core principles guide everything we do, from sourcing beans to
-          serving customers.
-        </p>
-      </div>
-
-      <section className="my-20  flex flex-col lg:flex-row justify-center gap-6 lg:gap-10 mx-4 lg:mx-20 items-center">
-        <div className="w-full lg:w-1/4 bg-pink-500/10 hover:shadow-xl hover:shadow-black/30 py-4 px-6 flex flex-col items-center justify-center text-center transition-shadow duration-300 rounded-lg">
-          <Leaf className="mb-4 w-10 h-10 text-green-700" />
-          <p className="md:text-lg text-base font-body font-semibold text-Greytext ">
-            Sustainability
-          </p>
-          <p className="md:text-lg text-base font-body font-semibold text-grey">
-            We're committed to ethical sourcing and environmental responsibility
-            in every step of our process.
-          </p>
-        </div>
-        <div className="w-full lg:w-1/4 bg-pink-500/10 hover:shadow-xl hover:shadow-black/30 py-8 px-6 flex flex-col items-center justify-center text-center transition-shadow duration-300 rounded-lg">
-          <Award className="mb-4 w-10 h-10 text-yellow-600" />
-          <p className="md:text-lg text-base font-body font-semibold text-Greytext ">
-            Quality Excellence
-          </p>
-          <p className="md:text-lg text-base font-body font-semibold text-grey">
-            Our expert roasters ensure every batch meets the highest standards
-            of flavor and aroma.
-          </p>
-        </div>
-        <div className="w-full lg:w-1/4 bg-pink-500/10 hover:shadow-xl hover:shadow-black/30 py-8 px-6 flex flex-col items-center justify-center text-center transition-shadow duration-300 rounded-lg">
-          <Heart className="mb-4 w-10 h-10 text-red-700" />
-          <p className="md:text-lg text-base font-body font-semibold text-Greytext ">
-            Passion Driven
-          </p>
-          <p className="md:text-lg text-base font-body font-semibold text-grey">
-            Coffee isn't just our business—it's our passion, and it shows in
-            every cup we serve.
-          </p>
-        </div>
-        <div className="w-full lg:w-1/4 bg-pink-500/10 hover:shadow-xl hover:shadow-black/30 py-4 px-6 flex flex-col items-center justify-center text-center transition-shadow duration-300 rounded-lg">
-          <Users className="mb-4 w-10 h-10 text-blue-800" />
-          <p className="md:text-lg text-base font-body font-semibold text-Greytext ">
-            Community Focus
-          </p>
-          <p className="md:text-lg text-base font-body font-semibold md:px-5 text-grey">
-            We believe in building strong relationships with our farmers,
-            customers, and local community.
-          </p>
-        </div>
-      </section>
-
-      <section className="my-3">
+      <section className="my-20">
         <div className=" flex justify-center md:mx-auto mx-2 px-4 rounded-xl bg-caffia py-4 w-auto md:w-4xl  ">
           <div className="flex justify-center gap-3.5">
             <button
@@ -227,17 +256,22 @@ function AboutPage() {
                     perfect cup that speaks to your soul.
                   </p>
                   <motion.div
-                  initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                   className="flex justify-between">
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false, amount: 0.2 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="flex justify-between"
+                  >
                     <div>
-                      <h3 className="text-xl font-bold text-center text-caffia">2015</h3>
+                      <h3 className="text-xl font-bold text-center text-caffia">
+                        2015
+                      </h3>
                       <p className="font-semibold text-Greytext">Founded</p>
                     </div>
                     <div>
-                      <h3 className="text-xl text-center font-bold text-caffia ">5</h3>
+                      <h3 className="text-xl text-center font-bold text-caffia ">
+                        5
+                      </h3>
                       <p className="font-semibold text-Greytext">Locations</p>
                     </div>
                   </motion.div>
@@ -345,15 +379,127 @@ function AboutPage() {
         </div>
 
         <div className={` ${activeTab == "values" ? "block" : "hidden"}`}>
-          <motion.div>
-            <h3 className="text-center text-caffia font-bold md:text-4xl text-base mt-14 uppercase">Our Core Values</h3>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <h3 className="text-center text-caffia font-bold md:text-4xl text-base mt-14 uppercase">
+              Our Core Values
+            </h3>
             <p className=" text-center md:px-52 font-semibold text-Greytext md:text-xl my-6 text-base">
-              These principles guide everything we do, from sourcing beans to serving customers, ensuring we deliver excellence in every aspect of our business.
+              These principles guide everything we do, from sourcing beans to
+              serving customers, ensuring we deliver excellence in every aspect
+              of our business.
             </p>
           </motion.div>
+          {value.map((item, idx) => (
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              key={`${id}-${idx}`}
+              className="md:mx-auto mx-3 px-4 py-8 inset-shadow-2xs md:gap-3 rounded-xl my-4 md:max-w-6xl flex flex-col sm:flex-col md:flex-row justify-start"
+            >
+              <div
+                className={`${item.color.text} ${item.color.bg} rounded-full w-14 h-14 md:ml-0 ml-40 justify-center inline-flex items-center  `}
+              >
+                {item.icon}
+              </div>
+              <div>
+                <h3 className="my-3 md:text-2xl text-lg text-caffia md:text-start text-center uppercase">
+                  {item.title}
+                </h3>
+                <p className="font-semibold text-Greytext md:text-xl md:text-start text-center text-base">
+                  {item.description}
+                </p>
+                <p
+                  className={`${item.color.text} text-center py-2 md:py-3  px-4 my-4 font-semibold rounded-full ${item.color.bg}`}
+                >
+                  {item.description2}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </div>
         <div className={`${activeTab == "impact" ? "block" : "hidden"}`}>
-          <p>h00ome4</p>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <div>
+              <h2 className="text-center uppercase my-7 font-bold text-caffia md:text-4xl text-lg">
+                Our Impact
+              </h2>
+              <p className="font-semibold md:text-xl text-lg text-Greytext text-center md:px-60 px-4">
+                We measure our success not just in cups sold, but in the
+                positive impact we create for our community, farmers, and
+                environment.
+              </p>
+            </div>
+
+            <div className="grid mx-auto md:px-24 md:grid-cols-2 my-10 grid-cols-1 lg:grid-cols-3 gap-6">
+              {impact.map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: false, amount: 0.2 }}
+                  transition={{ duration: 0.6 + idx * 0.15, ease: "easeOut" }}
+                  className="flex mx-auto items-center justify-center flex-col my-4 w-72 p-6 bg-amberLight/15 shadow-md rounded-xl transform transition-transform duration-300 hover:scale-105"
+                >
+                  <div className="text-caffia mb-2">{item.icons}</div>
+                  <h3 className="text-2xl font-bold text-caffia mb-1">
+                    {item.value}
+                  </h3>
+                  <p className="text-center font-semibold text-Greytext md:text-xl text-base">
+                    {item.label}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}>
+                <div className="flex gap-4 items-center ">
+                  <p className="bg-green-600/20 inline-flex items-center justify-center px-4 py-4 rounded-full text-green-700 font-semibold text-lg">
+                  <Leaf className="text-green-700" />
+                  </p>
+                  <p ClassName="text-center font-semibold text-Greytext md:text-xl text-base px-4 md:px-60">
+                    Environmental Impact
+                  </p>
+                </div>
+                <p className="font-semibold text-Greytext md:text-xl text-base px-4 md:px-60 my-4">
+                  We've reduced our carbon footprint by 40% through sustainable practices, renewable energy, and eco-friendly packaging. Our commitment to the planet is as strong as our commitment to great coffee.
+                </p>
+              </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="bg-amberLight py-10">
+        <div>
+          <h3 className=" my-4 font-semibold md:text-4xl uppercase text-lg text-caffia text-center ">
+            Ready to Experience Caffie?
+          </h3>
+          <p className="my-4 text-center font-semibold text-Greytext md:text-xl text-base px-4 md:px-60">
+            Join thousands of coffee lovers who have made Caffie their daily
+            ritual. Visit us today and taste the difference passion makes.
+          </p>
+        </div>
+        <div className="flex justify-center gap-5 my-3 mt-3">
+          <button className=" px-4 py-3 bg-caffia rounded-md text-white font-semibold md:text-lg text-base">
+            Find the location
+          </button>
+          <button className=" px-4 py-3 font-semibold rounded-md text-white md:text-lg text-base border border-white ">
+            shop online
+          </button>
         </div>
       </section>
     </>

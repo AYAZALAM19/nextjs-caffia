@@ -9,20 +9,20 @@ const BrightInfiniteSlider = () => {
 
   const slides = [
     {
-      src: "/assets/images/home-banner/banner_3.jpeg",
+      src: "/assets/images/home-banner/Home_Banner_1.jpg",
       title: "Premium Coffee Experience",
       subtitle:
         "Discover our carefully selected coffee beans from around the world",
       cta: "Shop Now",
     },
     {
-      src: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=2000&q=80",
+      src: "/assets/images/home-banner/Home_Banner_2.jpg",
       title: "Artisan Roasted Beans",
       subtitle: "Perfectly roasted for the ultimate flavor experience",
       cta: "Explore",
     },
     {
-      src: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=2000&q=80",
+      src: "/assets/images/home-banner/Banner_4.jpeg",
       title: "Coffee Moments",
       subtitle: "Every cup tells a story of passion and craftsmanship",
       cta: "Learn More",
@@ -88,7 +88,7 @@ const BrightInfiniteSlider = () => {
   };
 
   return (
-    <section className="relative w-full h-[1000px] overflow-hidden bg-gradient-to-b from-amber-200 via-white/5 to-transparent shadow-2xl group">
+    <section className="relative w-full lg:h-[500px] h-[300px] lg:block hidden overflow-hidden bg-gradient-to-b from-amber-200 via-white/5 to-transparent shadow-2xl group">
       {/* Slides */}
       <div
         ref={sliderRef}
@@ -101,11 +101,11 @@ const BrightInfiniteSlider = () => {
         {extendedSlides.map((slide, index) => (
           <div key={index} className="relative w-full h-full min-w-full">
             {/* Image */}
-            <div className="absolute inset-0">
+            <div className="aspect-[16/10] md:aspect-[16/7] lg:aspect-[21/9]">
               <img
                 src={slide.src}
                 alt={slide.title}
-                className="w-full h-full object-cover object-center"
+                className="absolute inset-0 w-full lg:h-full h-[300px] object-cover object-center"
               />
 
               {/* Overlay */}

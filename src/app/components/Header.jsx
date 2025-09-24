@@ -43,6 +43,7 @@ const newsItems = [
 
   return (
     <>
+
     <TopTickers items={newsItems} speed={0.5} />
       {/* Desktop Navigation */}
       <nav className={`md:block hidden sticky top-0 z-40 transition-all duration-300 ${

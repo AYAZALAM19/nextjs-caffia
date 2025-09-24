@@ -1,8 +1,9 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
-import {Phone, Menu, MapPin, UserRound, Search, ShoppingCart, X, ChevronRight} from 'lucide-react';
+import {Phone, Menu, MapPin, UserRound, Search, ShoppingCart, Coffee, X, ChevronRight} from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { TopTickers } from './ui/TopTickers';
 
 function Header() {
   const [toggle, setToggle] = useState(false)
@@ -14,14 +15,22 @@ function Header() {
     setToggle(prev => !prev)
   }
 
-  // Handle scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+const newsItems = [
+  <span key="1" className="mx-4 inline-flex items-center gap-2 text-white font-semibold text-sm">
+    <Phone size={14} className='text-white' />
+    <a href="tel:+919987545874" className="hover:underline">+91 99875 45874</a>
+  </span>,
+  
+  <span key="2" className="mx-4 inline-flex items-center gap-2 text-white font-semibold text-sm">
+    <MapPin size={14} className="text-white" />
+    <span>Visit our cafe at MG Road, Pune</span>
+  </span>,
+  
+  <span key="3" className="mx-4 inline-flex items-center gap-2 text-white font-semibold text-sm">
+    <Coffee size={14} className="text-white" />
+    <span>Get 30% off on coffee - Limited time offer!</span>
+  </span>
+];
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -34,36 +43,12 @@ function Header() {
 
   return (
     <>
-      {/* Top Bar */}
-      <div className='flex bg-gradient-to-r from-caffia to-caffia py-3 px-2 justify-between text-white shadow-sm'>
-        <div className='flex md:gap-5 items-center'>
-          <div className='flex whitespace-nowrap gap-0.5 md:text-base text-xs items-center hover:text-amber-100 transition-colors'>
-            <div className="p-1 bg-white/20 rounded-full">
-              <Phone size={14} />
-            </div>
-            <a href="tel:+91 99875 45874" className='font-medium'>+91 99875 45874</a>
-          </div>
-          <div className='flex gap-0.5 md:text-base text-xs items-center'>
-            <div className="p-1 bg-white/20 rounded-full">
-              <MapPin size={14} />
-            </div>
-            <p className="truncate max-w-[120px] md:max-w-none md:whitespace-normal font-medium">
-              Caffia Coffee House, 123 Brew Street, Aroma Plaza
-            </p>
-          </div>
-        </div>
-        <div className='flex gap-0.5 md:text-base text-[10px] text-center whitespace-nowrap items-center'>
-          <p className='animate-pulse font-semibold bg-white/20 px-1 py-1 rounded-full'>
-            Free delivery ₹100+ ☕
-          </p>
-        </div>
-      </div>
-
+    <TopTickers items={newsItems} speed={0.5} />
       {/* Desktop Navigation */}
       <nav className={`md:block hidden sticky top-0 z-40 transition-all duration-300 ${
         isScrolled ? 'shadow-lg bg-white/95 backdrop-blur-sm' : 'bg-white'
       }`}>
-        <div className='flex px-6 items-center py-3 mx-auto max-w-7xl'>
+        <div className='flex px-6 items-center py-2 mx-auto max-w-7xl'>
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href='/'>

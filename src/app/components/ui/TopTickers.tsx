@@ -26,6 +26,7 @@ const marqueeVariants = {
     },
 };
 
+
 export const  TopTickers  = ({items, speed=20 }:AutoScrollerProps) => {
 return (
     <div className="bg-caffia overflow-hidden whitespace-nowrap"> {/* Parent container */}

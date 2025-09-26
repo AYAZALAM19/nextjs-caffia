@@ -26,12 +26,11 @@ const marqueeVariants = {
     },
 };
 
-
 export const TopTickers = ({items, speed=20 }:AutoScrollerProps) => {
 return (
     <div className="bg-caffia overflow-hidden whitespace-nowrap">  {/* Parent container */}
     <motion.div
-    className="flex flex-row whitespace-nowrap"
+    className="flex items-center flex-row whitespace-nowrap"
     variants={marqueeVariants}
     animate="animate"
     whileHover="pause" // Hover pe pause ho jayega

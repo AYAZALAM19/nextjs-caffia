@@ -16,17 +16,17 @@ function Header() {
   }
 
 const newsItems = [
-  <span key="1" className="mx-4 inline-flex items-center gap-2 text-white font-semibold text-sm">
+  <span  key="1" className="mx-4 inline-flex items-center gap-2 text-white font-semibold text-sm">
     <Phone size={14} className='text-white' />
-    <a href="tel:+919987545874" className="hover:underline">+91 99875 45874</a>
+    <a  href="tel:+919987545874" className="hover:underline">+91 99875 45874</a>
   </span>,
   
-  <span key="2" className="mx-4 inline-flex items-center gap-2 text-white font-semibold text-sm">
+  <span  key="2" className="mx-4 inline-flex items-center gap-2 text-white font-semibold text-sm">
     <MapPin size={14} className="text-white" />
     <span>Visit our cafe at MG Road, Pune</span>
   </span>,
   
-  <span key="3" className="mx-4 inline-flex items-center gap-2 text-white font-semibold text-sm">
+  <span  key="3" className="mx-4 inline-flex items-center gap-2 text-white font-semibold text-sm">
     <Coffee size={14} className="text-white" />
     <span>Get 30% off on coffee - Limited time offer!</span>
   </span>
@@ -43,7 +43,8 @@ const newsItems = [
 
   return (
     <>
-    <TopTickers items={newsItems} speed={0.5} />
+
+    <TopTickers  items={newsItems} speed={0.5} />
       {/* Desktop Navigation */}
       <nav className={`md:block hidden sticky top-0 z-40 transition-all duration-300 ${
         isScrolled ? 'shadow-lg bg-white/95 backdrop-blur-sm' : 'bg-white'

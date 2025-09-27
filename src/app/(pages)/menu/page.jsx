@@ -1,6 +1,6 @@
 import React from "react";
-import HeroBanner from "@/app/components/HeroBanner";
-import GooglePay from "@/app/components/GoogelPay";
+import HeroBanner from "../../components/HeroBanner";
+// import GooglePay from "@/app/components/GoogelPay";
 import {IndianRupee} from 'lucide-react'
 
 function Menu() {

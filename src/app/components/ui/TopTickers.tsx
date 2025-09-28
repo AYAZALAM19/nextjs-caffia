@@ -15,7 +15,7 @@ const marqueeVariants = {
             x:{
                 repeat: Infinity,       // Infinite loop
                 repeatType:"loop" as const,
-                duration: 20,          // 20 seconds mein complete hoga
+                duration: 9,          // seconds mein complete hoga
                 ease:"linear" as const,// Constant speed
             },
         },
@@ -26,7 +26,7 @@ const marqueeVariants = {
     },
 };
 
-export const TopTickers = ({items, speed=20 }:AutoScrollerProps) => {
+export const TopTickers = ({items, speed=2 }:AutoScrollerProps) => {
 return (
     <div className="bg-caffia overflow-hidden whitespace-nowrap">  {/* Parent container */}
     <motion.div

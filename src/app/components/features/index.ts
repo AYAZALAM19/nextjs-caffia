@@ -1,0 +1,1 @@
+// this feature folder is to make every pages specific component

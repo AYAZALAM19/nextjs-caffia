@@ -1,8 +1,8 @@
 import { Nunito, Quicksand } from "next/font/google";
 import { MessageCircleMore } from "lucide-react";
 // import type { Metadata } from "next"
-import Header from "../app/components/Header";
-import Fotter from "./components/Fotter";
+import Header from "@/app/components/layout/Header";
+import Fotter from "@/app/components/layout/Fotter";
 import "./globals.css";
 
 const nunito = Nunito({

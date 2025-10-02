@@ -27,7 +27,6 @@ export default function RootLayout({ children }) {
       <body className={`${quicksand.className} ${quicksand.className}`}>
         <Header />
         {children}
-        // ...existing code...
         <a
           href="https://wa.me/+919987545874?text=👋%20Hello%20caffia"
           target="_blank"
@@ -36,7 +35,6 @@ export default function RootLayout({ children }) {
         >
           <MessageCircleMore className="w-6 h-6 text-white" />
         </a>
-        // ...existing code...
         <Fotter />
       </body>
     </html>

@@ -1,6 +1,6 @@
 import React from "react";
 import { SendHorizontal } from "lucide-react";
-import HeroBanner from "../../components/HeroBanner";
+import HeroBanner from "../../../components/HeroBanner";
 
 function Contact() {
   const orderType = [

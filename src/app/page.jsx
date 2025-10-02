@@ -14,9 +14,9 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import CoffeeSliderBanner from "./components/CoffeeSliderBanner";
+import CoffeeSliderBanner from "../components/CoffeeSliderBanner";
 // import CoffeeCard from "../components/CoffeeCard";
-import Newsletter from "./components/Newsletter";
+import Newsletter from "../components/Newsletter";
 
 function page() {
   const products = [

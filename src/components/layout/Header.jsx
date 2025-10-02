@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
 import {Phone, Menu, MapPin, UserRound, Search, ShoppingCart, Coffee, X, ChevronRight} from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { TopTickers } from '@/app/components/ui/TopTickers';
+import { TopTickers } from '@/components/ui/TopTickers';
 
 function Header() {
   const [toggle, setToggle] = useState(false)

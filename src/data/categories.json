@@ -1,0 +1,20 @@
+[
+  { 
+    "slug": "instant-coffee", 
+    "name": "Instant Coffee", 
+    "description": "Ready-to-brew instant coffee varieties",
+    "count": 3 
+  },
+  { 
+    "slug": "ground-coffee", 
+    "name": "Ground Coffee", 
+    "description": "Freshly ground coffee beans",
+    "count": 0 
+  },
+  { 
+    "slug": "coffee-beans", 
+    "name": "Coffee Beans", 
+    "description": "Premium whole coffee beans",
+    "count": 0 
+  }
+]

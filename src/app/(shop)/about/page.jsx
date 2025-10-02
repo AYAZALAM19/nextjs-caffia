@@ -1,8 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import Timeline from "../../components/ui/Timeline";
-import HeroBanner from "../../components/HeroBanner";
+import Timeline from "../../../components/ui/Timeline";
+import HeroBanner from "../../../components/HeroBanner";
 import { useId } from "react";
 import {
   Heart,

@@ -6,9 +6,7 @@ import { P } from "framer-motion/dist/types.d-Cjd591yU";
 import ProductDetail from "@/components/ProductDetails";
 
 interface ProductsPageProps {
-    params:{
-        slug: string
-    };
+    params: Promise<{slug: string}>
 };
 export function generateStaticParams(){
     return products.map((product) =>({

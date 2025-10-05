@@ -32,8 +32,8 @@ export const products: Product [] =[
         price: 399,
         originalPrice: 499,
         images: [
-            "/assets/images/products/product-3.jfif",
-            "/assets/images/products/product-6.jfif"
+            "/assets/images/products/product-3.webp",
+            "/assets/images/products/product-6.webp"
             ],
         flavor: "Turkish Hazelnut",
         roastLevel: "Medium Roast",
@@ -57,7 +57,7 @@ export const products: Product [] =[
     brand: "CAFFIA",
     price: 399,
     originalPrice: 499,
-    images: ["/assets/images/products/product-1.jpeg"],
+    images: ["/assets/images/products/product-1.webp"],
     flavor: "French Vanilla",
     roastLevel: "Medium Roast",
     weight: "50g",
@@ -80,7 +80,7 @@ export const products: Product [] =[
     brand: "CAFFIA",
     price: 399,
     originalPrice: 499,
-    images: ["/assets/images/products/product-2.jfif"],
+    images: ["/assets/images/products/product-2.webp"],
     flavor: "Original Classic",
     roastLevel: "Medium Roast",
     weight: "50g",

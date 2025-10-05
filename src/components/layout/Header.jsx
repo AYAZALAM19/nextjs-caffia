@@ -36,7 +36,7 @@ const newsItems = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
     { name: "Menu", href: "/menu" },
-    { name: "Products", href: "/products" },
+    { name: "Products", href: "/product" },
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
   ]

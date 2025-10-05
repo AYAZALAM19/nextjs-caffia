@@ -23,7 +23,7 @@ const {slug} = await params;
 
     return(
         <>
-        <div>
+        <div className=" mx-auto max-w-7xl my-10">
             <ProductDetail productdetails={product} />
         </div>
         </>

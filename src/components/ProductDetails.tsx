@@ -8,7 +8,7 @@ interface ProductDetailsProps {
 
 export default function ProductDetail({productdetails}: ProductDetailsProps){
     return(
-        <>
+        <div className=" ">
         <div className="grid grid-cols-1 lg:grid-cols-2">
             <div>
                 <div className=" mx-auto px-4 ">
@@ -29,14 +29,32 @@ export default function ProductDetail({productdetails}: ProductDetailsProps){
                     <p className="font-semibold lg:text-4xl text-xl inline-flex items-center text-caffia"><IndianRupee strokeWidth={1.7} size={19} />  {productdetails?.originalPrice}</p>
                     <p className="line-through font-semibold lg:text-xl text-lg inline-flex items-center "><IndianRupee strokeWidth={1.7} size={19} /> {productdetails.price}</p>
                 </div>
+               <div className="my-8">
+  <h3 className="text-2xl lg:text-3xl font-semibold mb-6 text-caffia">
+    Features
+  </h3>
+  
+  <div className="flex flex-wrap gap-3 lg:gap-4">
+    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-caffia text-white font-semibold text-sm shadow-sm hover:shadow-md transition-shadow">
+      <span className="text-xs opacity-75">Flavor:</span>
+      <span>{productdetails.flavor}</span>
+    </div>
+    
+    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-caffia text-white font-semibold text-sm shadow-sm hover:shadow-md transition-shadow">
+      <span className="text-xs opacity-75">Roast:</span>
+      <span>{productdetails.roastLevel}</span>
+    </div>
+    
+    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-caffia text-white font-semibold text-sm shadow-sm hover:shadow-md transition-shadow">
+      <span className="text-xs opacity-75">Weight:</span>
+      <span>{productdetails.weight}</span>
+    </div>
+  </div>
+</div>
+
                 <div>
-                    <h3 className="lg:text-3xl font-semibold my-3.5 text-caffia">Features</h3>
-                    <div className="grid lg:grid-cols-3 grid-cols-1 gap-10 px-8">
-                        <p className="py-2 px-4 rounded-full bg-caffia text-white font-semibold text-center">{productdetails.flavor}</p>
-                        <p className="py-2 px-4 rounded-full bg-caffia text-white font-semibold text-center">{productdetails.roastLevel}</p>
-                        <p className="py-2 px-4 rounded-full bg-caffia text-white font-semibold text-center"> weight {productdetails.weight}</p>
-                        {/* <p className="py-2 px-4 rounded-full bg-caffia/20 text-white font-semibold">{productdetails}</p> */}
-                    </div>
+                    <h2>{'Description'}</h2>
+                    <p>{productdetails.description}</p>
                 </div>
             </div>
         </div>
@@ -54,8 +72,10 @@ export default function ProductDetail({productdetails}: ProductDetailsProps){
             width={100}
             height={100}
             alt={productdetails.title || 'Product image 2'}/>     
-            </div>      
+            </div>  
+            <div>
+            </div>    
         </div>
-        </>
+        </div>
     )
 }

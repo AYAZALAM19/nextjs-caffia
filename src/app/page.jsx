@@ -1,5 +1,3 @@
-// import { Button } from "@/components/ui/button"
-// import { Card } from "@/components/ui/card"
 import {
   QrCode,
   ArrowRight,
@@ -12,64 +10,13 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import CoffeeSliderBanner from "../components/CoffeeSliderBanner";
-// import CoffeeCard from "../components/CoffeeCard";
+import CoffeeCard from "@/components/CoffeeCard";
+import { products } from "@/data/products";
 import Newsletter from "../components/Newsletter";
 
 function page() {
-  const products = [
-    {
-      id: 1,
-      title: "French Vanilla",
-      description:
-        "Smooth medium roast with creamy vanilla notes. Perfect for a mellow, aromatic cup.",
-      image: "/assets/images/products/product-5.jfif", // replace with your path or keep gradient
-      gradientFrom: "from-amber",
-      gradientTo: "to-amberLight",
-      href: "/menu",
-      cta: "Read More",
-      tags: ["Medium roast", "Vanilla", "Aromatic"],
-    },
-    {
-      id: 2,
-      title: "Original Classic",
-      description:
-        "Balanced everyday brew with a clean finish. Ideal for black coffee or with milk.",
-      image: "/assets/images/products/product-6.jfif",
-      gradientFrom: "from-amberLight",
-      gradientTo: "to-amber",
-      href: "/menu",
-      cta: "Read More",
-      tags: ["Balanced", "Daily brew", "Clean finish"],
-    },
-    {
-      id: 3,
-      title: "Turkish Hazelnut",
-      description:
-        "Rich, nutty profile with Turkish-style depth. Best enjoyed finely ground.",
-      image: "/assets/images/products/product-7.jfif",
-      gradientFrom: "from-amber",
-      gradientTo: "to-amberLight",
-      href: "/menu",
-      cta: "Read More",
-      tags: ["Nutty", "Bold", "Fine grind"],
-    },
-    {
-      id: 4,
-      title: "Mocha Caramel",
-      description:
-        "Chocolate-forward blend with caramel sweetness and a silky mouthfeel.",
-      image: "/assets/images/products/product-8.jfif",
-      gradientFrom: "from-amberLight",
-      gradientTo: "to-amber",
-      href: "/menu",
-      cta: "Read More",
-      tags: ["Chocolate", "Sweet", "Silky"],
-    },
-  ];
-
   return (
     <>
       <CoffeeSliderBanner />
@@ -88,64 +35,13 @@ function page() {
             their exceptional quality and taste.
           </p>
         </div>
-        <div className="max-w-6xl mx-auto px-4 py-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
-          >
-            {/* Image/Gradient Section */}
-            <div className="h-48 w-full">
-              {item.image ? (
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div
-                  className={`w-full h-full bg-gradient-to-r ${item.gradientFrom || 'from-gray-300'} ${item.gradientTo || 'to-gray-400'}`}
-                />
-              )}
-            </div>
-
-            {/* Content Section */}
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-Greytext mb-3">
-                {item.title}
-              </h3>
-              
-              <p className="text-Greytext/75 font-semibold text-base leading-relaxed mb-4">
-                {item.description}
-              </p>
-
-              {/* Tags */}
-              {item.tags?.length > 0 && (
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {item.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 text-sm font-semibold bg-amber/45 text-caffia rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {/* CTA Button */}
-              <a
-                href={item.href}
-                className="inline-block w-full text-center bg-caffia hover:bg-amberLigh text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
-              >
-                {item.cta || "Read More"}
-              </a>
-            </div>
+        <div className="container mx-auto flex my-10 justify-center">
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 place-items-center">
+            {products.map((product) => (
+              <CoffeeCard key={product.id} product={product} />
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
 
         <div className="flex justify-center items-center">
           <Link href="/product">

@@ -1,12 +1,14 @@
 import React from "react";
+import Image from "next/image";
 import {Star} from "lucide-react"
 
 function HeroBanner({ img, title, description, subTitle }) {
   return (
     <div className="relative bg-gradient-to-br from-amber to-amberLight">
-      <img
+      <Image
         src={img}
-        className="object-cover object-center  w-full h-[350px] md:h-[500px] "
+        className="object-cover object-center  w-full h-[350px] md:h-[500px]"
+        priority={true}
         alt={title}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-darkAmber/55 via-black/40 to-transparent"></div>

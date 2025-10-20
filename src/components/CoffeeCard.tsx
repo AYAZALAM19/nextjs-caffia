@@ -1,14 +1,20 @@
+'use client'
 import React from 'react'
-import { Product } from '@/data/products'
+import { Product } from '@/lib/types/product'
 import { IndianRupee } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useCartStore } from '@/lib/stores/cartStore'
 
 interface ProductCardProps {
   product: Product
 }
 
 function CoffeeCard({product}:ProductCardProps) {
+  const addToCart = useCartStore((state) => state.addToCart)
+  // const cart = useCartStore((state)=> state.cart)
+  // console.log( 'cart data',cart)//
+  // console.log('data added',addToCart)
   return (
     <div className="w-[300px] bg-caffia/10 px-2.5 py-2.5 rounded-lg">
       {/* Image */}
@@ -39,7 +45,10 @@ function CoffeeCard({product}:ProductCardProps) {
           <Link href={`/product/${product.slug}`} className="text-Greytext font-semibold hover:underline">
             View Product
           </Link>
-          <button className="bg-caffia text-white px-3 py-1 rounded-md hover:bg-caffia/50">
+          <button className="bg-caffia text-white px-3 py-1 rounded-md hover:bg-caffia/50"
+          onClick={() =>{ addToCart(product)
+            console.log(product)
+          }}>
             Add to cart
           </button>
         </div>

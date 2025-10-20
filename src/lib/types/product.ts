@@ -20,11 +20,12 @@ export interface Product {
     specialty: string;
     numberOfItems: number;
   };
+ quantity?: number;
 }
 
 export interface Category {
   slug: string;
   name: string;
-  description: string;
+  // description: string;
   count: number;
 }

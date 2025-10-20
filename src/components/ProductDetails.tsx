@@ -1,4 +1,4 @@
-import { Product } from "@/data/products";
+import { Product } from "@/lib/types/product";
 import { IndianRupee } from "lucide-react";
 import Image from "next/image";
 

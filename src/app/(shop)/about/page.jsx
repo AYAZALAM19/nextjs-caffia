@@ -285,9 +285,11 @@ function AboutPage() {
                 transition={{ duration: 0.9, ease: "easeOut" }}
               >
                 <picture>
-                  <img
+                  <Image
                     src="/assets/images/about_banner1.webp"
                     alt="Caffie ambiance"
+                    width={100}
+                    height={100}
                     className="rounded-xl shadow-lg w-full object-cover h-64 md:h-auto"
                   />
                 </picture>
@@ -320,7 +322,7 @@ function AboutPage() {
                   className="overflow-hidden rounded-2xl bg-amberLight shadow-md ring-1 ring-amber-200/40 hover:-translate-y-0.5 hover:shadow-lg transition"
                 >
                   <div className="relative">
-                    <img
+                    <Image
                       src={item.img}
                       alt={`${item.name} portrait`}
                       className="h-72 w-full object-cover object-center"

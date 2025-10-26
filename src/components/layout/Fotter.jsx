@@ -1,5 +1,6 @@
 import React from 'react'
 import {Instagram, Facebook,Youtube,Twitter, Mail,Phone,MapPin} from "lucide-react"
+import Image from 'next/image'
 function Fotter() {
   return (
     <div className='bg-caffia px-10 py-8'>
@@ -7,7 +8,12 @@ function Fotter() {
     {/* Logo and Description Section */}
     <div className='w-full md:w-1/4'>
       <div className='mb-4'>
-        <img src="/assets/images/caffiaDark.png" className='w-44' alt="" />
+        <Image 
+        src="/assets/images/caffiaDark.png" 
+        className='w-44 h-auto' 
+        width={100}
+        height={100}
+        alt="footer" />
       </div>
       <p className='text-white mb-6 leading-relaxed font-body font-medium md:text-xl text-base '>
         Premium coffee from farm to your doorstep. Every sip tells a story of quality, passion, and sustainability.

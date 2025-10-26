@@ -2,6 +2,7 @@ import React from "react";
 import HeroBanner from "../../../components/HeroBanner";
 // import GooglePay from "@/app/components/GoogelPay";
 import {IndianRupee} from 'lucide-react'
+import Image from "next/image";
 
 function Menu() {
  const menuItems = [
@@ -100,8 +101,10 @@ function Menu() {
                 {/* Image Section */}
                 <div className="lg:w-80 lg:h-64 lg:flex-shrink-0"> 
                   <div className="relative overflow-hidden lg:h-full">
-                    <img
+                    <Image
                       className="w-full h-64 lg:h-full object-cover object-right-top group-hover:scale-105 transition-transform duration-700"
+                      width={100}
+                      height={100}
                       src={item.img}
                       alt={item.name}
                     />

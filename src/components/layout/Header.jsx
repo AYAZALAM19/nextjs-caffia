@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {Phone, Menu, MapPin, UserRound, Search, ShoppingCart, Coffee, X, ChevronRight} from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { TopTickers } from '@/components/ui/TopTickers';
+import Image from 'next/image';
 
 function Header() {
   const [toggle, setToggle] = useState(false)
@@ -53,9 +54,12 @@ const newsItems = [
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href='/'>
-            <img 
+            <Image 
               src="/assets/images/caffia.png" 
+              width={100}
+              height={100}
               className='w-36 hover:scale-105 transition-transform duration-200' 
+              priority={true}
               alt="Caffia Logo" 
             />
             </Link>
@@ -149,8 +153,11 @@ const newsItems = [
             )}
           </button>
           
-          <img 
+          <Image 
             src="/assets/images/caffia.png" 
+            width={100}
+            height={100}
+            priority={true}
             className='w-28 hover:scale-105 transition-transform duration-200' 
             alt="Caffia Logo" 
           />
@@ -187,9 +194,11 @@ const newsItems = [
         }`}>
           {/* Menu Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-amber-50 to-amber-100">
-            <img 
+            <Image 
               src="/assets/images/caffia.png" 
               className='w-24' 
+              width={100}
+              height={100}
               alt="Caffia Logo" 
             />
             <button 

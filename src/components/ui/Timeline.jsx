@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Timeline = ({ storyData }) => {
   return (
@@ -39,8 +40,10 @@ const Timeline = ({ storyData }) => {
               <h2 className="text-lg font-bold text-Greytext">{item.title}</h2>
               <p className="text-Greytext font-semibold">{item.description}</p>
               <div className="mt-3 rounded-lg bg-caffia p-2">
-                <img
+                <Image
                   src={item.img}
+                  width={100}
+                  height={100}
                   className="h-40 w-full rounded-lg object-cover"
                   alt={item.title}
                 />

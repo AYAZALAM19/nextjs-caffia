@@ -184,7 +184,7 @@ const BrightInfiniteSlider = () => {
             className="p-0 rounded-full"
             aria-label={`Go to slide ${idx + 1}`}
           >
-            <img
+            <Image
               src={slide.src}
               alt={slide.title ?? `Slide ${idx + 1}`}
               loading="lazy"

@@ -187,13 +187,16 @@ const BrightInfiniteSlider = () => {
             <Image
               src={slide.src}
               alt={slide.title ?? `Slide ${idx + 1}`}
+              width={40}
+              height={40}
               loading="lazy"
-              className={
-                `rounded-full object-cover transition-transform duration-300 ` +
-                (idx === getActualIndex()
+              className={`rounded-full object-cover transition-transform duration-300 ${
+                idx === getActualIndex()
                   ? "md:w-10 md:h-10 w-4 h-4 scale-105"
-                  : "md:w-8 md:h-8 h-3.5 w-3.5")
-              }
+                  : "md:w-8 md:h-8 h-3.5 w-3.5"
+              }`}
+              sizes="40px"
+              quality={95}
             />
           </button>
         ))}

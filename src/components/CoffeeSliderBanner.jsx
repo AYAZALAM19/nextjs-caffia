@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 const BrightInfiniteSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -102,14 +103,16 @@ const BrightInfiniteSlider = () => {
           <div key={index} className="relative w-full h-full min-w-full">
             {/* Image */}
             <div className="aspect-[16/10] md:aspect-[16/7] lg:aspect-[21/9]">
-              <img
+              <Image
                 src={slide.src}
                 alt={slide.title}
+                priority={true}
+                fill
                 className="absolute inset-0 w-full lg:h-full h-[300px] object-cover object-center"
               />
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
+              {/* <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div> */}
             </div>
 
             {/* Content */}
@@ -197,14 +200,14 @@ const BrightInfiniteSlider = () => {
       </div>
 
       {/* Progress Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-1">
+      {/* <div className="absolute bottom-0 left-0 w-full h-1">
         <div
           className="h-full bg-gradient-to-r from-caffia to-caffia/60 transition-all duration-500"
           style={{
             width: `${((getActualIndex() + 1) / slides.length) * 100}%`,
           }}
         />
-      </div>
+      </div> */}
     </section>
   );
 };

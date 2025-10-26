@@ -15,6 +15,7 @@ import CoffeeSliderBanner from "../components/CoffeeSliderBanner";
 import CoffeeCard from "@/components/CoffeeCard";
 import { products } from "@/data/products";
 import Newsletter from "../components/Newsletter";
+import Image from "next/image";
 
 function page() {
   return (
@@ -150,9 +151,11 @@ function page() {
         <div className="flex flex-col md:flex-row justify-center items-start gap-6">
           {/* First block */}
           <div className="w-full md:w-1/3 flex flex-col items-center text-center space-y-4">
-            <img
+            <Image
               src="/assets/images/about_product/process_1_1080x.avif"
               alt="Product process step 1"
+              width={100}
+              height={100}
               className="rounded-2xl object-cover "
             />
             <p className="text-base md:px-2.5 font-semibold text-grey">
@@ -165,9 +168,11 @@ function page() {
 
           {/* Second block */}
           <div className="w-full md:w-1/3 flex flex-col items-center text-center space-y-4">
-            <img
+            <Image
               src="/assets/images/about_product/process_3_1080x.avif"
               alt="Product process step 3"
+              width={100}
+              height={100}
               className="rounded-2xl object-cover "
             />
             <p className="text-base md:px-2.5 font-semibold text-grey">
@@ -180,10 +185,12 @@ function page() {
 
           {/* Third block */}
           <div className="w-full md:w-1/3 flex flex-col items-center text-center space-y-4">
-            <img
+            <Image
               src="/assets/images/about_product/packeg_of_product.jpg"
               alt="Packaged product"
-              className="rounded-2xl object-cover w-72"
+              width={100}
+              height={100}
+              className="rounded-2xl object-cover h-auto w-72"
             />
             <p className="text-base md:px-2.5 font-semibold text-grey">
               Made from Grade A coffee, roasted in small batches.

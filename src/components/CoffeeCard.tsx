@@ -25,6 +25,7 @@ function CoffeeCard({product}:ProductCardProps) {
           alt={product.title}
           width={300}
           height={100}
+          priority={true}
           className="object-cover object-center rounded-md"
         />
         </Link>

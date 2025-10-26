@@ -16,11 +16,17 @@ const quicksand = Quicksand({
   variable: "--font-body",
 });
 
-// export const metadata: Metadata = {
-//   title: "Caffie - Premium Coffee Experience",
-//   description: "Enjoy the finest coffee from farm to your doorstep. Premium coffee blends, expertly roasted.",
-// }
-
+export const metadata = {
+  title: "Caffie - Premium Coffee Experience",
+  description: "Enjoy the finest coffee from farm to your doorstep. Premium coffee blends, expertly roasted.",
+  icons: { icon: "/caffia.svg" },
+  openGraph: {
+    title: "Caffie",
+    description: "Premium, handcrafted coffee experience.",
+    url: "https://nextjs-caffia.vercel.app",
+    siteName: "Caffie",
+  },
+};
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

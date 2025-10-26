@@ -5,6 +5,7 @@ import {Phone, Menu, MapPin, UserRound, Search, ShoppingCart, Coffee, X, Chevron
 import { usePathname } from 'next/navigation';
 import { TopTickers } from '@/components/ui/TopTickers';
 import Image from 'next/image';
+import { useCartStore } from '@/lib/stores/cartStore';
 
 function Header() {
   const [toggle, setToggle] = useState(false)
@@ -12,6 +13,7 @@ function Header() {
   const pathname = usePathname()
   const [isActive, setActive]= useState()
 
+  const totalCount = useCartStore((state) => state.totalCount)
   function Toggle(){
     setToggle(prev => !prev)
   }
@@ -129,7 +131,7 @@ const newsItems = [
             <Link href='/cart' className='p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative group'>
               <ShoppingCart className='text-caffia font-bold group-hover:textamberLight transition-colors' size={22} />
               <span className="absolute -top-1 -right-1 bg-caffia text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-                2
+                {totalCount|| '0'}
               </span>
             </Link>
           </div>
@@ -168,8 +170,8 @@ const newsItems = [
             </button>
             <button className='p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 relative'>
               <ShoppingCart className="w-5 h-5 text-gray-700" />
-              <span className="absolute -top-1 -right-1 bg-amber-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
-                2
+                <span className="absolute -top-1 -right-1 bg-amber-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
+                {totalCount || 0}
               </span>
             </button>
           </div>

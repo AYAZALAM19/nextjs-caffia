@@ -9,14 +9,17 @@ interface CartState {
     addToCart: (product: Product, qty? :number) => void,
     removeFromCart:(id : string) => void,
     updateQuantity:(id: string, qty?: number) => void,
+    totalAmount: number,  
 }
-const calcTotal = (cart: CartItem[]) => cart.reduce((acc, item) => acc + item.quantity, 0)
+const calcTotal = (cart: CartItem[]) => cart.reduce((acc, item) => acc + item.quantity, 0);
 
+const calcTotalAmount = (cart: CartItem[]) => cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 export const useCartStore = create<CartState>()( 
     persist(
     (set, get) => ({
     cart: [],
     totalCount: 0,
+    totalAmount : 0,
 
     addToCart:(product, qty = 1) =>
     set((state) =>{
@@ -30,13 +33,13 @@ export const useCartStore = create<CartState>()(
         else{
         updatedCart = [...state.cart, {...product, quantity: qty}]
         }
-        return { cart: updatedCart, totalCount: calcTotal(updatedCart) };
+        return { cart: updatedCart, totalCount: calcTotal(updatedCart),totalAmount: calcTotalAmount(updatedCart) };
         }),
 
     removeFromCart:(id) =>
         set((state) => {
             const updatedCart = state.cart.filter((c) => c.id !== id);
-            return{cart: updatedCart, totalCount: calcTotal(updatedCart)}
+            return{cart: updatedCart, totalCount: calcTotal(updatedCart), totalAmount: calcTotalAmount(updatedCart)}
         }),
 
         updateQuantity: (id, qty = 1) =>
@@ -44,14 +47,15 @@ export const useCartStore = create<CartState>()(
           const updatedCart = state.cart.map((c) =>
             c.id === id ? { ...c, quantity: qty } : c
           );
-          return { cart: updatedCart, totalCount: calcTotal(updatedCart) };
+          return { cart: updatedCart, totalCount: calcTotal(updatedCart), totalAmount: calcTotalAmount(updatedCart) };
         }),
 }),
 {
     name: 'cart-storage',
      partialize: (state) => ({
         cart: state.cart,
-        totalCount: state.totalCount || 0  // agar localStorage empty ho to 0
+        totalCount: state.totalCount || 0,  // agar localStorage empty ho to 0
+        totalAmount: state.totalAmount || 0
     })
 }
 ))

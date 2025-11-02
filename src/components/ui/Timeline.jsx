@@ -42,8 +42,8 @@ const Timeline = ({ storyData }) => {
               <div className="mt-3 rounded-lg bg-caffia p-2">
                 <Image
                   src={item.img}
-                  width={100}
-                  height={100}
+                  width={300}
+                  height={300}
                   className="h-40 w-full rounded-lg object-cover"
                   alt={item.title}
                 />

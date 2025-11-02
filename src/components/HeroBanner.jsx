@@ -9,6 +9,8 @@ function HeroBanner({ img, title, description, subTitle }) {
         src={img}
         className="object-cover object-center  w-full h-[350px] md:h-[500px]"
         priority={true}
+        width={1000}
+        height={400}
         alt={title}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-darkAmber/55 via-black/40 to-transparent"></div>

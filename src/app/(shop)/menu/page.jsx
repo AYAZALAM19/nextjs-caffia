@@ -3,6 +3,7 @@ import HeroBanner from "../../../components/HeroBanner";
 // import GooglePay from "@/app/components/GoogelPay";
 import {IndianRupee} from 'lucide-react'
 import Image from "next/image";
+import Link from "next/link";
 
 function Menu() {
  const menuItems = [
@@ -12,7 +13,7 @@ function Menu() {
     description:
       "Smooth and aromatic instant coffee infused with natural vanilla flavoring. Rich coffee taste with sweet vanilla notes for a comforting cup.",
     price: 300,
-    img: "/assets/images/products/product-1.jpeg",
+    img: "/assets/images/products/product-1.webp",
     category: "Coffee",
     isSpecial: true,
   },
@@ -22,7 +23,7 @@ function Menu() {
     description:
       "Classic premium instant coffee made from carefully selected beans. Pure, bold coffee flavor with no additives - just authentic coffee taste.",
     price: 400,
-    img: "/assets/images/products/product-2.jfif",
+    img: "/assets/images/products/product-2.webp",
     category: "Specialty Drinks",
   },
   {
@@ -31,7 +32,7 @@ function Menu() {
     description:
       "Delicious instant coffee blended with rich hazelnut flavoring. Creamy, nutty aroma with a smooth finish that coffee lovers adore.",
     price: 300,
-    img: "/assets/images/products/product-3.jfif",
+    img: "/assets/images/products/product-3.webp",
     category: "Cold Drinks",
   },
   {
@@ -40,7 +41,7 @@ function Menu() {
     description:
       "Premium vanilla-flavored instant coffee with a perfect balance of coffee strength and sweet vanilla essence. Ideal for morning or evening enjoyment.",
     price: 400,
-    img: "/assets/images/products/product-4.jfif",
+    img: "/assets/images/products/product-4.webp",
     category: "Pastries",
   },
   {
@@ -49,7 +50,7 @@ function Menu() {
     description:
       "Luxurious vanilla instant coffee with a velvety smooth texture. Enhanced with natural vanilla extract for an indulgent coffee experience.",
     price: 300,
-    img: "/assets/images/products/product-1.jpeg",
+    img: "/assets/images/products/product-1.webp",
     category: "Desserts",
   },
 ];
@@ -59,7 +60,7 @@ function Menu() {
     <>
         <HeroBanner
           title="Our Menu"
-          img="/assets/images/about_banner.jpg"
+          img="/assets/images/about_banner1.webp"
           description="From a small neighborhood coffee shop to a premium coffee experience, discover the journey that makes Caffie special."
           subTitle="Our Menu" 
           />
@@ -102,9 +103,9 @@ function Menu() {
                 <div className="lg:w-80 lg:h-64 lg:flex-shrink-0"> 
                   <div className="relative overflow-hidden lg:h-full">
                     <Image
-                      className="w-full h-64 lg:h-full object-cover object-right-top group-hover:scale-105 transition-transform duration-700"
-                      width={100}
-                      height={100}
+                      className="w-full h-64 lg:w-64 lg:h-auto object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                      width={400}
+                      height={600}
                       src={item.img}
                       alt={item.name}
                     />
@@ -139,7 +140,7 @@ function Menu() {
                           {item.price}
                         </div>
                         <button className="bg-gradient-to-r from-amber/75 to-amberLight/70 hover:from-amber hover:to-amberLight text-white font-semibold px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap transition-all duration-300">
-                          Order Now
+                        <Link href='/product' >View Product</Link>
                         </button>
                       </div>
                     </div>

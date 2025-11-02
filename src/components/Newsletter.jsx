@@ -17,7 +17,7 @@ import { Mail } from "lucide-react";
 
 function Newsletter() {
   return (
-    <section className="bg-amber py-10">
+    <section className="bg-amber py-10 mx-auto container">
       <h2 className="font-heading uppercase text-center font-semibold md:text-5xl text-white text-lg md:pt-10">
         Stay Connected
       </h2>

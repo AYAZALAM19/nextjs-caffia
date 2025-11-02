@@ -89,7 +89,7 @@ const BrightInfiniteSlider = () => {
   };
 
   return (
-    <section className="relative w-full lg:h-[500px] h-[300px] lg:block hidden overflow-hidden bg-gradient-to-b from-amber-200 via-white/5 to-transparent shadow-2xl group">
+    <section className="relative container mx-auto w-full lg:h-[500px] h-[300px] lg:block hidden overflow-hidden bg-gradient-to-b from-amber-200 via-white/5 to-transparent shadow-2xl group">
       {/* Slides */}
       <div
         ref={sliderRef}

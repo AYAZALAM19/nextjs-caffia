@@ -46,7 +46,7 @@ function CoffeeCard({product}:ProductCardProps) {
           <Link href={`/product/${product.slug}`} className="text-Greytext font-semibold hover:underline">
             View Product
           </Link>
-          <button className="bg-caffia text-white px-3 py-1 rounded-md hover:bg-caffia/50"
+          <button className="bg-caffia text-white px-3 py-1 cursor-pointer rounded-md hover:bg-caffia/70 duration-200"
           onClick={() =>{ addToCart(product)
             console.log(product)
           }}>

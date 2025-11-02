@@ -2,8 +2,9 @@ import React from "react";
 import { getProductBySlug, products } from "@/data/products";
 import { useParams } from "next/navigation";
 import { notFound } from "next/navigation";
-import { P } from "framer-motion/dist/types.d-Cjd591yU";
+import {ChevronRight } from 'lucide-react'
 import ProductDetail from "@/components/ProductDetails";
+import Breadcrumb from "@/components/layout/Breadcrumb";
 
 interface ProductsPageProps {
     params: Promise<{slug: string}>
@@ -23,8 +24,12 @@ const {slug} = await params;
 
     return(
         <>
-        <div className=" mx-auto max-w-7xl my-10">
-            <ProductDetail productdetails={product} />
+        <div className=" container mx-auto max-w-7xl">
+            <Breadcrumb separator={<ChevronRight />} 
+             capitalizeLinks/>
+             <div className="mt-5">
+                <ProductDetail productdetails={product} />
+             </div>
         </div>
         </>
     )

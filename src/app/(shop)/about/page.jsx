@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Breadcrumb from "@/components/layout/Breadcrumb";
 import React, { useState } from "react";
 import Timeline from "../../../components/ui/Timeline";
 import HeroBanner from "../../../components/HeroBanner";
@@ -14,7 +15,7 @@ import {
   Calendar,
   Target,
   MapPin,
-  icons,
+ ChevronRight,
 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
@@ -178,6 +179,10 @@ function AboutPage() {
   return (
     <>
       <div>
+        <Breadcrumb 
+        separator={<span> <ChevronRight /> </span>} 
+        capitalizeLinks
+        />
         <HeroBanner
           title="Our Story"
           img="/assets/images/about_img/about_banner.jpg"
@@ -284,15 +289,14 @@ function AboutPage() {
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 0.9, ease: "easeOut" }}
               >
-                <picture>
+                
                   <Image
                     src="/assets/images/about_banner1.webp"
                     alt="Caffie ambiance"
-                    width={100}
-                    height={100}
+                    width={500}
+                    height={500}
                     className="rounded-xl shadow-lg w-full object-cover h-64 md:h-auto"
                   />
-                </picture>
               </motion.div>
             </div>
             {/* Vertical line */}
@@ -325,7 +329,9 @@ function AboutPage() {
                     <Image
                       src={item.img}
                       alt={`${item.name} portrait`}
-                      className="h-72 w-full object-cover object-center"
+                      className="h-auto w-full object-fil object-center"
+                      width={500}
+                      height={500}
                     />
                     {item.badge && (
                       <span className="absolute left-3 top-3 rounded-full bg-caffia px-3 py-1 text-xs font-semibold text-amber-900 shadow">
@@ -473,7 +479,7 @@ function AboutPage() {
                   <p className="bg-green-600/20 inline-flex items-center justify-center px-4 py-4 rounded-full text-green-700 font-semibold text-lg">
                   <Leaf className="text-green-700" />
                   </p>
-                  <p ClassName="text-center font-semibold text-Greytext md:text-xl text-base px-4 md:px-60">
+                  <p className="text-center font-semibold text-Greytext md:text-xl text-base px-4 md:px-60">
                     Environmental Impact
                   </p>
                 </div>

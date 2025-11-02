@@ -21,7 +21,7 @@ function page() {
   return (
     <>
       <CoffeeSliderBanner />
-      <section className="my-20 bg-pink-300/10">
+      <section className="my-20 bg-pink-300/10 container mx-auto">
         <div className="flex justify-center items-center py-5">
           <p className="inline-block text-base font-semibold text-amber bg-gradient-to-r from-amber-50 to-orange-50 px-6 py-2 rounded-full border-2 border-amber-200 shadow-sm hover:shadow-md hover:from-amber hover:via-amber-200 hover:to-amberLight hover:bg-gradient-to-bl transition-colors duration-500 ease-in-out">
             Featured Products
@@ -53,7 +53,7 @@ function page() {
         </div>
       </section>
 
-      <section className="my-10">
+      <section className="my-10 container mx-auto">
         <div className=" flex justify-center items-center ">
           <p className=" font-body font-semibold md:text-base  text-base bg-amberLight/15 hover:bg-amberLight/80 duration-200 text-amberLight hover:text-white px-3.5 pb-0.5 inline-flex items-center justify-center rounded-xl">
             About Caffie
@@ -73,6 +73,7 @@ function page() {
         </div>
       </section>
 
+      <div className="container mx-auto">
       <section className="my-20 flex flex-col lg:flex-row justify-center gap-6 lg:gap-10 mx-4 lg:mx-20 items-center">
         <div className="w-full lg:w-1/4 bg-pink-500/10 hover:shadow-xl hover:shadow-black/30 py-8 px-6 flex flex-col items-center justify-center text-center transition-shadow duration-300 rounded-lg">
           <Leaf className="mb-4 w-8 h-8 text-green-700" />
@@ -111,8 +112,9 @@ function page() {
           </p>
         </div>
       </section>
+      </div>
 
-      <section className="my-20 md:px-20 px-4">
+      <section className="my-20 md:px-20 px-4 container mx-auto">
         <div className="grid md:grid-cols-3 gap-8 text-center">
           <div>
             <div className="flex justify-center mb-4">
@@ -188,9 +190,9 @@ function page() {
             <Image
               src="/assets/images/about_product/packeg_of_product.jpg"
               alt="Packaged product"
-              width={100}
-              height={100}
-              className="rounded-2xl object-cover h-auto w-72"
+              width={200}
+              height={200}
+              className="rounded-2xl object-cover h-27 w-56"
             />
             <p className="text-base md:px-2.5 font-semibold text-grey">
               Made from Grade A coffee, roasted in small batches.

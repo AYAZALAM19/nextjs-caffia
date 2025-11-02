@@ -63,12 +63,12 @@ export default function CartPage(){
                             className="w-12 text-center font-semibold text-amberLight lg:text-2xl rounded"
                             />
                             <button className="px-3 py-1 rounded text-amberLight hover:bg-amberLight duration-300 hover:rounded-3xl  hover:text-caffia" 
-                            onChange={() => handleQuantityChange(item.id, item.quantity + 1)}>
+                            onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>
                              <Plus className='strokeWidth={1.4}' />
                             </button>
                         </div>
                         <div>
-                            <button onClick={() => removeFromCart(item.id)} className='hover:bg-red-700 py-2 px-3 rounded-2xl duration-200 cursor-pointer hover:text-white inline-flex items-center justify-baseline '><Trash2 className='hover:text-white'/> Remove</button>
+                            <button onClick={() => removeFromCart(item.id)} className='hover:bg-red-700 py-2 px-3 rounded-2xl duration-200 cursor-pointer hover:text-white inline-flex gap-3 items-center '><Trash2 className='hover:text-white'/> Remove</button>
                         </div>
                     </div>
                 ))

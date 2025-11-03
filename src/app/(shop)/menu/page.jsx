@@ -1,9 +1,10 @@
 import React from "react";
 import HeroBanner from "../../../components/HeroBanner";
 // import GooglePay from "@/app/components/GoogelPay";
-import {IndianRupee} from 'lucide-react'
+import {ChevronRight, IndianRupee} from 'lucide-react'
 import Image from "next/image";
 import Link from "next/link";
+import Breadcrumb from "@/components/layout/Breadcrumb";
 
 function Menu() {
  const menuItems = [
@@ -58,6 +59,10 @@ function Menu() {
 
   return (
     <>
+    <div className="conatainer mx-auto">
+       <Breadcrumb separator={<ChevronRight />} 
+         capitalizeLinks/>
+    </div>
         <HeroBanner
           title="Our Menu"
           img="/assets/images/about_banner1.webp"

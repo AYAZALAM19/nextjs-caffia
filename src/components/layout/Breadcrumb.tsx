@@ -25,7 +25,7 @@ export default function Breadcrumb(
     const pathNames = path.split('/').filter(path => path)
   return (
     <div>
-        <ul className={`flex ${containerClasses} px-4`}>
+        <ul className={`flex ${containerClasses} px-4 py-2`}>
             <li className='font-semibold'><Link href='/'>Home</Link></li>
             {pathNames.map((link, index) => {
                 let href = pathNames.slice(0, index + 1).join('/');

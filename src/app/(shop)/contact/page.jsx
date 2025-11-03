@@ -1,6 +1,7 @@
 import React from "react";
-import { SendHorizontal } from "lucide-react";
+import { ChevronRight, SendHorizontal } from "lucide-react";
 import HeroBanner from "../../../components/HeroBanner";
+import Breadcrumb from "@/components/layout/Breadcrumb";
 
 function Contact() {
   const orderType = [
@@ -12,6 +13,7 @@ function Contact() {
 
   return (
     <>
+    <Breadcrumb separator={<ChevronRight />} capitalizeLinks />
       <HeroBanner
         title="Get in Touch"
         img="/assets/images/home-banner/Banner_1.jpeg"

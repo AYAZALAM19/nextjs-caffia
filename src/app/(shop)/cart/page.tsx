@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Product } from "@/lib/types/product";
 import { Trash2, Minus, IndianRupee, Plus, ChevronRight, IndianRupeeIcon } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
+import Link from "next/link";
 
 export default function CartPage() {
   const cart = useCartStore((state) => state.cart);
@@ -32,7 +33,15 @@ export default function CartPage() {
         </h1>
 
         {cart.length === 0 ? (
-          <p className="text-center py-10 text-gray-600">Cart is empty</p>
+          <div>
+            <p className="text-center py-10 text-gray-600">Cart is empty</p>
+
+            <div className="flex justify-center items-center">
+              <Link href='/product' className="text-center px-11 py-2 bg-caffia text-white font-semibold  rounded-xl" >
+              View Coffee Collection
+              </Link>
+            </div>
+          </div>
         ) : (
           cart.map((item, index) => (
             <div

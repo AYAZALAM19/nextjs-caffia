@@ -27,17 +27,9 @@ function page() {
       <div className="mx-auto container">
         <BestOPtions />
       </div>
-      {/* <div className="container flex mt-7 my-10">
-        <FeaturedProduct />
-      </div> */}
       <section className="my-20 bg-pink-300/10 container mx-auto">
-        <div className="flex justify-center items-center py-5">
-          <p className="inline-block text-base font-semibold text-amber bg-gradient-to-r from-amber-50 to-orange-50 px-6 py-2 rounded-full border-2 border-amber-200 shadow-sm hover:shadow-md hover:from-amber hover:via-amber-200 hover:to-amberLight hover:bg-gradient-to-bl transition-colors duration-500 ease-in-out">
-            Featured Products
-          </p>
-        </div>
         <div>
-          <h2 className="text-center font-bold font-heading uppercase text-caffia md:text-5xl text-lg py-8">
+          <h2 className="text-center font-bold font-heading capitalize text-caffia md:text-5xl text-lg py-8">
             Premium Coffee Collection
           </h2>
           <p className="font-semibold text-grey7 md:text-xl text-base md:px-80 text-center">

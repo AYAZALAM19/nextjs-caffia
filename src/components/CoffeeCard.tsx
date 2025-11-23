@@ -2,6 +2,7 @@
 import React from 'react'
 import { Product } from '@/lib/types/product'
 import { IndianRupee } from 'lucide-react'
+import AddToCart from './ui/AddToCart'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useCartStore } from '@/lib/stores/cartStore'
@@ -46,12 +47,9 @@ function CoffeeCard({product}:ProductCardProps) {
           <Link href={`/product/${product.slug}`} className="text-Greytext font-semibold hover:underline">
             View Product
           </Link>
-          <button className="bg-caffia text-white px-3 py-1 cursor-pointer rounded-md hover:bg-caffia/70 duration-200"
-          onClick={() =>{ addToCart(product)
-            console.log(product)
-          }}>
-            Add to cart
-          </button>
+          <div>
+            <AddToCart product={product}/>
+          </div>
         </div>
       </div>
     </div>

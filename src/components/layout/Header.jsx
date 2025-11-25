@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { TopTickers } from '@/components/ui/TopTickers';
 import Image from 'next/image';
 import { useCartStore } from '@/lib/stores/cartStore';
+import ToastNotification from '../ui/ToastNotification';
 
 function Header() {
   const [toggle, setToggle] = useState(false)
@@ -128,11 +129,14 @@ const newsItems = [
             <button className='p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative group'>
               <Search className='text-caffia font-bold group-hover:text-amberLight transition-colors' size={22} />
             </button>
-            <Link href='/cart' className='p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative group'>
+            <Link href='/cart' className='p-2 hover:bg-gray-100 inline-flex items-center rounded-full transition-colors duration-200 relative group'>
               <ShoppingCart className='text-caffia font-bold group-hover:textamberLight transition-colors' size={22} />
-              <span className="absolute -top-1 -right-1 bg-caffia text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+              <span className="absolute -top-0.5 -right-1 bg-caffia text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                 {totalCount|| '0'}
               </span>
+              <div className='lg:mt-10'>
+                <ToastNotification />
+              </div>
             </Link>
           </div>
         </div>

@@ -19,6 +19,7 @@ import Newsletter from "../components/Newsletter";
 import Image from "next/image";
 import BestOPtions from "@/components/landingPage/BestOPtions";
 
+
 function page() {
   return (
     <>
@@ -204,7 +205,6 @@ function page() {
           </div>
         </div>
       </div>
-
       <Newsletter />
     </>
   );

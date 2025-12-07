@@ -1,6 +1,5 @@
 import React from "react";
 import { getProductBySlug, products } from "@/data/products";
-import { useParams } from "next/navigation";
 import { notFound } from "next/navigation";
 import {ChevronRight } from 'lucide-react'
 import ProductDetail from "@/components/ProductDetails";

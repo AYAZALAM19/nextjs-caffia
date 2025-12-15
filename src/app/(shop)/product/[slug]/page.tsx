@@ -26,9 +26,7 @@ const {slug} = await params;
         <div className=" container mx-auto max-w-7xl">
             <Breadcrumb separator={<ChevronRight />} 
              capitalizeLinks/>
-             <div className="mt-5">
-                <ProductDetail productdetails={product} />
-             </div>
+            <ProductDetail productdetails={product} />
         </div>
         </>
     )

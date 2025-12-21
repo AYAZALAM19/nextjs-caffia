@@ -11,13 +11,13 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
-import FeaturedProduct from '@/components/landingPage/FeaturedProducts'
+import FeaturedProduct from '@/components/landing/FeaturedProducts'
 import CoffeeSliderBanner from "../components/CoffeeSliderBanner";
 import CoffeeCard from "@/components/CoffeeCard";
 import { products } from "@/data/products";
 import Newsletter from "../components/Newsletter";
 import Image from "next/image";
-import BestOPtions from "@/components/landingPage/BestOPtions";
+import BestOPtions from "@/components/landing/BestOPtions";
 
 
 function page() {

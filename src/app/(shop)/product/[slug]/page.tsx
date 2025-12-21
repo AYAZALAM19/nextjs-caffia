@@ -4,9 +4,10 @@ import { notFound } from "next/navigation";
 import {ChevronRight } from 'lucide-react'
 import ProductDetail from "@/components/ProductDetails";
 import Breadcrumb from "@/components/layout/Breadcrumb";
+import { BrewingGuide } from "@/components/landing/BrewingGuide";
 
 interface ProductsPageProps {
-    params: Promise<{slug: string}>
+    params:{slug: string}
 };
 export function generateStaticParams(){
     return products.map((product) =>({
@@ -28,6 +29,7 @@ const {slug} = await params;
              capitalizeLinks/>
             <ProductDetail productdetails={product} />
         </div>
+        <BrewingGuide />
         </>
     )
 }

@@ -1,6 +1,6 @@
 "use client";
 import { Product } from "@/lib/types/product";
-import { Badge, IndianRupee } from "lucide-react";
+import { Badge, IndianRupee, Leaf, Truck,BadgeCheck } from "lucide-react";
 import { useCartStore } from "@/lib/stores/cartStore";
 import Image from "next/image";
 import { useState } from "react";
@@ -21,7 +21,7 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
 
   const addToCart = useCartStore((state) => state.addToCart);
   return (
-    <div className="max-w-7xl mx-auto my-6">
+    <div className="lg:max-w-7xl mx-auto my-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         {/* LEFT: Product Images */}
         <div>
@@ -49,26 +49,26 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
         </div>
 
         {/* RIGHT: Product Details */}
-        <div className=" lg:space-y-3 space-y-1.5 px-5 lg:px-8">
+        <div className=" lg:space-y-3 w-full space-y-1.5 px-4 lg:px-8">
           {/* Title */}
           <h1 className="font-bold text-xl lg:text-3xl leading-tight">
             {productdetails.title}
           </h1>
-          <div className="bg-amberLight/30 flex mx-auto items-center gap-3 rounded-md px-4 py-3 w-fit">
+          <div className="bg-red-200 flex mx-auto items-center gap-3 rounded-md px-4 py-3 w-fit">
             {/* Rating */}
             <div className="flex items-center gap-2">
-              <div className="flex text-amber-500 text-sm">★★★★★</div>
-              <span className="font-semibold text-sm text-gray-800">4.9</span>
-              <span className="text-sm text-gray-500 underline cursor-pointer">
+              <div className="flex text-caffia text-base">★★★★★</div>
+              <span className="font-bold text-sm text-red-950">4.9</span>
+              <span className="text-sm font-semibold text-caffia underline cursor-pointer">
                 (245 reviews)
               </span>
             </div>
 
             {/* Divider */}
-            <div className="h-5 w-px bg-amber-300"></div>
+            <div className="h-5 w-px bg-Greytext"></div>
 
             {/* Quote */}
-            <div className="text-sm italic text-gray-700">
+            <div className="text-sm italic text-caffia">
               “Velvety smooth with zero acidity.”
             </div>
           </div>
@@ -93,10 +93,10 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
             <div className="w-full">
             {/* Header */}
             <div className="flex justify-between items-center mb-3">
-              <p className="text-sm font-semibold text-gray-800 uppercase tracking-wide">
+              <p className="text-sm font-bold text-gray-800 uppercase tracking-wide">
                 Roast Level
               </p>
-              <p className="text-sm text-amber-600 font-medium">
+              <p className="text-sm text-caffia/80 font-medium">
                 {selectedRoast}
               </p>
             </div>
@@ -107,11 +107,11 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
                 <button
                   key={roast}
                   onClick={() => setSelectedRoast(roast)}
-                  className={`flex-1 py-2 rounded-lg border-2 text-sm font-medium transition
+                  className={`flex-1 py-2 rounded-lg border-2 text-sm font-medium cursor-pointer transition
                     ${
                       selectedRoast === roast
-                        ? "border-amber-600 text-amber-600 bg-white shadow-sm"
-                        : "border-gray-200 text-gray-500 bg-white hover:border-gray-300"
+                        ? "border-red-300 text-white bg-caffia shadow-sm"
+                        : "border-gray-200 text-caffia bg-white hover:border-gray-300"
                     }`}
                 >
                   {roast}
@@ -145,6 +145,28 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
           >
             Add To Cart
           </button>
+
+          {/*  */}
+
+         <div className="flex items-center lg:gap-10 text-gray-600 lg:px-8 px-2 py-4 text-xs lg:text-sm">
+            {/* Free shipping */}
+            <div className="flex items-center gap-1 lg:gap-2 whitespace-nowrap">
+              <Truck className="h-8 w-h-8 text-white fill-Greytext" />
+              <span>Free shipping over $50</span>
+            </div>
+
+            {/* Direct trade */}
+            <div className="flex items-center gap-1 lg:gap-2 whitespace-nowrap">
+              <BadgeCheck className="h-6 w-h-6 stroke-white fill-Greytext" />
+              <span>Direct Trade</span>
+            </div>
+
+            {/* Carbon neutral */}
+            <div className="flex items-center gap-1 lg:gap-2 whitespace-nowrap">
+              <Leaf className="h-6 w-6 stroke-white fill-Greytext" />
+              <span>Carbon Neutral</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

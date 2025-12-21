@@ -197,7 +197,7 @@ const BrightInfiniteSlider = () => {
                   : "md:w-8 md:h-8 h-3.5 w-3.5"
               }`}
               sizes="40px"
-              quality={95}
+              quality={75}
             />
           </button>
         ))}

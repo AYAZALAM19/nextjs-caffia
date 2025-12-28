@@ -1,14 +1,29 @@
 'use client'
 
 import { useCartStore } from '@/lib/stores/cartStore'
-import { MoveRight, ShieldCheck } from 'lucide-react'
+import { ShieldCheck, Loader2 } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
 
-export default function CheckoutOrderSummary() {
+interface CheckoutOrderSummaryProps {
+  shippingCost?: number
+  isSubmitting?: boolean
+}
+
+export default function CheckoutOrderSummary({
+  shippingCost = 0,
+  isSubmitting = false
+}: CheckoutOrderSummaryProps) {
   const cart = useCartStore((state) => state.cart)
-  const total = useCartStore((state) => state.totalAmount)
+  const subtotal = useCartStore((state) => state.totalAmount)
+  const finalTotal = subtotal + shippingCost
+
+  // Helper for consistent currency formatting
+  const formatPrice = (price: number) =>
+    new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+    }).format(price)
 
   return (
     // 1. Shadow aur Border ko thoda light kiya aur background ko subtle gray
@@ -22,7 +37,7 @@ export default function CheckoutOrderSummary() {
         {cart.map((item, index) => {
           const lineTotal = item.price * item.quantity
           return (
-            <div key={index} className="flex items-start justify-between gap-4 group">
+            <div key={item.id} className="flex items-start justify-between gap-4 group">
               <div className="flex gap-4">
                 {/* Product Image with Badge for Quantity */}
                 <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
@@ -50,7 +65,7 @@ export default function CheckoutOrderSummary() {
               </div>
 
               <p className="text-sm font-bold text-gray-900">
-                ${lineTotal.toFixed(2)}
+                {formatPrice(lineTotal)}
               </p>
             </div>
           )
@@ -63,28 +78,46 @@ export default function CheckoutOrderSummary() {
       <div className="space-y-3 text-sm">
         <div className="flex justify-between text-gray-500">
           <span>Subtotal</span>
-          <span className="font-medium text-gray-900">${total.toFixed(2)}</span>
+          <span className="font-medium text-gray-900">{formatPrice(subtotal)}</span>
         </div>
         <div className="flex justify-between text-gray-500">
           <span>Shipping</span>
-          <span className="text-green-600 font-medium tracking-wide">FREE</span>
+          <span className={`font-medium tracking-wide ${shippingCost === 0 ? 'text-green-600' : 'text-gray-900'}`}>
+            {shippingCost === 0 ? 'FREE' : formatPrice(shippingCost)}
+          </span>
         </div>
         <div className="flex justify-between text-gray-500">
           <span>Estimated Tax</span>
-          <span className="font-medium text-gray-900">$0.00</span>
+          <span className="font-medium text-gray-900">{formatPrice(0)}</span>
         </div>
         
         <div className="flex justify-between pt-3 border-t border-gray-100 mt-2">
           <p className="text-lg font-black text-gray-900 uppercase">Total</p>
           <div className="text-right">
-            <p className="text-xl font-black text-caffia">${total.toFixed(2)}</p>
+            <p className="text-xl font-black text-caffia">{formatPrice(finalTotal)}</p>
             <p className="text-[10px] text-gray-400 font-medium uppercase tracking-tighter">Including VAT</p>
           </div>
         </div>
       </div>
+      
+      {/* Submit Button */}
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full h-12 flex items-center justify-center bg-caffia text-white font-bold rounded-xl transition-all duration-300 hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed"
+      >
+        {isSubmitting ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Processing...
+          </>
+        ) : (
+          'Continue to Payment'
+        )}
+      </button>
 
       {/* 4. Trust Signal */}
-      <div className="flex items-center justify-center gap-2 py-2 bg-gray-50 rounded-lg">
+      <div className="flex items-center justify-center gap-2 pt-2">
         <ShieldCheck size={16} className="text-gray-400" />
         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
           Secure Checkout Encrypted

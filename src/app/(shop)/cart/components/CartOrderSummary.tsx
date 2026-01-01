@@ -1,3 +1,4 @@
+'use client'
 import { useCartStore } from '@/lib/stores/cartStore'
 import Link from 'next/link'
 import React from 'react'

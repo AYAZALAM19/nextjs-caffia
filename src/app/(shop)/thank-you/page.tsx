@@ -1,9 +1,32 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { CheckCircle, MoveRight, Truck } from "lucide-react";
 import CheckoutOrderSummary from "../checkout/components/CheckoutOrderSummary";
+import { useCartStore } from "@/lib/stores/cartStore";
+import { useRouter } from "next/navigation";
 
 const ThankYouPage = () => {
+  const { orderPlaced, resetOrderPlaced, clearCart } = useCartStore();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!orderPlaced) {
+      router.push("/");
+    }
+  }, [orderPlaced, router]);
+
+  useEffect(() => {
+    // Clear the cart only when the thank you page is successfully mounted
+    if (orderPlaced) {
+      clearCart();
+    }
+  }, [orderPlaced, clearCart]);
+
+  if (!orderPlaced) {
+    return null; // or a loading spinner
+  }
+
   return (
     <>
       <div className="container mx-auto">
@@ -13,10 +36,12 @@ const ThankYouPage = () => {
             <CheckCircle className="w-16 h-16 text-green-500 mb-4 lg:mx-0 mx-auto" />
 
             <h1 className="text-4xl font-bold mb-2">Thank You, Ayaz!</h1>
-            <p className="font-bold text-gray-600 text-xl">Order Id: <span className="font-bold text-black">#24543</span></p>
+            <p className="font-bold text-gray-600 text-xl">
+              Order Id: <span className="font-bold text-black">#24543</span>
+            </p>
             <p className="text-lg font-semibold text-gray-500 mb-6 max-w-xl">
-              Your has been placed successfully. We sent a detail
-              receipt to ayaz@gmail.com
+              Your has been placed successfully. We sent a detail receipt to
+              ayaz@gmail.com
             </p>
 
             <div className="max-w-xl">
@@ -63,16 +88,19 @@ const ThankYouPage = () => {
             </div>
 
             <div className="flex gap-3 my-5">
-              <Link
+             <Link
               href="/"
-              className="inline-flex gap-3 px-6 py-2 font-semibold my-3 duration-200 bg-caffia text-white rounded-md hover:bg-red-300 hover:text-caffia"
+              onClick={resetOrderPlaced}
+              className="inline-flex gap-3 px-6 py-2 font-semibold my-3 bg-caffia text-white rounded-md"
             >
-              Continue Shopping  <MoveRight />
+              Continue Shopping <MoveRight />
             </Link>
-            <Link href='#'
-            className="inline-flex gap-3 px-6 py-2 font-semibold my-3 duration-200 bg-red-300 text-caffia rounded-md hover:bg-red-300 hover:text-caffia">
-              Track Order  <MoveRight />
-            </Link> 
+              <Link
+                href="#"
+                className="inline-flex gap-3 px-6 py-2 font-semibold my-3 duration-200 bg-red-300 text-caffia rounded-md hover:bg-red-300 hover:text-caffia"
+              >
+                Track Order <MoveRight />
+              </Link>
             </div>
           </div>
 

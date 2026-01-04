@@ -11,9 +11,13 @@ interface CartState {
     removeFromCart:(id : string) => void,
     updateQuantity:(id: string, qty?: number) => void,
     totalAmount: number,  
-    toastMessage: string,
-    toastImage: string,
+    toastMessage: string | null,
+    toastImage: string | null,
+    orderPlaced: boolean,
 
+    placeOrder:() => void,
+    resetOrderPlaced: () => void,
+    clearCart: () => void,
     showToast:(msg: string | null, img: string | null) => void;
 }
 const calcTotal = (cart: CartItem[]) => cart.reduce((acc, item) => acc + item.quantity, 0);
@@ -25,9 +29,27 @@ export const useCartStore = create<CartState>()(
     cart: [],
     totalCount: 0,
     totalAmount : 0,
+    orderPlaced: false,
 
     toastMessage: null,
     toastImage: null,
+
+    placeOrder: () =>
+    set({
+      orderPlaced: true,
+    }),
+
+    clearCart: () =>
+      set({
+        cart: [],
+        totalCount: 0,
+        totalAmount: 0,
+      }),
+
+    resetOrderPlaced: () =>
+      set({
+        orderPlaced: false,
+      }),
 
     showToast: (msg, img = null) =>
         set(() => ({

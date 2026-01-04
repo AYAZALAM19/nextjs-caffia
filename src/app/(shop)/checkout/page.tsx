@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CheckoutOrderSummary from "./components/CheckoutOrderSummary";
 import CheckoutContactForm from "./components/CheckoutContactForm";
 import ShippingOptions, {
@@ -13,11 +13,19 @@ import {
   CheckoutFormData,
 } from "@/lib/checkout-validation-shema/checkout-schema";
 import { useRouter } from "next/navigation";
+import { useCartStore } from "@/lib/stores/cartStore";
 
 export default function Checkout() {
   const router = useRouter();
+  const { cart, placeOrder, orderPlaced } = useCartStore();
   // Default to first method (Standard)
   const [selectedMethod, setSelectedMethod] = useState(SHIPPING_METHODS[0]);
+
+  useEffect(() => {
+    if (cart.length === 0 && !orderPlaced) {
+      router.push("/");
+    }
+  }, [cart, router, orderPlaced]);
 
   const {
     register,
@@ -31,7 +39,12 @@ export default function Checkout() {
     console.log("Form submitted data", { ...data, shipping: selectedMethod });
     // Simulate payment processing
     await new Promise((resolve) => setTimeout(resolve, 2000));
+    placeOrder();
     router.push("/thank-you");
+  }
+
+  if (cart.length === 0) {
+    return null; // or a loading spinner
   }
 
   return (

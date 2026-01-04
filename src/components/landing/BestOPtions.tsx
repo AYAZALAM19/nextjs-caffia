@@ -43,10 +43,10 @@ export default function BestOPtions() {
 
 console.log( 'here si rhe data',data.filter((item) => item.link))
   return (
-    <div>
-      <h2 className="lg:text-4xl text-caffia text-xl my-10 px-4">Order Our Best Options</h2>
+    <div className="container mx-auto">
+      <h2 className="lg:text-4xl text-caffia text-lg md:text-2xl my-4 md:my-6 px-3 md:px-4 font-semibold">Order Our Best Options</h2>
       <div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 lg:px-4 px-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-3 px-3 md:px-4">
           {data.map((item, index) => (
             <div  key={index}>
                 <Link

@@ -22,15 +22,15 @@ function Contact() {
         description="Have questions about our coffee or want to place a custom order? We'd love to hear from you and help you find your perfect cup."
         subTitle="About Caffie"
       />
-      <div className="my-3">
-         <h2 className="md:text-5xl text-lg text-center text-caffia ">
+      <div className="my-2 md:my-4 px-3 md:px-4">
+         <h2 className="md:text-5xl text-lg text-center text-caffia">
               Contact Us
             </h2>
-            <p className="md:text-3xl text-xl my-7 text-center text-Greytext font-semibold ">
+            <p className="md:text-3xl text-base my-3 md:my-5 text-center text-Greytext font-semibold">
               Leave us a message!
             </p>
       </div>
-      <section className="grid container mx-auto lg:grid-cols-2 grid-cols-1">
+      <section className="grid container mx-auto lg:grid-cols-2 grid-cols-1 gap-4 md:gap-6 px-3 md:px-4 mb-4 md:mb-6">
         <div>
         <ContactInfo />
         </div>

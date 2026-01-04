@@ -49,17 +49,17 @@ export default function Checkout() {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-10">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-6">
         <form onSubmit={handleSubmit(OnSubmit)}>
-          <div className="flex flex-col lg:flex-row gap-12 items-start">
+          <div className="flex flex-col lg:flex-row gap-6 md:gap-8 items-start">
             {/* LEFT SIDE: Form (8 columns on large screens) */}
-            <div className="w-full lg:w-[65%] space-y-8">
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-50">
+            <div className="w-full lg:w-[65%] space-y-4 md:space-y-6">
+              <div className="bg-white p-4 md:p-5 rounded-lg md:rounded-2xl shadow-sm border border-gray-50">
                 <CheckoutContactForm register={register} errors={errors} isSubmitting={isSubmitting} />
               </div>
 
               {/* Shipping Options Section */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-50">
+              <div className="bg-white p-4 md:p-5 rounded-lg md:rounded-2xl shadow-sm border border-gray-50">
                 <ShippingOptions
                   selectedMethodId={selectedMethod.id}
                   onSelect={setSelectedMethod}
@@ -70,8 +70,8 @@ export default function Checkout() {
             </div>
 
             {/* RIGHT SIDE: Summary (4 columns - Sticky) */}
-            <div className="w-full lg:w-[35%] lg:sticky lg:top-8">
-              <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+            <div className="w-full lg:w-[35%] lg:sticky lg:top-6">
+              <div className="bg-white p-4 md:p-5 rounded-lg md:rounded-2xl border border-gray-100 shadow-sm">
                 <CheckoutOrderSummary
                   shippingCost={selectedMethod.price}
                   isSubmitting={isSubmitting}

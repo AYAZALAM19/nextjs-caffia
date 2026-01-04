@@ -30,37 +30,37 @@ const ThankYouPage = () => {
   return (
     <>
       <div className="container mx-auto">
-        <div className="flex lg:flex-row flex-col justify-center gap-8 px-4">
+        <div className="flex lg:flex-row flex-col justify-center gap-4 md:gap-6 px-3 md:px-4 py-4 md:py-6">
           {/* LEFT */}
-          <div className="flex-1 lg:basis-[70%] text-center  lg:text-left">
-            <CheckCircle className="w-16 h-16 text-green-500 mb-4 lg:mx-0 mx-auto" />
+          <div className="flex-1 lg:basis-[70%] text-center lg:text-left">
+            <CheckCircle className="w-12 md:w-16 h-12 md:h-16 text-green-500 mb-2 md:mb-4 lg:mx-0 mx-auto" />
 
-            <h1 className="text-4xl font-bold mb-2">Thank You, Ayaz!</h1>
-            <p className="font-bold text-gray-600 text-xl">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2">Thank You, Ayaz!</h1>
+            <p className="font-bold text-gray-600 text-base md:text-lg">
               Order Id: <span className="font-bold text-black">#24543</span>
             </p>
-            <p className="text-lg font-semibold text-gray-500 mb-6 max-w-xl">
+            <p className="text-base md:text-lg font-semibold text-gray-500 mb-4 md:mb-6 max-w-xl">
               Your has been placed successfully. We sent a detail receipt to
               ayaz@gmail.com
             </p>
 
             <div className="max-w-xl">
-              <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
-                <div className="flex flex-col lg:flex-row items-start gap-6">
+              <div className="rounded-lg md:rounded-xl border border-gray-200 bg-gray-50 p-3 md:p-4">
+                <div className="flex flex-col lg:flex-row items-start gap-3 md:gap-4">
                   {/* LEFT: Delivery Info */}
-                  <div className="flex items-start gap-4 flex-1">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-caffia/10 text-caffia">
-                      <Truck className="w-5 h-5" />
+                  <div className="flex items-start gap-3 flex-1">
+                    <div className="flex items-center justify-center w-9 md:w-10 h-9 md:h-10 rounded-full bg-caffia/10 text-caffia flex-shrink-0">
+                      <Truck className="w-4 md:w-5 h-4 md:h-5" />
                     </div>
 
                     <div>
-                      <p className="text-sm font-medium text-gray-500">
+                      <p className="text-xs md:text-sm font-medium text-gray-500">
                         Estimated Delivery
                       </p>
-                      <p className="text-base font-semibold text-gray-900">
+                      <p className="text-sm md:text-base font-semibold text-gray-900">
                         5–7 Business Days
                       </p>
-                      <p className="text-sm text-gray-500 mt-1">
+                      <p className="text-xs md:text-sm text-gray-500 mt-1">
                         Shipping via Bluedart Express
                       </p>
                     </div>
@@ -71,13 +71,13 @@ const ThankYouPage = () => {
 
                   {/* RIGHT: Address */}
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-500 mb-1">
+                    <p className="text-xs md:text-sm font-medium text-gray-500 mb-1">
                       Shipping To
                     </p>
-                    <p className="text-sm font-semibold text-gray-900">
+                    <p className="text-sm md:text-base font-semibold text-gray-900">
                       Ayaz Alam
                     </p>
-                    <p className="text-sm text-gray-600 leading-relaxed">
+                    <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
                       Random address, city
                       <br />
                       Maharashtra, India – 400102
@@ -87,25 +87,25 @@ const ThankYouPage = () => {
               </div>
             </div>
 
-            <div className="flex gap-3 my-5">
+            <div className="flex flex-col sm:flex-row gap-2 md:gap-3 my-4 md:my-5">
              <Link
               href="/"
               onClick={resetOrderPlaced}
-              className="inline-flex gap-3 px-6 py-2 font-semibold my-3 bg-caffia text-white rounded-md"
+              className="inline-flex gap-2 md:gap-3 px-4 md:px-6 py-2 text-sm md:text-base font-semibold bg-caffia text-white rounded-md justify-center sm:justify-start"
             >
-              Continue Shopping <MoveRight />
+              Continue Shopping <MoveRight className="w-4 h-4 md:w-5 md:h-5" />
             </Link>
               <Link
                 href="#"
-                className="inline-flex gap-3 px-6 py-2 font-semibold my-3 duration-200 bg-red-300 text-caffia rounded-md hover:bg-red-300 hover:text-caffia"
+                className="inline-flex gap-2 md:gap-3 px-4 md:px-6 py-2 text-sm md:text-base font-semibold duration-200 bg-red-300 text-caffia rounded-md hover:bg-red-400 justify-center sm:justify-start"
               >
-                Track Order <MoveRight />
+                Track Order <MoveRight className="w-4 h-4 md:w-5 md:h-5" />
               </Link>
             </div>
           </div>
 
           {/* RIGHT – 40% */}
-          <div className="w-full lg:basis-[30%] max-w-md">
+          <div className="w-full lg:basis-[30%] max-w-md mt-4 md:mt-0">
             <CheckoutOrderSummary />
           </div>
         </div>

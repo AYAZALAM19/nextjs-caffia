@@ -26,34 +26,34 @@ export default function CartPage() {
   console.log("data of cart ", cart);
   return (
     <>
-  <section className="py-8">
-  <div className="mx-auto max-w-7xl px-4">
+  <section className="py-4 md:py-6">
+  <div className="mx-auto max-w-7xl px-3 md:px-4">
     <Breadcrumb 
       separator={<span> <ChevronRight /> </span>} 
       capitalizeLinks 
     />
-    <h1 className="text-center text-caffia font-semibold lg:text-4xl text-2xl uppercase text-shadow-2xs">
+    <h1 className="text-center text-caffia font-semibold lg:text-4xl text-xl md:text-2xl uppercase text-shadow-2xs mt-2 md:mt-4">
       Your Cart
     </h1>
 
     {cart.length === 0 ? (
       <div>
-        <p className="text-center py-10 text-gray-600">Cart is empty</p>
+        <p className="text-center py-6 md:py-8 text-sm md:text-base text-gray-600">Cart is empty</p>
         <div className="flex justify-center items-center">
           <Link 
             href='/product' 
-            className="text-center px-11 py-2 bg-caffia text-white font-semibold rounded-xl"
+            className="text-center px-6 md:px-8 py-2 text-sm md:text-base bg-caffia text-white font-semibold rounded-lg md:rounded-xl"
           >
             View Coffee Collection
           </Link>
         </div>
       </div>
     ) : (
-      <div className="flex flex-col lg:flex-row gap-4 mt-6">
+      <div className="flex flex-col lg:flex-row gap-3 md:gap-4 mt-4 md:mt-6">
         <div className="w-full lg:w-8/12">
           <CartItems />
         </div>
-        <div className="w-full mx-auto lg:w-4/12">
+        <div className="w-full lg:w-4/12">
           <OrderSummary />
         </div>
       </div>

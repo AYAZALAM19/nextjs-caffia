@@ -11,8 +11,8 @@ interface CartState {
     removeFromCart:(id : string) => void,
     updateQuantity:(id: string, qty?: number) => void,
     totalAmount: number,  
-    toastMessage: string | null,
-    toastImage: string | null,
+    toastMessage: string,
+    toastImage: string,
     orderPlaced: boolean,
 
     placeOrder:() => void,

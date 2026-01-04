@@ -17,34 +17,33 @@ function CoffeeCard({product}:ProductCardProps) {
   // console.log( 'cart data',cart)//
   // console.log('data added',addToCart)
   return (
-    <div className="w-[300px] bg-caffia/10 px-2.5 py-2.5 rounded-lg">
-      {/* Image */}
-      <div className="">
-        <Link href={`/product/${product.slug}`} className="text-Greytext hover:underline">
+    <div className="w-full max-w-xs bg-caffia/10 px-2.5 py-2.5 rounded-lg">
+      {/* Image - Fixed aspect ratio */}
+      <div className="relative w-full aspect-square bg-gray-200 rounded-md overflow-hidden mb-2">
+        <Link href={`/product/${product.slug}`} className="text-Greytext hover:underline block w-full h-full">
         <Image
           src={product.images[0]}
           alt={product.title}
-          width={300}
-          height={100}
+          fill
           priority={true}
-          className="object-cover object-center rounded-md"
+          className="object-cover object-center hover:scale-105 transition-transform duration-300"
         />
         </Link>
       </div>
 
       {/* Info */}
-      <div className="col-span-2 flex flex-col justify-between px-2.5 py-2.5">
-        <h2 className="lg:text-lg text-base font-semibold text-caffia ">{product.title}</h2>
+      <div className="flex flex-col justify-between px-2 py-2">
+        <h2 className="lg:text-base text-sm font-semibold text-caffia line-clamp-2">{product.title}</h2>
 
-        <div className="flex justify-between items-center py-2 gap-32">
-          <p className="text-lg font-semibold inline-flex items-center"><IndianRupee strokeWidth={2} size={20} />{product.price}</p>
+        <div className="flex justify-between items-center py-2 gap-4 mt-1">
+          <p className="text-base md:text-lg font-semibold inline-flex items-center gap-0.5"><IndianRupee strokeWidth={2} size={16} />{product.price}</p>
           {product.originalPrice && (
-            <p className=' line-through text-lg font-semibold inline-flex items-center '><IndianRupee strokeWidth={2} size={20} />{product.originalPrice}</p>
+            <p className='line-through text-sm font-semibold inline-flex items-center gap-0.5'><IndianRupee strokeWidth={2} size={14} />{product.originalPrice}</p>
           )}
         </div>
 
-        <div className="flex justify-between items-center gap-4 mt-2">
-          <Link href={`/product/${product.slug}`} className="text-Greytext font-semibold hover:underline">
+        <div className="flex justify-between items-center gap-2 mt-2 flex-wrap">
+          <Link href={`/product/${product.slug}`} className="text-Greytext font-semibold text-xs md:text-sm hover:underline">
             View Product
           </Link>
           <div>

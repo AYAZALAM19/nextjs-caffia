@@ -31,28 +31,28 @@ function AboutPage() {
       year: "2021",
       title: "Started Learning Web Development",
       description: "HTML, CSS aur basic JavaScript se journey shuru ki.",
-      img: "/assets/images/about_banner1.webp" || null,
+      img: "/assets/images/about_banner1.webp",
     },
     {
       id: 2,
       year: "2022",
       title: "Built First Project",
       description: "Ek portfolio website banaya aur GitHub pe dala.",
-      img: "/assets/images/about_banner1.webp" || null,
+      img: "/assets/images/about_banner1.webp",
     },
     {
       id: 3,
       year: "2022",
       title: "Built First Project",
       description: "Ek portfolio website banaya aur GitHub pe dala.",
-      img: "/assets/images/about_banner1.webp" || null,
+      img: "/assets/images/about_banner1.webp",
     },
     {
       id: 4,
       year: "2022",
       title: "Built First Project",
       description: "Ek portfolio website banaya aur GitHub pe dala.",
-      img: "/assets/images/about_banner1.webp" || null,
+      img: "/assets/images/about_banner1.webp",
     },
   ];
   const owners = [

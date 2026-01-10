@@ -47,7 +47,7 @@ function GooglePay() {
         console.log('✅ Payment Authorized:', paymentData);
         return { transactionState: 'SUCCESS' };
       }}
-      existingPaymentMethodRequired = 'false'
+      existingPaymentMethodRequired={false}
 
       buttonColor='black'
       buttonType='buy'

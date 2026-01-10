@@ -1,7 +1,7 @@
 import React from 'react'
 import {Instagram, Facebook,Youtube,Twitter, Mail,Phone,MapPin} from "lucide-react"
 import Image from 'next/image'
-function Fotter() {
+function Footer() {
   return (
     <div className='bg-caffia px-10 py-8'>
   <div className='flex md:flex-row flex-col gap-8'>
@@ -75,4 +75,4 @@ function Fotter() {
   )
 }
 
-export default Fotter
+export default Footer

@@ -2,7 +2,7 @@ import { Nunito, Quicksand } from "next/font/google";
 import { MessageCircleMore } from "lucide-react";
 // import type { Metadata } from "next"
 import Header from "@/components/layout/Header";
-import Fotter from "@/components/layout/Fotter";
+import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -27,7 +27,7 @@ export const metadata = {
     siteName: "Caffie",
   },
 };
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={`${quicksand.className} ${quicksand.className} mx-auto`}>
@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
         >
           <MessageCircleMore className="w-6 h-6 text-white" />
         </a>
-        <Fotter />
+        <Footer />
       </body>
     </html>
   );

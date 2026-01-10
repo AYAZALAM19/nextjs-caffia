@@ -1,7 +1,7 @@
 import { type FC } from "react";
 import CoffeeSliderBanner from "../components/CoffeeSliderBanner";
 import Newsletter from "../components/Newsletter";
-import BestOPtions from "@/components/landing/BestOPtions";
+import BestOptions from "@/components/landing/BestOptions";
 import Stats from "@/components/landing/Stats";
 import PremiumCollection from "@/components/landing/PremiumCollection";
 import AboutCaffie from "@/components/landing/AboutCaffie";
@@ -14,7 +14,7 @@ export default function HomePage() {
       <CoffeeSliderBanner />
 
       <div className="mx-auto container">
-        <BestOPtions />
+        <BestOptions />
       </div>
       <PremiumCollection />
 

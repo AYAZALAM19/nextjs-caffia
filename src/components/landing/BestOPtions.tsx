@@ -9,7 +9,7 @@ type BestOption = {
   title: string;
 };
 
-export default function BestOPtions() {
+export default function BestOptions() {
 
   const SlugData = products.filter((item) => item.slug)
   console.log('here is slug data', SlugData.length)

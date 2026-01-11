@@ -3,6 +3,7 @@ import { MessageCircleMore } from "lucide-react";
 // import type { Metadata } from "next"
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           <MessageCircleMore className="w-6 h-6 text-white" />
         </a>
+        <Toaster richColors closeButton position="top-center" />
         <Footer />
       </body>
     </html>

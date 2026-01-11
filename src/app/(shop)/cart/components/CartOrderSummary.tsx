@@ -2,9 +2,12 @@
 import { useCartStore } from '@/lib/stores/cartStore'
 import Link from 'next/link'
 import React from 'react'
+import LoginDrawer from '@/components/auth/LoginDrawer'
+import { useAuthStore } from '@/lib/stores/auth/authStore'
 
 export default function OrderSummary() {
     const total = useCartStore((state) => state.totalAmount)
+    const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   return (
     <>
     <div className="w-full rounded-lg md:rounded-2xl bg-[#FBF5EF] p-4 md:p-5 shadow-sm border border-[#F1E3D6]">
@@ -54,11 +57,18 @@ export default function OrderSummary() {
   <p className="text-[10px] md:text-[11px] text-gray-500 mb-3 md:mb-4">Including GST</p>
 
   {/* button */}
-  <button className="w-full rounded-lg shadow shadow-caffia bg-caffia py-2 md:py-3 text-xs md:text-sm font-semibold text-white hover:bg-[#6D1217] transition">
-    <Link href={'/checkout'}>
+  {/* button */}
+  {isAuthenticated ? (
+      <Link href={'/checkout'} className="block w-full rounded-lg shadow shadow-caffia bg-caffia py-2 md:py-3 text-xs md:text-sm font-semibold text-white hover:bg-[#6D1217] transition text-center">
         Proceed to Checkout
-    </Link>  
-    </button>
+      </Link>
+  ) : (
+      <LoginDrawer>
+        <button className="w-full rounded-lg shadow shadow-caffia bg-caffia py-2 md:py-3 text-xs md:text-sm font-semibold text-white hover:bg-[#6D1217] transition">
+            Proceed to Checkout
+        </button>
+      </LoginDrawer>
+  )}
 
   {/* footer */}
   <div className="mt-3 md:mt-4 flex flex-col items-center gap-2">

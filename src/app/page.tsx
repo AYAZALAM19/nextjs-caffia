@@ -1,7 +1,7 @@
 import { type FC } from "react";
 import CoffeeSliderBanner from "../components/CoffeeSliderBanner";
 import Newsletter from "../components/Newsletter";
-import BestOptions from "../components/landing/BestOptions";
+import BestOptions from "../components/landing/BestOption";
 import Stats from "../components/landing/Stats";
 import PremiumCollection from "../components/landing/PremiumCollection";
 import AboutCaffie from "../components/landing/AboutCaffie";

@@ -7,14 +7,14 @@ import { useCartStore } from "@/lib/stores/cartStore";
 import { useRouter } from "next/navigation";
 
 const ThankYouPage = () => {
-  const { orderPlaced, resetOrderPlaced, clearCart } = useCartStore();
+  const { orderPlaced, lastOrder, resetOrderPlaced, clearCart } = useCartStore();
   const router = useRouter();
 
   useEffect(() => {
-    if (!orderPlaced) {
+    if (!orderPlaced || !lastOrder) {
       router.push("/");
     }
-  }, [orderPlaced, router]);
+  }, [orderPlaced, lastOrder, router]);
 
   useEffect(() => {
     // Clear the cart only when the thank you page is successfully mounted
@@ -23,7 +23,7 @@ const ThankYouPage = () => {
     }
   }, [orderPlaced, clearCart]);
 
-  if (!orderPlaced) {
+  if (!orderPlaced || !lastOrder) {
     return null; // or a loading spinner
   }
 
@@ -35,13 +35,15 @@ const ThankYouPage = () => {
           <div className="flex-1 lg:basis-[70%] text-center lg:text-left">
             <CheckCircle className="w-12 md:w-16 h-12 md:h-16 text-green-500 mb-2 md:mb-4 lg:mx-0 mx-auto" />
 
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2">Thank You, Ayaz!</h1>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2 text-caffia">
+              Thank You, {lastOrder.customer.name}!
+            </h1>
             <p className="font-bold text-gray-600 text-base md:text-lg">
-              Order Id: <span className="font-bold text-black">#24543</span>
+              Order Id: <span className="font-bold text-black">{lastOrder.id}</span>
             </p>
             <p className="text-base md:text-lg font-semibold text-gray-500 mb-4 md:mb-6 max-w-xl">
-              Your has been placed successfully. We sent a detail receipt to
-              ayaz@gmail.com
+              Your order has been placed successfully. We sent a detailed receipt to
+              <span className="text-black font-semibold mx-1">{lastOrder.customer.email}</span>
             </p>
 
             <div className="max-w-xl">
@@ -61,7 +63,7 @@ const ThankYouPage = () => {
                         5–7 Business Days
                       </p>
                       <p className="text-xs md:text-sm text-gray-500 mt-1">
-                        Shipping via Bluedart Express
+                        Shipping via {lastOrder.shipping.name}
                       </p>
                     </div>
                   </div>
@@ -75,12 +77,12 @@ const ThankYouPage = () => {
                       Shipping To
                     </p>
                     <p className="text-sm md:text-base font-semibold text-gray-900">
-                      Ayaz Alam
+                      {lastOrder.customer.name}
                     </p>
                     <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
-                      Random address, city
+                      {lastOrder.customer.address}, {lastOrder.customer.city}
                       <br />
-                      Maharashtra, India – 400102
+                      {lastOrder.customer.state}, India – {lastOrder.customer.pincode}
                     </p>
                   </div>
                 </div>
@@ -88,16 +90,16 @@ const ThankYouPage = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-2 md:gap-3 my-4 md:my-5">
-             <Link
-              href="/"
-              onClick={resetOrderPlaced}
-              className="inline-flex gap-2 md:gap-3 px-4 md:px-6 py-2 text-sm md:text-base font-semibold bg-caffia text-white rounded-md justify-center sm:justify-start"
-            >
-              Continue Shopping <MoveRight className="w-4 h-4 md:w-5 md:h-5" />
-            </Link>
+              <Link
+                href="/"
+                onClick={resetOrderPlaced}
+                className="inline-flex gap-2 md:gap-3 px-4 md:px-6 py-2 text-sm md:text-base font-semibold bg-caffia text-white rounded-md justify-center sm:justify-start hover:bg-gray-800 transition-colors"
+              >
+                Continue Shopping <MoveRight className="w-4 h-4 md:w-5 md:h-5" />
+              </Link>
               <Link
                 href="#"
-                className="inline-flex gap-2 md:gap-3 px-4 md:px-6 py-2 text-sm md:text-base font-semibold duration-200 bg-red-300 text-caffia rounded-md hover:bg-red-400 justify-center sm:justify-start"
+                className="inline-flex gap-2 md:gap-3 px-4 md:px-6 py-2 text-sm md:text-base font-semibold duration-200 bg-red-100 text-caffia rounded-md hover:bg-red-200 justify-center sm:justify-start"
               >
                 Track Order <MoveRight className="w-4 h-4 md:w-5 md:h-5" />
               </Link>
@@ -106,7 +108,12 @@ const ThankYouPage = () => {
 
           {/* RIGHT – 40% */}
           <div className="w-full lg:basis-[30%] max-w-md mt-4 md:mt-0">
-            <CheckoutOrderSummary />
+            <CheckoutOrderSummary
+              hideButton
+              items={lastOrder.items}
+              subtotal={lastOrder.totalAmount}
+              shippingCost={lastOrder.shipping.price}
+            />
           </div>
         </div>
       </div>

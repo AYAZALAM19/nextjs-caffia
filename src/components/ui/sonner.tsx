@@ -10,10 +10,7 @@ import {
 import { useTheme } from "next-themes"
 import { Toaster as Sonner, type ToasterProps, toast } from "sonner"
 
-console.log('Sonner module loaded, toast object:', !!toast);
-
 const Toaster = ({ ...props }: ToasterProps) => {
-  console.log('Toaster component rendering');
   const { theme = "system" } = useTheme()
 
   return (

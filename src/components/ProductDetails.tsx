@@ -1,6 +1,6 @@
 "use client";
 import { Product } from "@/lib/types/product";
-import { Badge, IndianRupee, Leaf, Truck,BadgeCheck } from "lucide-react";
+import { Badge, IndianRupee, Leaf, Truck, BadgeCheck } from "lucide-react";
 import { useCartStore } from "@/lib/stores/cartStore";
 import Image from "next/image";
 import { useState } from "react";
@@ -9,7 +9,7 @@ interface ProductDetailsProps {
   productdetails: Product;
 }
 const roasts = ['Light', 'Medium', 'Dark'];
-type RostType =(typeof roasts)[number]
+type RostType = (typeof roasts)[number]
 
 const grind = ['whole Bean', 'Medium', 'Fine'];
 type GrindType = (typeof grind)[number];
@@ -17,7 +17,8 @@ type GrindType = (typeof grind)[number];
 export default function ProductDetail({ productdetails }: ProductDetailsProps) {
 
   const [selectedRoast, setSelectedRoast] = useState<RostType>('Medium');
-  const [selectGrind, setSelectGrind] =useState<GrindType>('Whole Bean');
+  const [selectGrind, setSelectGrind] = useState<GrindType>('Whole Bean');
+  const [quantity, setQuantity] = useState(1);
 
   const addToCart = useCartStore((state) => state.addToCart);
   return (
@@ -77,20 +78,22 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
           <div className="flex gap-6 items-center">
             <p className="text-3xl text-caffia font-bold flex items-center gap-1">
               <IndianRupee size={18} />
-              {productdetails.originalPrice}
-            </p>
-            <p className="line-through text-gray-500 text-lg flex items-center gap-1">
-              <IndianRupee strokeWidth={1.7} size={18} />
               {productdetails.price}
             </p>
+            {productdetails.originalPrice && (
+              <p className="line-through text-gray-500 text-lg flex items-center gap-1">
+                <IndianRupee strokeWidth={1.7} size={18} />
+                {productdetails.originalPrice}
+              </p>
+            )}
           </div>
 
           {/* Description */}
-            <p className="text-gray-700 font-semibold leading-relaxed pb-3 border-b border-gray-300">
-              {productdetails.description}
-            </p>
-            {/* Roast level */}
-            <div className="w-full">
+          <p className="text-gray-700 font-semibold leading-relaxed pb-3 border-b border-gray-300">
+            {productdetails.description}
+          </p>
+          {/* Roast level */}
+          <div className="w-full">
             {/* Header */}
             <div className="flex justify-between items-center mb-3">
               <p className="text-sm font-bold text-gray-800 uppercase tracking-wide">
@@ -108,10 +111,9 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
                   key={roast}
                   onClick={() => setSelectedRoast(roast)}
                   className={`flex-1 py-2 rounded-lg border-2 text-sm font-medium cursor-pointer transition
-                    ${
-                      selectedRoast === roast
-                        ? "border-red-300 text-white bg-caffia shadow-sm"
-                        : "border-gray-200 text-caffia bg-white hover:border-gray-300"
+                    ${selectedRoast === roast
+                      ? "border-red-300 text-white bg-caffia shadow-sm"
+                      : "border-gray-200 text-caffia bg-white hover:border-gray-300"
                     }`}
                 >
                   {roast}
@@ -121,34 +123,51 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
           </div>
 
           {/* grind level */}
-         <div>
-          <p>Grind</p>
-          <select
-            value={selectGrind}
-            onChange={(e) => setSelectGrind(e.target.value as GrindType)}
-            className="border rounded-lg px-3 py-2 w-full focus:ring-caffia"
-          >
-            {grind.map((g) => (
-              <option key={g} value={g}>
-                {g}
-              </option>
-            ))}
-          </select>
-        </div>
-          {/* Add to Cart Button */}
-          <button
-            className="bg-caffia w-full text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-lg hover:scale-[1.02] transition-transform"
-            onClick={() => {
-              addToCart(productdetails);
-              console.log(productdetails);
-            }}
-          >
-            Add To Cart
-          </button>
+          <div className="space-y-2">
+            <p className="text-sm font-bold text-gray-800 uppercase tracking-wide">Grind</p>
+            <select
+              value={selectGrind}
+              onChange={(e) => setSelectGrind(e.target.value as GrindType)}
+              className="border rounded-lg px-3 py-2 w-full focus:ring-caffia focus:outline-none"
+            >
+              {grind.map((g) => (
+                <option key={g} value={g}>
+                  {g}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Quantity and Add to Cart Button */}
+          <div className="flex gap-4 items-center pt-4">
+            <div className="flex items-center border-2 border-gray-200 rounded-lg overflow-hidden h-12">
+              <button
+                onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                className="px-4 hover:bg-gray-100 transition-colors h-full border-r"
+              >
+                -
+              </button>
+              <span className="w-12 text-center font-bold">{quantity}</span>
+              <button
+                onClick={() => setQuantity(q => q + 1)}
+                className="px-4 hover:bg-gray-100 transition-colors h-full border-l"
+              >
+                +
+              </button>
+            </div>
+            <button
+              className="bg-caffia flex-1 text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-lg hover:scale-[1.01] transition-all h-12 flex items-center justify-center"
+              onClick={() => {
+                addToCart(productdetails, quantity, selectedRoast, selectGrind);
+              }}
+            >
+              Add To Cart
+            </button>
+          </div>
 
           {/*  */}
 
-         <div className="flex items-center lg:gap-10 text-gray-600 lg:px-8 px-2 py-4 text-xs lg:text-sm">
+          <div className="flex items-center lg:gap-10 text-gray-600 lg:px-8 px-2 py-4 text-xs lg:text-sm">
             {/* Free shipping */}
             <div className="flex items-center gap-1 lg:gap-2 whitespace-nowrap">
               <Truck className="h-8 w-h-8 text-white fill-Greytext" />

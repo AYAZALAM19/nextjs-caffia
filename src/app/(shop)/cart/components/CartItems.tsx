@@ -11,76 +11,75 @@ export default function CartItems() {
 
     return (
         <>
-            {items.map((item: Product, index) => (
+            {items.map((item, index) => (
                 <div key={index} className='flex lg:flex-row flex-col items-center mb-3 gap-4 rounded-xl bg-white p-4 border border-gray-200 shadow-sm'>
                     {/* Product Image */}
-                    <div className='flex items-center'>
+                    <div className='flex items-center w-full lg:w-auto gap-4'>
                         <Image
                             src={item.images[0]}
                             width={80}
                             height={80}
                             alt={item.title}
-                            className='rounded-lg object-cover'
-                        /> 
-                        <div className='lg:hidden block'>
-                            <h4>{item.title}</h4>
-                             <button
-                        onClick={() => remove(item.id)}
-                        className='text-gray-400 lg:hidden block group hover:text-red-600 hover:bg-red-50 p-2 rounded-lg transition'
-                    >
-                        <p className='flex items-center gap-3'>
-                        <Trash2 className='text-red-600' size={18} /> <span className='lg:hidden block text-red-600group-hover:text-red-600'>Remove</span>
-                        </p>
-                    </button>
+                            className='rounded-lg object-cover w-20 h-20'
+                        />
+                        <div className='lg:hidden flex-1'>
+                            <h4 className='font-semibold text-gray-800 text-sm'>{item.title}</h4>
+                            <p className='text-xs text-gray-500 uppercase tracking-tight'>
+                                {item.selectedRoast} • {item.selectedGrind}
+                            </p>
+                            <button
+                                onClick={() => remove(item.id, item.selectedRoast, item.selectedGrind)}
+                                className='text-red-600 text-xs flex items-center gap-1 mt-1 font-medium'
+                            >
+                                <Trash2 size={14} /> Remove
+                            </button>
                         </div>
                     </div>
 
-                    {/* Product Details */}
+                    {/* Product Details (Desktop) */}
                     <div className='flex-1 lg:block hidden'>
                         <h4 className='font-semibold text-gray-800 text-sm mb-1'>
                             {item.title}
                         </h4>
                         <p className='text-xs text-gray-500'>
-                            Dark Roast • Whole Bean
+                            {item.selectedRoast} • {item.selectedGrind}
                         </p>
                         <p className='text-xs text-gray-500'>
-                            {item.weight || '250g Pack'}
+                            {item.weight || '50g Pack'}
                         </p>
                     </div>
 
-                    {/* Quantity Controls */}
-                    <div className='flex justify-between gap-3.5'>
+                    {/* Quantity Controls and Price */}
+                    <div className='flex items-center justify-between w-full lg:w-auto gap-6'>
                         <div className='flex items-center gap-3 border border-gray-300 rounded-lg px-3 py-1.5'>
-                        <button
-                            onClick={() => updateQuantity(item.id, (item.quantity || 1) - 1)}
-                            disabled={(item.quantity || 1) <= 1}
-                            className='text-gray-600 hover:text-gray-800 disabled:opacity-30'
-                        >
-                            <Minus size={14} />
-                        </button>
-                        <span className='text-sm font-medium w-6 text-center'>
-                            {item.quantity || 1}
-                        </span>
-                        <button
-                            onClick={() => updateQuantity(item.id, (item.quantity || 1) + 1)}
-                            className='text-gray-600 hover:text-gray-800'
-                        >
-                            <Plus size={14} />
-                        </button>
-                    </div>
+                            <button
+                                onClick={() => updateQuantity(item.id, (item.quantity || 1) - 1, item.selectedRoast, item.selectedGrind)}
+                                disabled={(item.quantity || 1) <= 1}
+                                className='text-gray-600 hover:text-gray-800 disabled:opacity-30'
+                            >
+                                <Minus size={14} />
+                            </button>
+                            <span className='text-sm font-medium min-w-6 text-center'>
+                                {item.quantity || 1}
+                            </span>
+                            <button
+                                onClick={() => updateQuantity(item.id, (item.quantity || 1) + 1, item.selectedRoast, item.selectedGrind)}
+                                className='text-gray-600 hover:text-gray-800'
+                            >
+                                <Plus size={14} />
+                            </button>
+                        </div>
 
-                    {/* Price */}
-                    <div className='font-semibold text-gray-800 text-base'>
-                        ₹{item.price}
-                    </div>
+                        <div className='font-semibold text-gray-800 text-base'>
+                            ₹{item.price * (item.quantity || 1)}
+                        </div>
 
-                    {/* Delete Button */}
-                    <button
-                        onClick={() => remove(item.id)}
-                        className='text-gray-400 lg:block hidden hover:text-red-600 hover:bg-red-50 p-2 rounded-lg transition'
-                    >
-                        <Trash2 size={18} />
-                    </button>
+                        <button
+                            onClick={() => remove(item.id, item.selectedRoast, item.selectedGrind)}
+                            className='text-gray-400 lg:block hidden hover:text-red-600 hover:bg-red-50 p-2 rounded-lg transition'
+                        >
+                            <Trash2 size={18} />
+                        </button>
                     </div>
                 </div>
             ))}

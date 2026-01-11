@@ -12,6 +12,7 @@ import {
   checkoutSchema,
   CheckoutFormData,
 } from "@/lib/checkout-validation-shema/checkout-schema";
+import PaymentSection from "./components/PaymentSection";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/lib/stores/cartStore";
 
@@ -39,7 +40,16 @@ export default function Checkout() {
     console.log("Form submitted data", { ...data, shipping: selectedMethod });
     // Simulate payment processing
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    placeOrder();
+
+    placeOrder({
+      customer: data,
+      shipping: {
+        id: selectedMethod.id,
+        name: selectedMethod.name,
+        price: selectedMethod.price
+      }
+    });
+
     router.push("/thank-you");
   }
 
@@ -66,7 +76,10 @@ export default function Checkout() {
                 />
               </div>
 
-              {/* Aap yahan Payment Method ka section bhi add kar sakte ho niche */}
+              {/* Payment Method Section */}
+              <div className="bg-white p-4 md:p-5 rounded-lg md:rounded-2xl shadow-sm border border-gray-50">
+                <PaymentSection />
+              </div>
             </div>
 
             {/* RIGHT SIDE: Summary (4 columns - Sticky) */}

@@ -1,121 +1,166 @@
 import { create } from "zustand";
-import { persist } from 'zustand/middleware';
+import { persist } from "zustand/middleware";
 import { Product } from "@/lib/types/product";
-import { it } from "node:test";
+import { toast } from "sonner";
 
-type CartItem = Product & {quantity: number}
+export type CartItem = Product & {
+  quantity: number;
+  selectedRoast?: string;
+  selectedGrind?: string;
+}
+
+export interface Order {
+  id: string;
+  customer: {
+    name: string;
+    email: string;
+    Phone: string;
+    address: string;
+    city: string;
+    state: string;
+    pincode: string;
+  };
+  shipping: {
+    id: string;
+    name: string;
+    price: number;
+  };
+  items: CartItem[];
+  totalAmount: number;
+  totalWithShipping: number;
+  createdAt: string;
+}
+
 interface CartState {
-    cart: CartItem[],
-    totalCount: number,
-    addToCart: (product: Product, qty? :number) => void,
-    removeFromCart:(id : string) => void,
-    updateQuantity:(id: string, qty?: number) => void,
-    totalAmount: number,  
-    toastMessage: string,
-    toastImage: string,
-    orderPlaced: boolean,
-
-    placeOrder:() => void,
-    resetOrderPlaced: () => void,
-    clearCart: () => void,
-    showToast:(msg: string | null, img: string | null) => void;
+  cart: CartItem[],
+  totalCount: number,
+  addToCart: (product: Product, qty?: number, roast?: string, grind?: string) => void,
+  removeFromCart: (id: string, roast?: string, grind?: string) => void,
+  updateQuantity: (id: string, qty: number, roast?: string, grind?: string) => void,
+  totalAmount: number,
+  toastMessage: string,
+  toastImage: string,
+  orderPlaced: boolean,
+  lastOrder: Order | null;
+  placeOrder: (data: { customer: Order['customer'], shipping: Order['shipping'] }) => void,
+  resetOrderPlaced: () => void,
+  clearCart: () => void,
+  showToast: (msg: string | null, img: string | null) => void;
 }
 const calcTotal = (cart: CartItem[]) => cart.reduce((acc, item) => acc + item.quantity, 0);
 
 const calcTotalAmount = (cart: CartItem[]) => cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-export const useCartStore = create<CartState>()( 
-    persist(
+export const useCartStore = create<CartState>()(
+  persist(
     (set, get) => ({
-    cart: [],
-    totalCount: 0,
-    totalAmount : 0,
-    orderPlaced: false,
+      cart: [],
+      totalCount: 0,
+      totalAmount: 0,
+      orderPlaced: false,
+      lastOrder: null,
 
-    toastMessage: null,
-    toastImage: null,
+      toastMessage: null,
+      toastImage: null,
 
-    placeOrder: () =>
-    set({
-      orderPlaced: true,
-    }),
+      placeOrder: (data) =>
+        set((state) => {
+          const orderId = '#' + Math.floor(10000 + Math.random() * 90000).toString();
+          const newOrder: Order = {
+            id: orderId,
+            customer: data.customer,
+            shipping: data.shipping,
+            items: [...state.cart],
+            totalAmount: state.totalAmount,
+            totalWithShipping: state.totalAmount + data.shipping.price,
+            createdAt: new Date().toISOString()
+          };
 
-    clearCart: () =>
-      set({
-        cart: [],
-        totalCount: 0,
-        totalAmount: 0,
-      }),
+          return {
+            orderPlaced: true,
+            lastOrder: newOrder
+          }
+        }),
 
-    resetOrderPlaced: () =>
-      set({
-        orderPlaced: false,
-      }),
+      clearCart: () =>
+        set({
+          cart: [],
+          totalCount: 0,
+          totalAmount: 0,
+        }),
 
-    showToast: (msg, img = null) =>
+      resetOrderPlaced: () =>
+        set({
+          orderPlaced: false,
+        }),
+
+      showToast: (msg, img = null) =>
         set(() => ({
           toastMessage: msg,
           toastImage: img
         })),
 
 
-    addToCart:(product, qty = 1) =>
-    set((state) =>{
-        const existing  = state.cart.find((e) => e.id === product.id);
-        let updatedCart
-
-        if(existing){
-         updatedCart = state.cart.map((c) =>
-            c.id === product.id? 
-            {...c, quantity: c.quantity + qty}: c)
-        }
-        else{
-        updatedCart = [...state.cart, {...product, quantity: qty}]
-        }
-
-        get().showToast(`${product.title} added to cart`,product.images[0])
-
-        return { 
-            cart: updatedCart, 
-            totalCount: calcTotal(updatedCart),
-            totalAmount: calcTotalAmount(updatedCart) 
-        };
-        }),
-
-    removeFromCart:(id) =>
+      addToCart: (product, qty = 1, roast, grind) =>
         set((state) => {
-            const updatedCart = state.cart.filter((c) => c.id !== id);
-
-            return{
-                cart: updatedCart, 
-                totalCount: calcTotal(updatedCart),
-                totalAmount: calcTotalAmount(updatedCart)
-            }
-        }),
-
-        updateQuantity: (id, qty = 1) =>
-        set((state) => {
-            const item = state.cart.find((c) => c.id === id)
-          const updatedCart = state.cart.map((c) =>
-            c.id === id ? { ...c, quantity: qty } : c
+          const existing = state.cart.find((e) =>
+            e.id === product.id &&
+            e.selectedRoast === roast &&
+            e.selectedGrind === grind
           );
-          
-          if(item){
-          get().showToast(`${item.title} updated`,item.images[0])
+          let updatedCart
+
+          if (existing) {
+            updatedCart = state.cart.map((c) =>
+              (c.id === product.id && c.selectedRoast === roast && c.selectedGrind === grind) ?
+                { ...c, quantity: c.quantity + qty } : c)
+          }
+          else {
+            updatedCart = [...state.cart, { ...product, quantity: qty, selectedRoast: roast, selectedGrind: grind }]
           }
 
-          return { 
-            cart: updatedCart, 
-            totalCount: calcTotal(updatedCart), 
-            totalAmount: calcTotalAmount(updatedCart) 
-        };
+          toast.success(`${product.title} added to cart`, {
+            description: roast ? `${roast} Roast | ${grind || 'Standard'} Grind` : undefined
+          });
+
+          return {
+            cart: updatedCart,
+            totalCount: calcTotal(updatedCart),
+            totalAmount: calcTotalAmount(updatedCart)
+          };
         }),
-}),
-{
-    name: 'cart-storage',
-     partialize: (state) => ({
+
+      removeFromCart: (id, roast, grind) =>
+        set((state) => {
+          const updatedCart = state.cart.filter((c) =>
+            !(c.id === id && c.selectedRoast === roast && c.selectedGrind === grind)
+          );
+
+          return {
+            cart: updatedCart,
+            totalCount: calcTotal(updatedCart),
+            totalAmount: calcTotalAmount(updatedCart)
+          }
+        }),
+
+      updateQuantity: (id, qty, roast, grind) =>
+        set((state) => {
+          const updatedCart = state.cart.map((c) =>
+            (c.id === id && c.selectedRoast === roast && c.selectedGrind === grind) ? { ...c, quantity: qty } : c
+          );
+
+          return {
+            cart: updatedCart,
+            totalCount: calcTotal(updatedCart),
+            totalAmount: calcTotalAmount(updatedCart)
+          };
+        }),
+    }),
+    {
+      name: 'cart-storage',
+      partialize: (state) => ({
         cart: state.cart,
         totalCount: state.totalCount || 0,  // agar localStorage empty ho to 0
         totalAmount: state.totalAmount || 0
-    })
-}
-))
+      })
+    }
+  ))

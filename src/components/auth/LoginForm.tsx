@@ -1,5 +1,4 @@
 'use client';
-console.log('LoginForm module loaded');
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -32,7 +31,6 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
         try {
             const response = await mockAuthServices.login(data);
-            console.log('Login successful, firing toast:', response.user.name);
             login(response);
             toast.success(`Welcome back, ${response.user.name}!`);
             if (onSuccess) {

@@ -31,7 +31,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${quicksand.className} ${quicksand.className} mx-auto`}>
+      <body className={`${quicksand.className} mx-auto`}>
         <Header />
         {children}
         <a

@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 import { useForm } from "react-hook-form";
-import { mockAuthServices } from "@/lib/mock-auth";
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/lib/stores/auth/authStore';
+import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui/sonner";
 
 interface RegisterFormData {
     name: string;
     email: string;
+    number: string;
     password: string;
 }
 
@@ -18,8 +18,6 @@ export default function RegisterForm() {
     const [loading, setLoading] = useState(false);
 
     const router = useRouter();
-    const register = useAuthStore((state) => state.register);
-
     const { register: formRegister, handleSubmit, formState: { errors } } = useForm<RegisterFormData>();
 
     const onSubmit = async (data: RegisterFormData) => {
@@ -27,9 +25,35 @@ export default function RegisterForm() {
         setLoading(true);
 
         try {
-            const response = await mockAuthServices.register(data);
-            register(response);
-            toast.success(`Account created! Welcome, ${response.user.name}`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            const payload = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                const msg = payload?.message || "Registration failed";
+                throw new Error(msg);
+            }
+
+            const result = await signIn("credentials", {
+                email: data.email,
+                password: data.password,
+                redirect: false,
+            });
+
+            if (result?.error) {
+                const msg = result.error || "Login Failed";
+                setError(msg);
+                toast.error(msg);
+                return;
+            }
+
+            toast.success(`Account created! Welcome, ${data.name}`);
             router.push('/');
         } catch (err: any) {
             const msg = err.message || 'Registration failed';
@@ -57,6 +81,7 @@ export default function RegisterForm() {
             <div className="flex flex-col gap-1">
                 <label className="text-sm font-medium">Email</label>
                 <input type="email"
+                className='border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
                     {...formRegister('email', {
                         required: 'Email is required',
                         pattern: {
@@ -65,6 +90,22 @@ export default function RegisterForm() {
                         }
                     })} />
                 {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
+            </div>
+            <div className="flex flex-col gap-1">
+                <label className="text-sm font-medium">Phone Number</label>
+                <input
+                    type="tel"
+                    inputMode="numeric"
+                    className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    {...formRegister('number', {
+                        required: 'Number is required',
+                        pattern: {
+                            value: /^\d{10}$/,
+                            message: 'Enter a valid 10-digit mobile number'
+                        }
+                    })}
+                />
+                {errors.number && <span className="text-red-500 text-sm">{errors.number.message}</span>}
             </div>
 
             <div className="flex flex-col gap-1">
@@ -80,7 +121,7 @@ export default function RegisterForm() {
             <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                className="w-full bg-caffia text-white py-2 rounded-lg hover:bg-red-900 duration-200 disabled:opacity-50"
             >
                 {loading ? 'Registering...' : 'Register'}
             </button>

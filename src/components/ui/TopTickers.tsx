@@ -1,5 +1,5 @@
 'use client';
-import React,{ useMemo} from "react";
+import React, { useMemo } from "react";
 import { animate, easeIn, motion } from "framer-motion";
 
 type AutoScrollerProps = {
@@ -27,6 +27,17 @@ const marqueeVariants = {
 };
 
 export const TopTickers = ({items, speed=2 }:AutoScrollerProps) => {
+    const renderItems = useMemo(() => {
+        const base = React.Children.toArray(items);
+        const duplicate = base.map((child, index) => {
+            if (React.isValidElement(child)) {
+                return React.cloneElement(child, { key: `dup-${index}` });
+            }
+            return <span key={`dup-${index}`}>{child}</span>;
+        });
+        return [...base, ...duplicate];
+    }, [items]);
+
 return (
     <div className="bg-caffia overflow-hidden whitespace-nowrap">  {/* Parent container */}
     <motion.div
@@ -36,8 +47,7 @@ return (
     whileHover="pause" // Hover pe pause ho jayega
     >
         <div className="py-2">
-            {items}
-            {items} {/* Duplicate content for seamless loop */}
+            {renderItems}
         </div>
 
     </motion.div>

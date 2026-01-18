@@ -8,13 +8,14 @@ import Image from 'next/image';
 import { useCartStore } from '@/lib/stores/cartStore';
 import ToastNotification from '../ui/ToastNotification';
 import LoginDrawer from '../auth/LoginDrawer';
-import { useAuthStore } from '@/lib/stores/auth/authStore';
+import { useSession } from "next-auth/react";
 
 function Header() {
   const [mounted, setMounted] = useState(false)
   const [toggle, setToggle] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
+  const { status } = useSession()
 
   const totalCount = useCartStore((state) => state.totalCount)
 
@@ -136,13 +137,17 @@ function Header() {
 
           {/* Right side: Search and Cart */}
           <div className='flex gap-4 items-center'>
-            {mounted && (
+            {mounted && (status === "authenticated" ? (
+              <Link href="/profile" className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative group">
+                <UserRound className='text-caffia font-bold group-hover:text-amberLight transition-colors' size={22} />
+              </Link>
+            ) : (
               <LoginDrawer>
                 <button className='p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative group'>
                   <UserRound className='text-caffia font-bold group-hover:text-amberLight transition-colors' size={22} />
                 </button>
               </LoginDrawer>
-            )}
+            ))}
 
             <button className='p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative group'>
               <Search className='text-caffia font-bold group-hover:text-amberLight transition-colors' size={22} />
@@ -255,7 +260,14 @@ function Header() {
           {/* Mobile Menu Footer */}
           <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-amber-50 to-amber-100 border-t border-gray-200">
             <div className="flex flex-col space-y-3">
-              {mounted && (
+              {mounted && (status === "authenticated" ? (
+                <Link href="/profile" onClick={Toggle} className="flex items-center space-x-3 text-gray-700 cursor-pointer">
+                  <div className="w-8 h-8 bg-amber-200 rounded-full flex items-center justify-center">
+                    <span className="text-sm font-semibold bg-amber-100/10 rounded-full p-3 "><UserRound /></span>
+                  </div>
+                  <span className="font-medium">My Account</span>
+                </Link>
+              ) : (
                 <LoginDrawer>
                   <div className="flex items-center space-x-3 text-gray-700 cursor-pointer">
                     <div className="w-8 h-8 bg-amber-200 rounded-full flex items-center justify-center">
@@ -264,7 +276,7 @@ function Header() {
                     <span className="font-medium">My Account</span>
                   </div>
                 </LoginDrawer>
-              )}
+              ))}
 
               <button className="w-full bg-gradient-to-r from-amber-500 toamberLight hover:fromamberLight hover:to-amber-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-[1.02]">
                 Order Now ☕

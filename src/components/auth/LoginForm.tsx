@@ -1,10 +1,9 @@
 'use client';
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { mockAuthServices } from "@/lib/mock-auth";
-import { useAuthStore } from "@/lib/stores/auth/authStore";
+import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui/sonner";
 
 interface LoginFormData {
@@ -21,8 +20,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
     const [loading, setLoading] = useState(false);
 
     const router = useRouter();
-    const login = useAuthStore((state) => state.login);
-
+    const searchParams = useSearchParams();
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
 
     const onSubmit = async (data: LoginFormData) => {
@@ -30,13 +28,25 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         setLoading(true);
 
         try {
-            const response = await mockAuthServices.login(data);
-            login(response);
-            toast.success(`Welcome back, ${response.user.name}!`);
-            if (onSuccess) {
+            const result = await signIn("credentials", {
+                email: data.email,
+                password: data.password,
+                redirect: false,
+            });
+
+            if (result?.error) {
+                const msg = result.error || "Login Failed";
+                setError(msg);
+                toast.error(msg);
+                return;
+            }
+
+            toast.success("Welcome back!");
+            if (onSuccess) {    
                 onSuccess();
             } else {
-                router.push('/');
+                const callbackUrl = searchParams.get("callbackUrl");
+                router.push(callbackUrl || '/');
             }
         } catch (err: any) {
             const msg = err.message || 'Login Failed';

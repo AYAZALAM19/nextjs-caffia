@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { User, Package, MapPin, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -48,6 +49,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
 
                                 <button
                                     className="flex lg:w-full items-center gap-3 px-5 py-3 md:py-4 rounded-2xl text-red-500 hover:bg-red-50 transition-all duration-300 lg:mt-6 shrink-0 lg:shrink"
+                                    onClick={() => signOut({callbackUrl: '/'})}
                                 >
                                     <LogOut size={20} />
                                     <span className="font-semibold text-sm md:text-base">Sign Out</span>

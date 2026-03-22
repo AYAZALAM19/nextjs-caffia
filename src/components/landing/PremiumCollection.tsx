@@ -1,10 +1,24 @@
 
 import Link from "next/link";
 import CoffeeCard from "@/components/CoffeeCard";
-import { products } from "@/data/products";
-import { type FC } from 'react';
+import { ProductListResponse } from "@/lib/types/product";
 
-export default function PremiumCollection() {
+async function getProducts(): Promise<ProductListResponse> {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+      cache: 'no-store'
+    });
+    if (!res.ok) throw new Error();
+    return res.json();
+  } catch(error) {
+    return { data: [], page: 1, limit: 10, total: 0 };
+  }
+}
+
+export default async function PremiumCollection() {
+  const productsResponse = await getProducts();
+  const products = productsResponse.data.slice(0, 3);
+
   return (
     <section className="my-8 md:my-10 bg-pink-300/10 container mx-auto px-3 md:px-4">
       <div>

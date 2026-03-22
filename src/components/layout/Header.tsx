@@ -16,11 +16,13 @@ function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
   const { status } = useSession()
+  const cartData = useCartStore((state) => state.cartData)
+  const totalCount = cartData?.totalItems || 0
 
-  const totalCount = useCartStore((state) => state.totalCount)
-
+  const fetchCart = useCartStore((state) => state.fetchCart)
   useEffect(() => {
     setMounted(true)
+    fetchCart()
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }

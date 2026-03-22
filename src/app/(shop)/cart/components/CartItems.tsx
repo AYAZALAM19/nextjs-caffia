@@ -1,14 +1,14 @@
 import { useCartStore } from '@/lib/stores/cartStore'
-import { Product } from '@/lib/types/product';
 import Image from 'next/image';
-import React from 'react'
 import { Minus, Plus, Trash2 } from 'lucide-react'; // or use any icon library
 
 export default function CartItems() {
-    const items = useCartStore((state) => state.cart);
-    const remove = useCartStore((state) => state.removeFromCart);
-    const updateQuantity = useCartStore((state) => state.updateQuantity); // make sure this exists in your store
+    const cartData = useCartStore((state) => state.cartData?.items);
+    const removeAsync = useCartStore((state) => state.removItemFromCart);
+    const updateQuantityAsync = useCartStore((state) => state.updateItemQuantity); // make sure this exists in your store
+    // Array banate hain wapas un items ka taaki map aaram se chale
 
+    const items = cartData || [];
     return (
         <>
             {items.map((item, index) => (
@@ -16,19 +16,21 @@ export default function CartItems() {
                     {/* Product Image */}
                     <div className='flex items-center w-full lg:w-auto gap-4'>
                         <Image
-                            src={item.images[0]}
+                            src={item?.variant?.product?.imageUrl || '/assets/images/products/product-1.webp'}
                             width={80}
                             height={80}
-                            alt={item.title}
+                            alt={item.variant.product.name || (item as any).title}
                             className='rounded-lg object-cover w-20 h-20'
                         />
                         <div className='lg:hidden flex-1'>
-                            <h4 className='font-semibold text-gray-800 text-sm'>{item.title}</h4>
+                            <h4 className='font-semibold text-gray-800 text-sm'>{item.variant.product.name}</h4>
                             <p className='text-xs text-gray-500 uppercase tracking-tight'>
-                                {item.selectedRoast} • {item.selectedGrind}
+                                {item.variant.product.category}
                             </p>
                             <button
-                                onClick={() => remove(item.id, item.selectedRoast, item.selectedGrind)}
+                                onClick={() => {
+                                    removeAsync(item.variant.id)
+                                }}
                                 className='text-red-600 text-xs flex items-center gap-1 mt-1 font-medium'
                             >
                                 <Trash2 size={14} /> Remove
@@ -39,13 +41,10 @@ export default function CartItems() {
                     {/* Product Details (Desktop) */}
                     <div className='flex-1 lg:block hidden'>
                         <h4 className='font-semibold text-gray-800 text-sm mb-1'>
-                            {item.title}
+                            {item.variant.product.name || (item as any).title}
                         </h4>
                         <p className='text-xs text-gray-500'>
-                            {item.selectedRoast} • {item.selectedGrind}
-                        </p>
-                        <p className='text-xs text-gray-500'>
-                            {item.weight || '50g Pack'}
+                            {item.variant.weightGrams}
                         </p>
                     </div>
 
@@ -53,7 +52,9 @@ export default function CartItems() {
                     <div className='flex items-center justify-between w-full lg:w-auto gap-6'>
                         <div className='flex items-center gap-3 border border-gray-300 rounded-lg px-3 py-1.5'>
                             <button
-                                onClick={() => updateQuantity(item.id, (item.quantity || 1) - 1, item.selectedRoast, item.selectedGrind)}
+                                onClick={() => {
+                                    updateQuantityAsync(item.variantId, item.quantity - 1)
+                                }}
                                 disabled={(item.quantity || 1) <= 1}
                                 className='text-gray-600 hover:text-gray-800 disabled:opacity-30'
                             >
@@ -63,7 +64,9 @@ export default function CartItems() {
                                 {item.quantity || 1}
                             </span>
                             <button
-                                onClick={() => updateQuantity(item.id, (item.quantity || 1) + 1, item.selectedRoast, item.selectedGrind)}
+                               onClick={() => {
+                                updateQuantityAsync(item.variantId, item.quantity + 1)
+                            }}
                                 className='text-gray-600 hover:text-gray-800'
                             >
                                 <Plus size={14} />
@@ -71,11 +74,13 @@ export default function CartItems() {
                         </div>
 
                         <div className='font-semibold text-gray-800 text-base'>
-                            ₹{item.price * (item.quantity || 1)}
+                            ₹{item.itemTotal}
                         </div>
 
                         <button
-                            onClick={() => remove(item.id, item.selectedRoast, item.selectedGrind)}
+                        onClick={() => {
+                            removeAsync(item.variantId)
+                        }}
                             className='text-gray-400 lg:block hidden hover:text-red-600 hover:bg-red-50 p-2 rounded-lg transition'
                         >
                             <Trash2 size={18} />

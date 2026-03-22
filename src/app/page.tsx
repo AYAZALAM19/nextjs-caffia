@@ -14,7 +14,7 @@ export default function HomePage() {
       <CoffeeSliderBanner />
 
       <div className="mx-auto container">
-        <BestOptions />
+        {/* <BestOptions /> */}
       </div>
       <PremiumCollection />
 

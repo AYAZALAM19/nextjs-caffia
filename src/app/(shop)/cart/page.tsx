@@ -10,16 +10,16 @@ import CartItems from "./components/CartItems";
 import OrderSummary from "./components/CartOrderSummary";
 
 export default function CartPage() {
-  const cart = useCartStore((state) => state.cart);
-  const removeFromCart = useCartStore((state) => state.removeFromCart);
-  const updateQuantity = useCartStore((state) => state.updateQuantity);
-  const totalAmount = useCartStore((state) => state.totalAmount);
+  const cart = useCartStore((state) => state.cartData?.items) || [];
+  const removeFromCart = useCartStore((state) => state.removItemFromCart);
+  const updateQuantity = useCartStore((state) => state.updateItemQuantity);
+  const totalAmount = useCartStore((state) => state.cartData?.totalItems);
 
-  const handleQuantityChange = (productId: string, newQty: number) => {
-    if (newQty <= 0) {
-      removeFromCart(productId);
+  const handleQuantityChange = (variantId: number, quantity: number) => {
+    if (quantity <= 0) {
+      removeFromCart(variantId);
     } else {
-      updateQuantity(productId, newQty);
+      updateQuantity(variantId, quantity);
     }
   };
 

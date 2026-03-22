@@ -1,26 +1,20 @@
-"use client";
-import { Product } from "@/lib/types/product";
-import { Badge, IndianRupee, Leaf, Truck, BadgeCheck } from "lucide-react";
+"use client"
+import { ProductDetailsResponse, ProductVariant } from "@/lib/types/product";
+import { IndianRupee, Leaf, Truck, BadgeCheck } from "lucide-react";
 import { useCartStore } from "@/lib/stores/cartStore";
 import Image from "next/image";
 import { useState } from "react";
 
 interface ProductDetailsProps {
-  productdetails: Product;
+  productdetails: ProductDetailsResponse;
 }
-const roasts = ['Light', 'Medium', 'Dark'];
-type RostType = (typeof roasts)[number]
-
-const grind = ['whole Bean', 'Medium', 'Fine'];
-type GrindType = (typeof grind)[number];
 
 export default function ProductDetail({ productdetails }: ProductDetailsProps) {
-
-  const [selectedRoast, setSelectedRoast] = useState<RostType>('Medium');
-  const [selectGrind, setSelectGrind] = useState<GrindType>('Whole Bean');
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(productdetails.variants[0]);
   const [quantity, setQuantity] = useState(1);
 
-  const addToCart = useCartStore((state) => state.addToCart);
+  const addItemToCart = useCartStore((state) => state.addItemToCart);
+
   return (
     <div className="lg:max-w-7xl mx-auto my-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -28,35 +22,36 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
         <div>
           <div className="flex flex-col items-center">
             <Image
-              src={productdetails?.images[0]}
+              src={"/assets/images/products/product-1.webp"}
               width={400}
               height={600}
               className="rounded-3xl shadow-md h-40 lg:h-80 w-auto object-cover"
-              alt={productdetails?.title || "Product Image"}
+              alt={productdetails.name}
             />
-            <div className="flex gap-4 mt-5">
-              {productdetails?.images.slice(0, 3).map((img, i) => (
-                <Image
-                  key={i}
-                  src={img}
-                  alt={`Thumbnail ${i + 1}`}
-                  width={100}
-                  height={100}
-                  className="rounded-xl lg:block hidden cursor-pointer hover:scale-105 transition-transform shadow-sm"
-                />
-              ))}
-            </div>
+            {productdetails.images && productdetails.images.length > 0 && (
+              <div className="flex gap-4 mt-5">
+                {productdetails.images.slice(0, 3).map((img, i) => (
+                  <Image
+                    key={i}
+                    src={img}
+                    alt={`Thumbnail ${i + 1}`}
+                    width={100}
+                    height={100}
+                    className="rounded-xl lg:block hidden cursor-pointer hover:scale-105 transition-transform shadow-sm"
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
         {/* RIGHT: Product Details */}
         <div className=" lg:space-y-3 w-full space-y-1.5 px-4 lg:px-8">
-          {/* Title */}
           <h1 className="font-bold text-xl lg:text-3xl leading-tight">
-            {productdetails.title}
+            {productdetails.name}
           </h1>
+          
           <div className="bg-red-200 flex mx-auto items-center gap-3 rounded-md px-4 py-3 w-fit">
-            {/* Rating */}
             <div className="flex items-center gap-2">
               <div className="flex text-caffia text-base">★★★★★</div>
               <span className="font-bold text-sm text-red-950">4.9</span>
@@ -64,13 +59,9 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
                 (245 reviews)
               </span>
             </div>
-
-            {/* Divider */}
             <div className="h-5 w-px bg-Greytext"></div>
-
-            {/* Quote */}
-            <div className="text-sm italic text-caffia">
-              “Velvety smooth with zero acidity.”
+            <div className="text-sm italic text-caffia capitalize">
+              {productdetails.category}
             </div>
           </div>
 
@@ -78,65 +69,43 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
           <div className="flex gap-6 items-center">
             <p className="text-3xl text-caffia font-bold flex items-center gap-1">
               <IndianRupee size={18} />
-              {productdetails.price}
+              {selectedVariant?.price || productdetails.price}
             </p>
-            {productdetails.originalPrice && (
-              <p className="line-through text-gray-500 text-lg flex items-center gap-1">
-                <IndianRupee strokeWidth={1.7} size={18} />
-                {productdetails.originalPrice}
-              </p>
-            )}
           </div>
 
           {/* Description */}
           <p className="text-gray-700 font-semibold leading-relaxed pb-3 border-b border-gray-300">
             {productdetails.description}
           </p>
-          {/* Roast level */}
-          <div className="w-full">
-            {/* Header */}
-            <div className="flex justify-between items-center mb-3">
-              <p className="text-sm font-bold text-gray-800 uppercase tracking-wide">
-                Roast Level
-              </p>
-              <p className="text-sm text-caffia/80 font-medium">
-                {selectedRoast}
-              </p>
-            </div>
 
-            {/* Options */}
-            <div className="flex gap-3">
-              {roasts.map((roast) => (
-                <button
-                  key={roast}
-                  onClick={() => setSelectedRoast(roast)}
-                  className={`flex-1 py-2 rounded-lg border-2 text-sm font-medium cursor-pointer transition
-                    ${selectedRoast === roast
-                      ? "border-red-300 text-white bg-caffia shadow-sm"
-                      : "border-gray-200 text-caffia bg-white hover:border-gray-300"
-                    }`}
-                >
-                  {roast}
-                </button>
-              ))}
+          {/* Variants Selector */}
+          {productdetails.variants.length > 0 && (
+            <div className="w-full">
+              <div className="flex justify-between items-center mb-3">
+                <p className="text-sm font-bold text-gray-800 uppercase tracking-wide">
+                  Select Weight
+                </p>
+                <p className="text-sm text-caffia/80 font-medium">
+                  {selectedVariant.weightGrams}g
+                </p>
+              </div>
+              <div className="flex gap-3">
+                {productdetails.variants.map((v) => (
+                  <button
+                    key={v.id}
+                    onClick={() => setSelectedVariant(v)}
+                    className={`flex-1 py-2 rounded-lg border-2 text-sm font-medium cursor-pointer transition
+                      ${selectedVariant.id === v.id
+                        ? "border-red-300 text-white bg-caffia shadow-sm"
+                        : "border-gray-200 text-caffia bg-white hover:border-gray-300"
+                      }`}
+                  >
+                    {v.weightGrams}g
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-
-          {/* grind level */}
-          <div className="space-y-2">
-            <p className="text-sm font-bold text-gray-800 uppercase tracking-wide">Grind</p>
-            <select
-              value={selectGrind}
-              onChange={(e) => setSelectGrind(e.target.value as GrindType)}
-              className="border rounded-lg px-3 py-2 w-full focus:ring-caffia focus:outline-none"
-            >
-              {grind.map((g) => (
-                <option key={g} value={g}>
-                  {g}
-                </option>
-              ))}
-            </select>
-          </div>
+          )}
 
           {/* Quantity and Add to Cart Button */}
           <div className="flex gap-4 items-center pt-4">
@@ -158,7 +127,7 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
             <button
               className="bg-caffia flex-1 text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-lg hover:scale-[1.01] transition-all h-12 flex items-center justify-center"
               onClick={() => {
-                addToCart(productdetails, quantity, selectedRoast, selectGrind);
+                addItemToCart({ variantId: selectedVariant.id, quantity: quantity });
               }}
             >
               Add To Cart

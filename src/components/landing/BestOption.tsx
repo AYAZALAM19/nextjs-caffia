@@ -1,27 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import { products } from "@/data/products";
-
-type BestOption = {
-  image: string;
-  link: string;
-  title: string;
-};
-
+import { ProductResponse } from "@/lib/types/product";
 export default function BestOptions() {
 
   const SlugData = products.filter((item) => item.slug).slice(0, 5);
   console.log('here is slug data', SlugData.length)
-
-  const placeholders = [
-    { title: "Vanilla Latte", image: "/assets/images/downloaded_images/Best_options-1.png" },
-    { title: "Organic Brew", image: "/assets/images/downloaded_images/Best_options-2.png" },
-    { title: "Hazelnut Delight", image: "/assets/images/downloaded_images/Best_options-4.png" },
-    { title: "Dark Roast", image: "/assets/images/downloaded_images/Best_options-3.png" },
-    { title: "Caramel Mocha", image: "/assets/images/downloaded_images/Best_options-5.png" },
-  ];
-
   const data: BestOption[] = SlugData.map((product, index) => ({
     title: placeholders[index]?.title || product.title,
     image: placeholders[index]?.image || product.images[0],

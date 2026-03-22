@@ -1,74 +1,48 @@
-import React from "react";
 import HeroBanner from "../../../components/HeroBanner";
 // import GooglePay from "@/app/components/GoogelPay";
-import {ChevronRight, IndianRupee} from 'lucide-react'
+import { ChevronRight, IndianRupee } from 'lucide-react'
 import Image from "next/image";
 import Link from "next/link";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 
-function Menu() {
- const menuItems = [
-  {
-    id: 1,
-    name: "Vanilla Instant Coffee",
-    description:
-      "Smooth and aromatic instant coffee infused with natural vanilla flavoring. Rich coffee taste with sweet vanilla notes for a comforting cup.",
-    price: 300,
-    img: "/assets/images/products/product-1.webp",
-    category: "Coffee",
-    isSpecial: true,
-  },
-  {
-    id: 2,
-    name: "Original Instant Coffee",
-    description:
-      "Classic premium instant coffee made from carefully selected beans. Pure, bold coffee flavor with no additives - just authentic coffee taste.",
-    price: 400,
-    img: "/assets/images/products/product-2.webp",
-    category: "Specialty Drinks",
-  },
-  {
-    id: 3,
-    name: "Hazelnut Instant Coffee",
-    description:
-      "Delicious instant coffee blended with rich hazelnut flavoring. Creamy, nutty aroma with a smooth finish that coffee lovers adore.",
-    price: 300,
-    img: "/assets/images/products/product-3.webp",
-    category: "Cold Drinks",
-  },
-  {
-    id: 4,
-    name: "Vanilla Instant Coffee",
-    description:
-      "Premium vanilla-flavored instant coffee with a perfect balance of coffee strength and sweet vanilla essence. Ideal for morning or evening enjoyment.",
-    price: 400,
-    img: "/assets/images/products/product-4.webp",
-    category: "Pastries",
-  },
-  {
-    id: 5,
-    name: "Vanilla Instant Coffee",
-    description:
-      "Luxurious vanilla instant coffee with a velvety smooth texture. Enhanced with natural vanilla extract for an indulgent coffee experience.",
-    price: 300,
-    img: "/assets/images/products/product-1.webp",
-    category: "Desserts",
-  },
-];
+import { ProductListResponse } from "@/lib/types/product";
+
+async function getProducts(): Promise<ProductListResponse> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+    cache: 'no-store' // Ensure we get fresh data
+  });
+  if (!res.ok) {
+    throw new Error('Failed to fetch products');
+  }
+  return res.json();
+}
+
+async function Menu() {
+  const productsResponse = await getProducts();
+  const menuItems = productsResponse.data.map(item => ({
+    id: item.id,
+    name: item.name,
+    description: item.category, // Backend listing doesn't have description, using category as placeholder or keeping it simple
+    price: item.startingPrice,
+    img: item.imageUrl,
+    category: item.category,
+    slug: item.slug,
+    isSpecial: false, // Defaulting to false as backend doesn't provide this yet
+  }));
 
 
   return (
     <>
-    <div className="conatainer mx-auto">
-       <Breadcrumb separator={<ChevronRight />} 
-         capitalizeLinks/>
-    </div>
-        <HeroBanner
-          title="Our Menu"
-          img="/assets/images/about_banner1.webp"
-          description="From a small neighborhood coffee shop to a premium coffee experience, discover the journey that makes Caffie special."
-          subTitle="Our Menu" 
-          />
+      <div className="conatainer mx-auto">
+        <Breadcrumb separator={<ChevronRight />}
+          capitalizeLinks />
+      </div>
+      <HeroBanner
+        title="Our Menu"
+        img="/assets/images/about_banner1.webp"
+        description="From a small neighborhood coffee shop to a premium coffee experience, discover the journey that makes Caffie special."
+        subTitle="Our Menu"
+      />
       <div>
         {/* Menu
         <GooglePay /> */}
@@ -106,20 +80,20 @@ function Menu() {
                 <div className="w-full md:w-72 flex-shrink-0">
                   <div className="relative w-full h-[180px] md:h-[260px] lg:h-[300px] bg-gray-100 overflow-hidden">
 
-                     <Image
-                        src={item.img}
-                        alt={item.name}
-                        width={600}
-                        height={400}
-                        className="
+                    <Image
+                      src={item.img}
+                      alt={item.name}
+                      width={600}
+                      height={400}
+                      className="
                           w-full h-full
                           object-contain md:object-cover
                           transition-transform duration-500
                           group-hover:scale-105
                         "
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </div>
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
                 </div>
 
                 {/* Content Section */}
@@ -148,7 +122,7 @@ function Menu() {
                         ₹{item.price}
                       </div>
                       <button className="bg-gradient-to-r from-amber/75 to-amberLight/70 hover:from-amber hover:to-amberLight text-white font-semibold px-3 md:px-6 py-1.5 md:py-2 text-[10px] md:text-sm rounded-full shadow-md hover:shadow-lg transform hover:scale-105 whitespace-nowrap transition-all duration-300">
-                        <Link href='/product'>View</Link>
+                        <Link href={`/product/${item.slug}`}>View</Link>
                       </button>
                     </div>
                   </div>
@@ -164,18 +138,18 @@ function Menu() {
 
 
       <div className="text-center my-8 md:my-10 px-3 md:px-4">
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg md:rounded-2xl p-6 md:p-8 max-w-2xl mx-auto border border-white/50 shadow-lg">
-            <h3 className="text-lg md:text-2xl font-bold text-gray-800 mb-2 md:mb-4">
-              Can't decide? Try our Coffee Flight!
-            </h3>
-            <p className="text-gray-600 text-sm md:text-base mb-4 md:mb-6">
-              Sample three of our signature drinks and discover your perfect match.
-            </p>
-            <button className="bg-gradient-to-t from-amber via-amber-200 to-amberLight hover:from-amber-700 hover:to-orange-700 text-xs md:text-base text-white font-semibold px-6 md:px-8 py-2 md:py-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center gap-1">
-              Explore Coffee Flight - 799<IndianRupee className="text-white w-3 md:w-4" />
-            </button>
-          </div>
+        <div className="bg-white/60 backdrop-blur-sm rounded-lg md:rounded-2xl p-6 md:p-8 max-w-2xl mx-auto border border-white/50 shadow-lg">
+          <h3 className="text-lg md:text-2xl font-bold text-gray-800 mb-2 md:mb-4">
+            Can't decide? Try our Coffee Flight!
+          </h3>
+          <p className="text-gray-600 text-sm md:text-base mb-4 md:mb-6">
+            Sample three of our signature drinks and discover your perfect match.
+          </p>
+          <button className="bg-gradient-to-t from-amber via-amber-200 to-amberLight hover:from-amber-700 hover:to-orange-700 text-xs md:text-base text-white font-semibold px-6 md:px-8 py-2 md:py-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center gap-1">
+            Explore Coffee Flight - 799<IndianRupee className="text-white w-3 md:w-4" />
+          </button>
         </div>
+      </div>
     </>
   );
 }

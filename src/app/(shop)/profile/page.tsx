@@ -1,6 +1,14 @@
 import React from "react";
+import { getCustomer } from "@/lib/auth/session";
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
+  const customer = await getCustomer();
+  const name = customer?.name || "User";
+  const email = customer?.email || "No email";
+  const phone = customer?.phone || "No phone";
+  const role = customer?.role || "Customer";
+  const id = customer?.id || "Unknown";
+
   return (
     <div className="space-y-6">
       <div>
@@ -14,7 +22,7 @@ export default function ProfilePage() {
           <input 
             type="text" 
             readOnly 
-            value="Guest User" 
+            value={name} 
             className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-600 focus:outline-none"
           />
         </div>
@@ -23,7 +31,16 @@ export default function ProfilePage() {
           <input 
             type="email" 
             readOnly 
-            value="guest@caffia.com" 
+            value={email} 
+            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-600 focus:outline-none"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="text-sm font-semibold text-gray-700">Phone Number</label>
+          <input 
+            type="tel" 
+            readOnly 
+            value={phone} 
             className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-600 focus:outline-none"
           />
         </div>

@@ -1,3 +1,4 @@
+import { set } from "zod";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -52,24 +53,38 @@ export interface updateItemIncart {
 }
 export interface CartStore{
   cartData: cartItem | null;
+  orderPlaced: boolean;
+  lastOrder: any | null;
 
   //Action function
   fetchCart: () => Promise<void>;
   addItemToCart: (data: AddItemToCart) => Promise<void>;
   updateItemQuantity: (variantId: number, quantity: number) => Promise<void>;
   removItemFromCart: (variantId: number) => Promise<void>;
+  clearCart: () => Promise<void>;
+  placeOrder: (orderData: any) => Promise<void>;
+  resetOrderPlaced: () => void;
+  toastMessage: string | null;
+  toastImage: string | null;
+  showToast: (message: string | null, image?: string| null) => void
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
   cartData: null,
+  orderPlaced: false,
+  lastOrder: null,
+  toastMessage: null,
+  toastImage: null,
 
+  showToast:(message, image = null) => set({
+    toastMessage: message,
+    toastImage: image
+  }),
   fetchCart: async() => {
-
     try{
       const response = await fetch(`/api/cart`);
       const data = await response.json();
       set({cartData: data})
-
     }
     catch(error){
       console.log(error);
@@ -121,5 +136,31 @@ export const useCartStore = create<CartStore>((set, get) => ({
     catch(error){
       console.log(error);
     }
-  }
+  },
+  clearCart: async () => {
+    set({ cartData: null });
+  },
+  placeOrder: async (orderData: any) => {
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        set({
+          orderPlaced: true,
+          lastOrder: result.data || result, // Expecting backend to return created order
+          cartData: null,
+        });
+      }
+    } catch (error) {
+      console.error("Place order error:", error);
+    }
+  },
+  resetOrderPlaced: () => set({ orderPlaced: false, lastOrder: null }),
 }))

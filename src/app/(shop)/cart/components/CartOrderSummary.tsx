@@ -6,7 +6,7 @@ import LoginDrawer from '@/components/auth/LoginDrawer'
 import { useAuthStore } from '@/lib/stores/auth/authStore'
 
 export default function OrderSummary() {
-    const total = useCartStore((state) => state.totalAmount)
+    const total = useCartStore((state) => state.cartData?.cartTotal || "0")
     const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
   return (
     <>

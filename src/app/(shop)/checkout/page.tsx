@@ -18,7 +18,9 @@ import { useCartStore } from "@/lib/stores/cartStore";
 
 export default function Checkout() {
   const router = useRouter();
-  const { cart, placeOrder, orderPlaced } = useCartStore();
+  const cartData = useCartStore((state) => state.cartData);
+  const cart = cartData?.items || [];
+  const { placeOrder, orderPlaced } = useCartStore();
   // Default to first method (Standard)
   const [selectedMethod, setSelectedMethod] = useState(SHIPPING_METHODS[0]);
 
@@ -53,7 +55,7 @@ export default function Checkout() {
     router.push("/thank-you");
   }
 
-  if (cart.length === 0) {
+  if (cart.length === 0 && !orderPlaced) {
     return null; // or a loading spinner
   }
 

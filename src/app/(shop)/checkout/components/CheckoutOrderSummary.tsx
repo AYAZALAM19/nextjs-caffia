@@ -1,13 +1,12 @@
-import { useCartStore, type CartItem } from '@/lib/stores/cartStore'
+import { useCartStore, type cartItem } from '@/lib/stores/cartStore'
 import { ShieldCheck, Loader2 } from 'lucide-react'
 import Image from 'next/image'
-import React from 'react'
 
 interface CheckoutOrderSummaryProps {
   shippingCost?: number
   isSubmitting?: boolean
   hideButton?: boolean
-  items?: CartItem[]
+  items?: any[]
   subtotal?: number
 }
 
@@ -18,11 +17,17 @@ export default function CheckoutOrderSummary({
   items,
   subtotal
 }: CheckoutOrderSummaryProps) {
-  const storeCart = useCartStore((state) => state.cart)
-  const storeSubtotal = useCartStore((state) => state.totalAmount)
+  const storeCart = useCartStore((state) => state.cartData?.items) || []
+  const storeSubtotalStr = useCartStore((state) => state.cartData?.cartTotal) || "0"
+  
+  // Parse numeric subtotal from string if needed
+  const parsePrice = (priceStr: string | number) => {
+      if (typeof priceStr === 'number') return priceStr;
+      return Number(priceStr.replace(/[^0-9.-]+/g, "")) || 0;
+  }
 
   const cart = items || storeCart
-  const displaySubtotal = subtotal !== undefined ? subtotal : storeSubtotal
+  const displaySubtotal = subtotal !== undefined ? subtotal : parsePrice(storeSubtotalStr)
   const finalTotal = displaySubtotal + shippingCost
 
   // Helper for consistent currency formatting
@@ -30,6 +35,7 @@ export default function CheckoutOrderSummary({
     new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
+      maximumFractionDigits: 0
     }).format(price)
 
   return (
@@ -41,16 +47,16 @@ export default function CheckoutOrderSummary({
 
       {/* 2. Scrollable area agar cart items zyada hon */}
       <div className="max-h-[400px] overflow-y-auto pr-2 space-y-5 custom-scrollbar">
-        {cart.map((item, index) => {
-          const lineTotal = item.price * item.quantity
+        {cart.map((item: any, index: number) => {
+          const lineTotal = parsePrice(item.itemTotal) || (parsePrice(item.unitPrice) * item.quantity)
           return (
             <div key={item.id} className="flex items-start justify-between gap-4 group">
               <div className="flex gap-4">
                 {/* Product Image with Badge for Quantity */}
                 <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
                   <Image
-                    src={item.images[0]}
-                    alt={item.brand}
+                    src={item.variant?.product?.imageUrl || '/assets/images/products/product-1.webp'}
+                    alt={item.variant?.product?.name || "Product"}
                     fill
                     className="object-cover transition-transform group-hover:scale-105"
                   />
@@ -63,10 +69,10 @@ export default function CheckoutOrderSummary({
 
                 <div className="flex flex-col">
                   <h3 className="text-sm font-semibold text-gray-800 line-clamp-1 italic">
-                    {item.title}
+                    {item.variant?.product?.name}
                   </h3>
                   <p className="text-xs text-gray-500 mt-0.5">
-                    {item.roastLevel} | {item.weight}
+                    {item.variant?.weightGrams}g | {item.variant?.product?.category}
                   </p>
                 </div>
               </div>

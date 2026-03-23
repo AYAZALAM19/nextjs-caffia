@@ -17,14 +17,17 @@ const ThankYouPage = () => {
   }, [orderPlaced, lastOrder, router]);
 
   useEffect(() => {
-    // Clear the cart only when the thank you page is successfully mounted
     if (orderPlaced) {
       clearCart();
     }
   }, [orderPlaced, clearCart]);
 
   if (!orderPlaced || !lastOrder) {
-    return null; // or a loading spinner
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-caffia"></div>
+      </div>
+    );
   }
 
   return (
@@ -36,14 +39,14 @@ const ThankYouPage = () => {
             <CheckCircle className="w-12 md:w-16 h-12 md:h-16 text-green-500 mb-2 md:mb-4 lg:mx-0 mx-auto" />
 
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2 text-caffia">
-              Thank You, {lastOrder.customer.name}!
+              Thank You, {lastOrder.customer?.name || "Customer"}!
             </h1>
             <p className="font-bold text-gray-600 text-base md:text-lg">
-              Order Id: <span className="font-bold text-black">{lastOrder.id}</span>
+              Order Id: <span className="font-bold text-black">{lastOrder.id || lastOrder._id || "N/A"}</span>
             </p>
             <p className="text-base md:text-lg font-semibold text-gray-500 mb-4 md:mb-6 max-w-xl">
               Your order has been placed successfully. We sent a detailed receipt to
-              <span className="text-black font-semibold mx-1">{lastOrder.customer.email}</span>
+              <span className="text-black font-semibold mx-1">{lastOrder.customer?.email}</span>
             </p>
 
             <div className="max-w-xl">
@@ -62,9 +65,11 @@ const ThankYouPage = () => {
                       <p className="text-sm md:text-base font-semibold text-gray-900">
                         5–7 Business Days
                       </p>
-                      <p className="text-xs md:text-sm text-gray-500 mt-1">
-                        Shipping via {lastOrder.shipping.name}
-                      </p>
+                      {lastOrder.shipping && (
+                        <p className="text-xs md:text-sm text-gray-500 mt-1">
+                          Shipping via {lastOrder.shipping.name || "Standard Delivery"}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -72,17 +77,17 @@ const ThankYouPage = () => {
                   <div className="hidden lg:block w-px self-stretch bg-gray-300"></div>
 
                   {/* RIGHT: Address */}
-                  <div className="flex-1">
+                  <div className="flex-1 text-left">
                     <p className="text-xs md:text-sm font-medium text-gray-500 mb-1">
                       Shipping To
                     </p>
-                    <p className="text-sm md:text-base font-semibold text-gray-900">
-                      {lastOrder.customer.name}
+                    <p className="text-sm md:text-base font-semibold text-gray-900 line-clamp-1">
+                      {lastOrder.customer?.name}
                     </p>
                     <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
-                      {lastOrder.customer.address}, {lastOrder.customer.city}
+                      {lastOrder.customer?.address}, {lastOrder.customer?.city}
                       <br />
-                      {lastOrder.customer.state}, India – {lastOrder.customer.pincode}
+                      {lastOrder.customer?.state}, India – {lastOrder.customer?.pincode}
                     </p>
                   </div>
                 </div>

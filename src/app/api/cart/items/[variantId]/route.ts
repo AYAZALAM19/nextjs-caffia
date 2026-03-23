@@ -3,7 +3,7 @@ import { getToken } from "next-auth/jwt";
 
 const { NEXT_PUBLIC_API_URL } = process.env;
 
-export async function PUT(request: Request, { params }: {params: Promise<{ variantId: number }>}){
+export async function PUT(request: Request, { params }: {params: Promise<{ variantId: string }>}){
     try{
         const token = await getToken({ req: request as any });
 

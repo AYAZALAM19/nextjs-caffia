@@ -3,9 +3,9 @@ const { NEXT_PUBLIC_API_URL } = process.env;
 
 export async function GET(
     request: Request,
-    { params }: { params: { slug: string } }
+    { params }: { params: Promise<{ slug: string }> }
 ) {
-    const { slug } = params;
+    const { slug } = await params;
 
     const res = await fetch(`${NEXT_PUBLIC_API_URL}/products/${slug}`, {
         method: "GET",

@@ -1,17 +1,38 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ProductResponse } from "@/lib/types/product";
-export default function BestOptions() {
+import { ProductListResponse } from "@/lib/types/product";
+
+interface BestOption {
+  title: string;
+  image: string;
+  link: string;
+}
+
+async function getProducts(): Promise<ProductListResponse> {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+      cache: 'no-store'
+    });
+    if (!res.ok) throw new Error();
+    return res.json();
+  } catch (error) {
+    return { data: [], page: 1, limit: 10, total: 0 };
+  }
+}
+
+export default async function BestOptions() {
+  const productsResponse = await getProducts();
+  const products = productsResponse.data;
 
   const SlugData = products.filter((item) => item.slug).slice(0, 5);
-  console.log('here is slug data', SlugData.length)
-  const data: BestOption[] = SlugData.map((product, index) => ({
-    title: placeholders[index]?.title || product.title,
-    image: placeholders[index]?.image || product.images[0],
+  
+  const data: BestOption[] = SlugData.map((product) => ({
+    title: product.name,
+    image: product.imageUrl,
     link: `/product/${product.slug}`,
   }));
 
-  console.log('here si rhe data', data.filter((item) => item.link))
+  console.log('here is the data', data.filter((item) => item.link))
   return (
     <div className="container mx-auto">
       <h2 className="lg:text-4xl text-caffia text-lg md:text-2xl my-4 md:my-6 px-3 md:px-4 font-semibold">Order Our Best Options</h2>

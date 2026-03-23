@@ -1,9 +1,6 @@
 "use client";
-import React, { useActionState } from "react";
 import { useCartStore } from "@/lib/stores/cartStore";
-import Image from "next/image";
-import { Product } from "@/lib/types/product";
-import { Trash2, Minus, IndianRupee, Plus, ChevronRight, IndianRupeeIcon } from "lucide-react";
+import { ChevronRight, } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Link from "next/link";
 import CartItems from "./components/CartItems";
@@ -13,7 +10,6 @@ export default function CartPage() {
   const cart = useCartStore((state) => state.cartData?.items) || [];
   const removeFromCart = useCartStore((state) => state.removItemFromCart);
   const updateQuantity = useCartStore((state) => state.updateItemQuantity);
-  const totalAmount = useCartStore((state) => state.cartData?.totalItems);
 
   const handleQuantityChange = (variantId: number, quantity: number) => {
     if (quantity <= 0) {

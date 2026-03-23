@@ -1,4 +1,3 @@
-import { type FC } from "react";
 import CoffeeSliderBanner from "../components/CoffeeSliderBanner";
 import Newsletter from "../components/Newsletter";
 import BestOptions from "../components/landing/BestOption";
@@ -14,7 +13,7 @@ export default function HomePage() {
       <CoffeeSliderBanner />
 
       <div className="mx-auto container">
-        {/* <BestOptions /> */}
+        <BestOptions />
       </div>
       <PremiumCollection />
 

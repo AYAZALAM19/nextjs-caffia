@@ -1,13 +1,12 @@
 'use client'
 import { useCartStore } from '@/lib/stores/cartStore'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import React from 'react'
 import LoginDrawer from '@/components/auth/LoginDrawer'
-import { useAuthStore } from '@/lib/stores/auth/authStore'
-
 export default function OrderSummary() {
     const total = useCartStore((state) => state.cartData?.cartTotal || "0")
-    const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+    const {status} = useSession()
+    const isAuthenticated =  status === "authenticated"
   return (
     <>
     <div className="w-full rounded-lg md:rounded-2xl bg-[#FBF5EF] p-4 md:p-5 shadow-sm border border-[#F1E3D6]">

@@ -15,12 +15,19 @@ import {
 import PaymentSection from "./components/PaymentSection";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/lib/stores/cartStore";
+import { toast } from "sonner";
+import { stat } from "node:fs";
+
+type CheckoutType  = {
+  orderId: number,
+  publicOrderCode: string,
+}
 
 export default function Checkout() {
   const router = useRouter();
   const cartData = useCartStore((state) => state.cartData);
   const cart = cartData?.items || [];
-  const { placeOrder, orderPlaced } = useCartStore();
+  const { placeOrder, orderPlaced, clearCart } = useCartStore();
   // Default to first method (Standard)
   const [selectedMethod, setSelectedMethod] = useState(SHIPPING_METHODS[0]);
 
@@ -38,27 +45,31 @@ export default function Checkout() {
     resolver: zodResolver(checkoutSchema),
   });
 
-  async function OnSubmit(data: CheckoutFormData) {
-    console.log("Form submitted data", { ...data, shipping: selectedMethod });
-    // Simulate payment processing
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    placeOrder({
-      customer: data,
-      shipping: {
-        id: selectedMethod.id,
-        name: selectedMethod.name,
-        price: selectedMethod.price
+  async function OnSubmit(formData: CheckoutFormData) {
+    try{
+      const response = await fetch('/api/checkout', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+        })
+      })
+      const result = await response.json() as {success: boolean, message: string, data: CheckoutType};
+      if(result.success){
+        toast.success(result.message || "Order Placed Successfully")
+        clearCart();
+        router.push(`/thank-you?orderId=${result.data?.publicOrderCode}`)
       }
-    });
-
-    router.push("/thank-you");
+      else{
+        toast.error(result.message || "Failed to place order")
+      }
+    }
+    catch(error){
+      console.error("Checkout error:", error);
+      toast.error("Something went wrong!");
+    }
   }
-
-  if (cart.length === 0 && !orderPlaced) {
-    return null; // or a loading spinner
-  }
-
   return (
     <>
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-6">

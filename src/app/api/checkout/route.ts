@@ -12,13 +12,15 @@ export async function POST( req: Request) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
+        const { addressId } = await req.json();
+
         const res = await fetch(`${NEXT_PUBLIC_API_URL}/checkout`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token.accessToken}`
             },
-            body: JSON.stringify({ userId: token.id }),
+            body: JSON.stringify({ userId: token.id, addressId }),
         })
 
         const data = await res.json();

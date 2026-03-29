@@ -1,7 +1,6 @@
 'use client'
 import { useCartStore } from '@/lib/stores/cartStore'
 import { useSession } from 'next-auth/react'
-import Link from 'next/link'
 import LoginDrawer from '@/components/auth/LoginDrawer'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'

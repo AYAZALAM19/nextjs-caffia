@@ -115,9 +115,9 @@ const ThankYouPage = () => {
           <div className="w-full lg:basis-[30%] max-w-md mt-4 md:mt-0">
             <CheckoutOrderSummary
               hideButton
-              items={lastOrder.items}
-              subtotal={lastOrder.totalAmount}
-              shippingCost={lastOrder.shipping.price}
+              items={lastOrder.items || []}
+              subtotal={lastOrder.totalAmount || 0}
+              shippingCost={lastOrder.shipping?.price || 0}
             />
           </div>
         </div>

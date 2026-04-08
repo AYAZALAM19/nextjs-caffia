@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import AddressSelector from '@/components/AddressSelector'
+import Link from 'next/link'
 
 export default function OrderSummary() {
     const total = useCartStore((state) => state.cartData?.cartTotal || "0")
@@ -106,21 +107,9 @@ export default function OrderSummary() {
                 )}
 
                 {/* button */}
-                {isAuthenticated ? (
-                    <button 
-                        onClick={handleCheckout}
-                        disabled={isSubmitting}
-                        className="block w-full rounded-lg shadow shadow-caffia bg-caffia py-2 md:py-3 text-xs md:text-sm font-semibold text-white hover:bg-[#6D1217] transition text-center disabled:opacity-50"
-                    >
-                        {isSubmitting ? "Placing Order..." : "Place Order Now"}
-                    </button>
-                ) : (
-                    <LoginDrawer>
-                        <button className="w-full rounded-lg shadow shadow-caffia bg-caffia py-2 md:py-3 text-xs md:text-sm font-semibold text-white hover:bg-[#6D1217] transition">
-                            Proceed to Checkout
-                        </button>
-                    </LoginDrawer>
-                )}
+                    <Link href="/checkout" className='block w-full rounded-lg shadow shadow-caffia bg-caffia py-2 md:py-3 text-xs md:text-sm font-semibold text-white hover:bg-[#6D1217] transition text-center'>
+                        Proceed to Checkout
+                    </Link>
 
                 {/* footer */}
                 <div className="mt-3 md:mt-4 flex flex-col items-center gap-2">

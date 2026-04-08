@@ -7,7 +7,6 @@ import CartItems from "./components/CartItems";
 import { useCartStore } from "@/lib/stores/cartStore";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import OrderSummary from "./components/CartOrderSummary";
-import AddressSelector from "@/components/AddressSelector";
 
 export default function CartPage() {
 
@@ -45,11 +44,6 @@ export default function CartPage() {
             <div className="flex flex-col lg:flex-row gap-3 md:gap-4 mt-4 md:mt-6">
               <div className="w-full lg:w-8/12">
                 <CartItems />
-                {status === 'authenticated' && (
-                  <div className="mt-6 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
-                    <AddressSelector onSelect={setSelectedAddressId} />
-                  </div>
-                )}
               </div>
               <div className="w-full lg:w-4/12">
                 <OrderSummary />

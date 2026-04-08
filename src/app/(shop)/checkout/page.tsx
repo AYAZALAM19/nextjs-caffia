@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import CheckoutOrderSummary from "./components/CheckoutOrderSummary";
-import CheckoutContactForm from "./components/CheckoutContactForm";
+import { useSession } from "next-auth/react";
+import AddressSelector from "@/components/AddressSelector";
 import ShippingOptions, {
   SHIPPING_METHODS,
 } from "./components/ShippingOptions";
@@ -25,21 +26,20 @@ type CheckoutType  = {
 
 export default function Checkout() {
   const router = useRouter();
+  const status = useSession().status;
   const cartData = useCartStore((state) => state.cartData);
   const cart = cartData?.items || [];
   const { placeOrder, orderPlaced, clearCart } = useCartStore();
   // Default to first method (Standard)
   const [selectedMethod, setSelectedMethod] = useState(SHIPPING_METHODS[0]);
+  const [selectedAddressId, setSelectedAddressId] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (cart.length === 0 && !orderPlaced) {
-      router.push("/");
-    }
-  }, [cart, router, orderPlaced]);
+  // Removed the useEffect that was forcefully pushing to home
 
   const {
     register,
     handleSubmit,
+    setValue, // ye setter react-hook-form se nikala
     formState: { errors, isSubmitting },
   } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
@@ -53,13 +53,18 @@ export default function Checkout() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          addressId: selectedAddressId
         })
       })
-      const result = await response.json() as {success: boolean, message: string, data: CheckoutType};
-      if(result.success){
+      const result = await response.json() as any;
+      if(response.ok){
         toast.success(result.message || "Order Placed Successfully")
+        useCartStore.setState({ 
+          orderPlaced: true,
+          lastOrder: result.data || result // 'thank-you' page isko dhundta hai
+        }); 
         clearCart();
-        router.push(`/thank-you?orderId=${result.data?.publicOrderCode}`)
+        router.push(`/thank-you?orderId=${result.publicOrderCode}`)
       }
       else{
         toast.error(result.message || "Failed to place order")
@@ -78,7 +83,10 @@ export default function Checkout() {
             {/* LEFT SIDE: Form (8 columns on large screens) */}
             <div className="w-full lg:w-[65%] space-y-4 md:space-y-6">
               <div className="bg-white p-4 md:p-5 rounded-lg md:rounded-2xl shadow-sm border border-gray-50">
-                <CheckoutContactForm register={register} errors={errors} isSubmitting={isSubmitting} />
+                <AddressSelector onSelect={(id) => {
+                  setSelectedAddressId(id); // Purana kaam: Parent UI ka state update
+                  setValue("addressId", id); // Naya kaam: Form validation ko bol diya ki value mil gayi hai
+                }} />
               </div>
 
               {/* Shipping Options Section */}

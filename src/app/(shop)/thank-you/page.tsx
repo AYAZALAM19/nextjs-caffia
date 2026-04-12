@@ -1,31 +1,100 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import { CheckCircle, MoveRight, Truck } from "lucide-react";
 import CheckoutOrderSummary from "../checkout/components/CheckoutOrderSummary";
 import { useCartStore } from "@/lib/stores/cartStore";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
-const ThankYouPage = () => {
-  const { orderPlaced, lastOrder, resetOrderPlaced, clearCart } = useCartStore();
+const ThankYouContent = () => {
+  const { clearCart, resetOrderPlaced } = useCartStore();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const orderId = searchParams.get('orderId');
+
+  const [orderInfo, setOrderInfo] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [errorHeader, setErrorHeader] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!orderPlaced || !lastOrder) {
+    if (!orderId) {
       router.push("/");
+      return;
     }
-  }, [orderPlaced, lastOrder, router]);
 
-  useEffect(() => {
-    if (orderPlaced) {
-      clearCart();
-    }
-  }, [orderPlaced, clearCart]);
+    const fetchOrder = async () => {
+      try {
+        const response = await fetch(`/api/orders/thankyou?orderId=${orderId}`);
+        if (response.ok) {
+          const data = await response.json();
+          // Map backend data to UI expectations
+          const mappedOrder = {
+            id: data.publicOrderCode,
+            customer: {
+              name: data.shippingName || "Customer",
+              email: "your registered email", 
+              address: [data.shippingLine1, data.shippingLine2].filter(Boolean).join(", "),
+              city: data.shippingCity,
+              state: data.shippingState,
+              pincode: data.shippingPincode,
+            },
+            shipping: {
+              name: data.shippingType || "Standard Delivery",
+              price: 0,
+            },
+            totalAmount: Number(data.total),
+            items: data.items?.map((item: any) => ({
+              id: item.id,
+              quantity: item.quantity,
+              unitPrice: item.unitPrice,
+              variant: {
+                weightGrams: item.variantWeightGrams,
+                product: {
+                  name: item.productName,
+                  imageUrl: item.productImageUrl || '/assets/images/products/product-1.webp',
+                  category: "Product"
+                }
+              }
+            })) || []
+          };
+          setOrderInfo(mappedOrder);
+          clearCart(); // Clear cart after successful fetch of "thankyou" page
+        } else {
+          setErrorHeader(`Order fetch failed. Status: ${response.status}`);
+        }
+      } catch (err: any) {
+        console.error("Failed to fetch order details", err);
+        setErrorHeader("Network error. Could not connect to API.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (!orderPlaced || !lastOrder) {
+    fetchOrder();
+  }, [orderId, router, clearCart]);
+
+  if (errorHeader) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-caffia"></div>
+        <div className="flex flex-col items-center gap-4 text-center px-4">
+          <div className="text-red-500 mb-2 font-bold text-5xl">⚠️</div>
+          <h2 className="text-2xl font-bold text-gray-800">Oops! Something went wrong.</h2>
+          <p className="text-gray-500 font-medium">{errorHeader}</p>
+          <Link href="/" className="mt-6 px-6 py-2 bg-caffia text-white font-semibold rounded-md hover:bg-gray-800 transition-colors">
+            Return to Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading || !orderInfo) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-caffia"></div>
+          <p className="text-gray-500 font-medium tracking-tight">Fetching order details...</p>
+        </div>
       </div>
     );
   }
@@ -39,14 +108,14 @@ const ThankYouPage = () => {
             <CheckCircle className="w-12 md:w-16 h-12 md:h-16 text-green-500 mb-2 md:mb-4 lg:mx-0 mx-auto" />
 
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2 text-caffia">
-              Thank You, {lastOrder.customer?.name || "Customer"}!
+              Thank You, {orderInfo.customer?.name || "Customer"}!
             </h1>
             <p className="font-bold text-gray-600 text-base md:text-lg">
-              Order Id: <span className="font-bold text-black">{lastOrder.id || lastOrder._id || "N/A"}</span>
+              Order Id: <span className="font-bold text-black">{orderInfo.id || "N/A"}</span>
             </p>
             <p className="text-base md:text-lg font-semibold text-gray-500 mb-4 md:mb-6 max-w-xl">
               Your order has been placed successfully. We sent a detailed receipt to
-              <span className="text-black font-semibold mx-1">{lastOrder.customer?.email}</span>
+              <span className="text-black font-semibold mx-1">{orderInfo.customer?.email}</span>
             </p>
 
             <div className="max-w-xl">
@@ -65,9 +134,9 @@ const ThankYouPage = () => {
                       <p className="text-sm md:text-base font-semibold text-gray-900">
                         5–7 Business Days
                       </p>
-                      {lastOrder.shipping && (
+                      {orderInfo.shipping && (
                         <p className="text-xs md:text-sm text-gray-500 mt-1">
-                          Shipping via {lastOrder.shipping.name || "Standard Delivery"}
+                          Shipping via {orderInfo.shipping.name || "Standard Delivery"}
                         </p>
                       )}
                     </div>
@@ -82,12 +151,12 @@ const ThankYouPage = () => {
                       Shipping To
                     </p>
                     <p className="text-sm md:text-base font-semibold text-gray-900 line-clamp-1">
-                      {lastOrder.customer?.name}
+                      {orderInfo.customer?.name}
                     </p>
                     <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
-                      {lastOrder.customer?.address}, {lastOrder.customer?.city}
+                      {orderInfo.customer?.address}, {orderInfo.customer?.city}
                       <br />
-                      {lastOrder.customer?.state}, India – {lastOrder.customer?.pincode}
+                      {orderInfo.customer?.state}, India – {orderInfo.customer?.pincode}
                     </p>
                   </div>
                 </div>
@@ -115,9 +184,9 @@ const ThankYouPage = () => {
           <div className="w-full lg:basis-[30%] max-w-md mt-4 md:mt-0">
             <CheckoutOrderSummary
               hideButton
-              items={lastOrder.items || []}
-              subtotal={lastOrder.totalAmount || 0}
-              shippingCost={lastOrder.shipping?.price || 0}
+              items={orderInfo.items || []}
+              subtotal={orderInfo.totalAmount || 0}
+              shippingCost={orderInfo.shipping?.price || 0}
             />
           </div>
         </div>
@@ -126,4 +195,14 @@ const ThankYouPage = () => {
   );
 };
 
-export default ThankYouPage;
+export default function ThankYouPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-caffia"></div>
+      </div>
+    }>
+      <ThankYouContent />
+    </Suspense>
+  );
+}

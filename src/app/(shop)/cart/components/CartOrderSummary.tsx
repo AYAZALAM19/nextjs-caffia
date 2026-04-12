@@ -99,13 +99,6 @@ export default function OrderSummary() {
                 </div>
                 <p className="text-[10px] md:text-[11px] text-gray-500 mb-3 md:mb-4">Including GST</p>
 
-                {/* Address Selector Section */}
-                {isAuthenticated && (
-                    <div className="mb-4">
-                        <AddressSelector onSelect={setSelectedAddressId} />
-                    </div>
-                )}
-
                 {/* button */}
                     <Link href="/checkout" className='block w-full rounded-lg shadow shadow-caffia bg-caffia py-2 md:py-3 text-xs md:text-sm font-semibold text-white hover:bg-[#6D1217] transition text-center'>
                         Proceed to Checkout

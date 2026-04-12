@@ -22,6 +22,7 @@ export default function CheckoutOrderSummary({
   
   // Parse numeric subtotal from string if needed
   const parsePrice = (priceStr: string | number) => {
+    if(!priceStr) return 0
       if (typeof priceStr === 'number') return priceStr;
       return Number(priceStr.replace(/[^0-9.-]+/g, "")) || 0;
   }

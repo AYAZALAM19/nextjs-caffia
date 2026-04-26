@@ -4,7 +4,7 @@ import { ProductListResponse } from "@/lib/types/product";
 
 interface BestOption {
   title: string;
-  image: string;
+  imageUrl: string;
   link: string;
 }
 
@@ -28,7 +28,7 @@ export default async function BestOptions() {
   
   const data: BestOption[] = SlugData.map((product) => ({
     title: product.name,
-    image: product.imageUrl,
+    imageUrl: product.imageUrl,
     link: `/product/${product.slug}`,
   }));
 
@@ -46,7 +46,7 @@ export default async function BestOptions() {
               >
                 <div className="w-[180px] h-[180px] flex justify-center items-center">
                   <Image
-                    src={item.image}
+                    src={item.imageUrl}
                     width={180}
                     height={180}
                     alt={item.title}

@@ -24,6 +24,16 @@ type CheckoutType  = {
   publicOrderCode: string,
 }
 
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
+
 export default function Checkout() {
   const router = useRouter();
   const status = useSession().status;
@@ -46,7 +56,18 @@ export default function Checkout() {
   });
 
   async function OnSubmit(formData: CheckoutFormData) {
+    if (!selectedAddressId) {
+      toast.error("Please select a shipping address");
+      return;
+    }
+
     try{
+      const res = await loadRazorpayScript();
+      if (!res) {
+        toast.error("Razorpay SDK failed to load");
+        return;
+      }
+
       const response = await fetch('/api/checkout', {
         method: "POST",
         headers: {
@@ -57,18 +78,57 @@ export default function Checkout() {
         })
       })
       const result = await response.json() as any;
-      if(response.ok){
-        toast.success(result.message || "Order Placed Successfully")
-        useCartStore.setState({ 
-          orderPlaced: true,
-          lastOrder: result.data || result // 'thank-you' page isko dhundta hai
-        }); 
-        clearCart();
-        router.push(`/thank-you?orderId=${result.publicOrderCode}`)
-      }
-      else{
+      if(!response.ok){
         toast.error(result.message || "Failed to place order")
+        return;
       }
+
+      const orderData = result.data || result;
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "Caffia Coffee",
+        description: "Order Payment",
+        order_id: orderData.razorpayOrderId,
+        handler: async function (paymentResponse: any) {
+          try {
+            const verifyRes = await fetch('/api/checkout/verify', {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                orderId: orderData.orderId,
+                razorpayPaymentId: paymentResponse.razorpay_payment_id,
+                razorpayOrderId: paymentResponse.razorpay_order_id,
+                razorpaySignature: paymentResponse.razorpay_signature
+              })
+            });
+            const verifyData = await verifyRes.json();
+            
+            if (verifyRes.ok) {
+              toast.success("Payment Successful!");
+              useCartStore.setState({ 
+                orderPlaced: true,
+                lastOrder: orderData 
+              }); 
+              clearCart();
+              router.push(`/thank-you?orderId=${orderData.publicOrderCode}`);
+            } else {
+              toast.error(verifyData.message || "Payment verification failed");
+            }
+          } catch (error) {
+            toast.error("Error verifying payment");
+          }
+        },
+        theme: {
+          color: "#000000",
+        },
+      };
+
+      const paymentObject = new (window as any).Razorpay(options);
+      paymentObject.open();
+
     }
     catch(error){
       console.error("Checkout error:", error);

@@ -34,9 +34,14 @@ export default function AddressSelector({ onSelect }: AddressSelectorProps) {
             if (res.ok && Array.isArray(addressesData)) {
                 setAddresses(addressesData);
                 if (addressesData.length > 0) {
-                    const defaultAddr = addressesData.find((a: any) => a.isDefault) || addressesData[0];
-                    setSelectedId(defaultAddr.id);
-                    onSelect(defaultAddr.id);
+                    setSelectedId((prev) => {
+                        if (prev !== null && addressesData.some((a: any) => a.id === prev)) {
+                            return prev;
+                        }
+                        const defaultAddr = addressesData.find((a: any) => a.isDefault) || addressesData[0];
+                        setTimeout(() => onSelect(defaultAddr.id), 0);
+                        return defaultAddr.id;
+                    });
                 }
             }
         } catch (error) {
@@ -76,18 +81,18 @@ export default function AddressSelector({ onSelect }: AddressSelectorProps) {
     }
 
     return (
-        <div className="mt-4 space-y-2">
+        <div className="mt-4 space-y-4">
             <div className="flex items-center justify-between px-1">
-                <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
-                    <MapPin className="w-2.5 h-2.5" />
+                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
+                    <MapPin className="w-4 h-4" />
                     Delivery Address
                 </h4>
                 <button 
                     type="button" 
                     onClick={handleAddClick}
-                    className="text-[9px] font-bold text-[#8B1A20] hover:underline flex items-center gap-0.5"
+                    className="text-xs font-bold text-[#8B1A20] hover:underline flex items-center gap-1"
                 >
-                    <Plus className="w-2 h-2" /> ADD NEW
+                    <Plus className="w-3 h-3" /> ADD NEW
                 </button>
             </div>
 
@@ -109,13 +114,13 @@ export default function AddressSelector({ onSelect }: AddressSelectorProps) {
             {addresses.length === 0 ? (
                 <div 
                     onClick={handleAddClick}
-                    className="p-3 border-2 border-dashed border-gray-100 rounded-xl text-center bg-gray-50/20 hover:bg-gray-50 transition-colors cursor-pointer group"
+                    className="p-4 border-2 border-dashed border-gray-100 rounded-xl text-center bg-gray-50/20 hover:bg-gray-50 transition-colors cursor-pointer group"
                 >
-                    <p className="text-[10px] text-gray-400 mb-1">No addresses found</p>
-                    <span className="text-[9px] text-[#8B1A20] font-bold uppercase">Add your first address</span>
+                    <p className="text-sm text-gray-400 mb-1">No addresses found</p>
+                    <span className="text-xs text-[#8B1A20] font-bold uppercase">Add your first address</span>
                 </div>
             ) : (
-                <div className="grid gap-2">
+                <div className="grid gap-3">
                     {addresses.map((addr) => (
                         <div
                             key={addr.id}
@@ -123,33 +128,33 @@ export default function AddressSelector({ onSelect }: AddressSelectorProps) {
                                 setSelectedId(addr.id);
                                 onSelect(addr.id);
                             }}
-                            className={`flex items-start text-left p-2.5 rounded-xl border-2 transition-all duration-200 cursor-pointer ${
+                            className={`flex items-start text-left p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer ${
                                 selectedId === addr.id
                                     ? "border-[#8B1A20] bg-red-50/30 shadow-sm"
                                     : "border-gray-50 bg-white hover:border-gray-100 shadow-sm"
                             }`}
                         >
-                            <div className={`mt-0.5 p-1 rounded-md mr-2.5 ${selectedId === addr.id ? "bg-[#8B1A20] text-white" : "bg-gray-50 text-gray-400"}`}>
-                                <Home className="w-2.5 h-2.5" />
+                            <div className={`mt-0.5 p-2 rounded-md mr-3 ${selectedId === addr.id ? "bg-[#8B1A20] text-white" : "bg-gray-50 text-gray-400"}`}>
+                                <Home className="w-4 h-4" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <div className="flex items-center justify-between gap-2 mb-0.5">
+                                <div className="flex items-center justify-between gap-2 mb-1">
                                     <div className="flex items-center gap-2">
-                                        <span className="text-[9px] font-bold text-gray-700 uppercase truncate">
+                                        <span className="text-sm font-bold text-gray-700 uppercase truncate">
                                             {addr.type || "Default"}
                                         </span>
                                         {addr.isDefault && (
-                                            <span className="text-[7px] font-bold bg-emerald-50 text-emerald-600 px-1 py-0.5 rounded-sm uppercase">Default</span>
+                                            <span className="text-[10px] font-bold bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-sm uppercase">Default</span>
                                         )}
                                     </div>
                                     <button
                                         onClick={(e) => handleEditClick(e, addr)}
                                         className="p-1 hover:bg-gray-100 rounded-md transition-colors"
                                     >
-                                        <Edit2 className="w-2 h-2 text-gray-400 hover:text-[#8B1A20]" />
+                                        <Edit2 className="w-4 h-4 text-gray-400 hover:text-[#8B1A20]" />
                                     </button>
                                 </div>
-                                <p className="text-[10px] font-medium text-gray-500 leading-tight truncate">
+                                <p className="text-sm font-medium text-gray-500 leading-tight truncate">
                                     {addr.line1}, {addr.city}
                                 </p>
                             </div>

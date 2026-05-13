@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import CheckoutOrderSummary from "./components/CheckoutOrderSummary";
 import { useSession } from "next-auth/react";
 import AddressSelector from "@/components/AddressSelector";
@@ -13,7 +13,7 @@ import {
   checkoutSchema,
   CheckoutFormData,
 } from "@/lib/checkout-validation-shema/checkout-schema";
-import PaymentSection from "./components/PaymentSection";
+
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/lib/stores/cartStore";
 import { toast } from "sonner";
@@ -54,6 +54,11 @@ export default function Checkout() {
   } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
   });
+
+  const handleAddressSelect = useCallback((id: number) => {
+    setSelectedAddressId(id);
+    setValue("addressId", id);
+  }, [setValue]);
 
   async function OnSubmit(formData: CheckoutFormData) {
     if (!selectedAddressId) {
@@ -143,10 +148,7 @@ export default function Checkout() {
             {/* LEFT SIDE: Form (8 columns on large screens) */}
             <div className="w-full lg:w-[65%] space-y-4 md:space-y-6">
               <div className="bg-white p-4 md:p-5 rounded-lg md:rounded-2xl shadow-sm border border-gray-50">
-                <AddressSelector onSelect={(id) => {
-                  setSelectedAddressId(id); // Purana kaam: Parent UI ka state update
-                  setValue("addressId", id); // Naya kaam: Form validation ko bol diya ki value mil gayi hai
-                }} />
+                <AddressSelector onSelect={handleAddressSelect} />
               </div>
 
               {/* Shipping Options Section */}
@@ -157,10 +159,7 @@ export default function Checkout() {
                 />
               </div>
 
-              {/* Payment Method Section */}
-              <div className="bg-white p-4 md:p-5 rounded-lg md:rounded-2xl shadow-sm border border-gray-50">
-                <PaymentSection />
-              </div>
+
             </div>
 
             {/* RIGHT SIDE: Summary (4 columns - Sticky) */}

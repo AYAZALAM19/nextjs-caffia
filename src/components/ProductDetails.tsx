@@ -4,6 +4,8 @@ import { IndianRupee, Leaf, Truck, BadgeCheck } from "lucide-react";
 import { useCartStore } from "@/lib/stores/cartStore";
 import Image from "next/image";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { toast } from "@/components/ui/sonner";
 
 interface ProductDetailsProps {
   productdetails: ProductDetailsResponse;
@@ -12,6 +14,7 @@ interface ProductDetailsProps {
 export default function ProductDetail({ productdetails }: ProductDetailsProps) {
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(productdetails.variants[0]);
   const [quantity, setQuantity] = useState(1);
+  const { status } = useSession();
 
   const addItemToCart = useCartStore((state) => state.addItemToCart);
 
@@ -22,7 +25,7 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
         <div>
           <div className="flex flex-col items-center">
             <Image
-              src={"/assets/images/products/product-1.webp"}
+              src={productdetails.imageUrl || "/assets/images/products/product-1.webp"}
               width={400}
               height={600}
               className="rounded-3xl shadow-md h-40 lg:h-80 w-auto object-cover"
@@ -127,6 +130,10 @@ export default function ProductDetail({ productdetails }: ProductDetailsProps) {
             <button
               className="bg-caffia flex-1 text-white font-semibold py-3 rounded-lg shadow-md hover:shadow-lg hover:scale-[1.01] transition-all h-12 flex items-center justify-center"
               onClick={() => {
+                if (status !== 'authenticated') {
+                  toast.error("Please login to add items to cart");
+                  return;
+                }
                 addItemToCart({ variantId: selectedVariant.id, quantity: quantity });
               }}
             >

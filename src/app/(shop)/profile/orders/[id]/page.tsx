@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from '@/components/ui/AppImage';
 import { ArrowLeft, Package, MapPin, Search, ChevronRight, CheckCircle2 } from "lucide-react";
 import { useParams } from "next/navigation";
 

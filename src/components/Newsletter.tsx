@@ -1,46 +1,57 @@
 "use client";
-// import type React from "react"
 
 import { useState } from "react";
-// import { Button } from "@/components/ui/button"
-// import { Input } from "@/components/ui/input"
-import { Mail } from "lucide-react";
-
-//  function Newsletter() {
-//   const [email, setEmail] = useState("")
-
-//   const handleSubmit = (e: React.FormEvent) => {
-//     e.preventDefault()
-//     console.log("Newsletter signup:", email)
-//     setEmail("")
-//   }
+import { ArrowRight, Mail } from "lucide-react";
+import { toast } from "@/components/ui/sonner";
 
 function Newsletter() {
-  return (
-    <section className="bg-amber py-6 md:py-8">
-     <div className="container mx-auto px-3 md:px-4">
+  const [email, setEmail] = useState("");
 
-      <h2 className="font-heading uppercase text-center font-semibold text-2xl md:text-4xl lg:text-5xl text-white">
-        Stay Connected
-      </h2>
-      <div className="my-4 md:my-6">
-        <p className="text-amber-100 text-center font-body font-medium text-sm md:text-base">
-          Get the latest updates on new blends, exclusive offers, and coffee
-          brewing tips delivered to your inbox.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-2 md:gap-3 my-4 md:my-6 w-full sm:w-auto">
-          <input
-            type="email"
-            placeholder="Enter Email"
-            className="w-full sm:w-auto bg-white/5 text-amberLight placeholder:text-amber-200 border border-amberLight rounded-lg py-2 px-3 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-amberLight focus:border-transparent"
-          />
-          <button className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 bg-amberLight text-white py-2 px-4 md:px-6 text-sm md:text-base rounded-lg hover:bg-amberLight/90 transition-colors duration-200">
-            <Mail className="w-4 h-4 md:w-5 md:h-5" />
-            <span className="font-body font-semibold">Subscribe</span>
-          </button>
+  // TODO: wire this to a subscribe API once the backend endpoint exists
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.info("Newsletter sign-up is coming soon — stay tuned!");
+    setEmail("");
+  };
+
+  return (
+    <section className="page-container pb-16 md:pb-24">
+      <div className="relative overflow-hidden rounded-[2rem] bg-caffia px-6 py-14 text-center md:px-12 md:py-20">
+        <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-caramel/25 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-black/30 blur-3xl" />
+
+        <div className="relative mx-auto max-w-2xl">
+          <span className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-white/10 text-caramel">
+            <Mail size={22} />
+          </span>
+          <h2 className="mt-5 font-heading text-3xl text-cream md:text-5xl">Stay in the loop</h2>
+          <p className="mt-4 text-crema/80 md:text-lg">
+            New blends, exclusive offers and brewing tips — delivered to your inbox.
+          </p>
+
+          <form
+            onSubmit={handleSubmit}
+            className="mx-auto mt-8 flex max-w-md flex-col gap-2 sm:flex-row sm:rounded-full sm:bg-white sm:p-1.5"
+          >
+            <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+            <input
+              id="newsletter-email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              className="flex-1 rounded-full bg-white px-5 py-3 text-sm text-espresso placeholder:text-roast/60 focus:outline-none focus:ring-2 focus:ring-caramel sm:bg-transparent sm:focus:ring-0"
+            />
+            <button
+              type="submit"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-espresso px-6 py-3 text-sm font-semibold text-cream transition-colors hover:bg-black"
+            >
+              Subscribe <ArrowRight size={16} />
+            </button>
+          </form>
         </div>
       </div>
-    </div>
     </section>
   );
 }

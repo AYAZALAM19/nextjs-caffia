@@ -1,49 +1,52 @@
-import { Nunito, Quicksand } from "next/font/google";
+import { Fraunces, Manrope } from "next/font/google";
 import { MessageCircleMore } from "lucide-react";
-// import type { Metadata } from "next"
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import Providers from "./providers";
 import "./globals.css";
 
-const nunito = Nunito({
+// Serif for headings — gives the roastery / premium feel
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-heading",
+  variable: "--font-fraunces",
+  display: "swap",
 });
 
-// Load Quicksand for body text
-const quicksand = Quicksand({
+// Clean sans for body text and UI
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-body",
+  variable: "--font-manrope",
+  display: "swap",
 });
 
 export const metadata = {
-  title: "Caffie - Premium Coffee Experience",
+  title: "Caffia - Premium Coffee Experience",
   description: "Enjoy the finest coffee from farm to your doorstep. Premium coffee blends, expertly roasted.",
   icons: { icon: "/caffia.svg" },
   openGraph: {
-    title: "Caffie",
+    title: "Caffia",
     description: "Premium, handcrafted coffee experience.",
     url: "https://nextjs-caffia.vercel.app",
-    siteName: "Caffie",
+    siteName: "Caffia",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${quicksand.className} mx-auto`}>
+    <html lang="en" className={`${fraunces.variable} ${manrope.variable}`}>
+      <body className="min-h-screen bg-cream text-espresso">
         <Providers>
           <Header />
-          {children}
+          <main>{children}</main>
           <a
-            href="https://wa.me/+919987545874?text=dY`<%20Hello%20caffia"
+            href="https://wa.me/919987545874?text=Hello%20Caffia"
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-6 right-6 bg-green-500 p-3 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300 z-50"
+            aria-label="Chat with us on WhatsApp"
+            className="fixed bottom-5 right-5 z-50 grid h-12 w-12 place-items-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/20 transition-transform duration-300 hover:scale-110"
           >
-            <MessageCircleMore className="w-6 h-6 text-white" />
+            <MessageCircleMore className="h-6 w-6" />
           </a>
           <Toaster richColors closeButton position="top-center" />
           <Footer />

@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function AboutLanding() {
   return (
     <div>
-        <div className="container mx-auto px-4 py-8">
+        <div className="page-container mx-auto px-4 py-8">
                 <h2 className="font-heading md:text-4xl text-lg mx-auto my-4 text-caffia uppercase text-center">
                   About Product
                 </h2>

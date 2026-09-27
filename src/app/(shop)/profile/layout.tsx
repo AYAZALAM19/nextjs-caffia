@@ -17,7 +17,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
 
     return (
         <div className="bg-gray-50/50 min-h-screen">
-            <div className="container mx-auto px-4 py-8 md:py-12">
+            <div className="page-container py-8 md:py-12">
                 <div className="flex flex-col lg:flex-row gap-8">
 
                     {/* SIDEBAR NAVIGATION */}

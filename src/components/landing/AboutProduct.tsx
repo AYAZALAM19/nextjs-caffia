@@ -1,68 +1,54 @@
-
 import Image from "next/image";
-import Link from "next/link";
-import { type FC } from 'react';
+import SectionHeading from "./SectionHeading";
+
+const steps = [
+  {
+    image: "/assets/images/about_product/process_1_1080x.avif",
+    title: "Sourced with care",
+    text: "Made from Grade A coffee, picked from partner farms we know and trust.",
+  },
+  {
+    image: "/assets/images/home-banner/top-view-coffee-with-copy-space.jpg",
+    position: "object-[80%_center]",
+    title: "Roasted in small batches",
+    text: "Each batch is roasted slowly to bring out its full body and aroma.",
+  },
+  {
+    image: "/assets/images/home-banner/coffee-beans-cup-packaging.jpg",
+    title: "Packed fresh for you",
+    text: "Sealed right after roasting and shipped straight to your doorstep.",
+  },
+];
 
 export default function AboutProduct() {
   return (
-    <div className="container mx-auto px-3 md:px-4 py-6 md:py-8">
-      <h2 className="font-heading text-xl md:text-2xl lg:text-4xl my-3 md:my-4 text-caffia uppercase text-center">
-        About Product
-      </h2>
-      <div className="flex flex-col md:flex-row justify-center items-start gap-4 md:gap-6">
-        {/* First block */}
-        <div className="w-full md:w-1/3 flex flex-col items-center text-center space-y-3">
-          <Image
-            src="/assets/images/about_product/process_1_1080x.avif"
-            alt="Product process step 1"
-            width={100}
-            height={100}
-            className="rounded-lg md:rounded-2xl object-cover"
-          />
-          <p className="text-sm md:text-base font-medium text-grey">
-            Made from Grade A coffee, roasted in small batches.
-          </p>
-          <Link href="#" className="text-blue-600 hover:underline text-xs md:text-sm">
-            Learn More
-          </Link>
-        </div>
+    <section className="page-container py-16 md:py-24">
+      <SectionHeading
+        eyebrow="Our process"
+        title="From farm to your cup"
+        description="Three simple steps, done properly — the secret behind every Caffia brew."
+      />
 
-        {/* Second block */}
-        <div className="w-full md:w-1/3 flex flex-col items-center text-center space-y-3">
-          <Image
-            src="/assets/images/about_product/process_3_1080x.avif"
-            alt="Product process step 3"
-            width={100}
-            height={100}
-            className="rounded-lg md:rounded-2xl object-cover"
-          />
-          <p className="text-sm md:text-base font-medium text-grey">
-            Made from Grade A coffee, roasted in small batches.
-          </p>
-          <Link href="#" className="text-blue-600 hover:underline text-xs md:text-sm">
-            Learn More
-          </Link>
-        </div>
-
-        {/* Third block */}
-        <div className="w-full md:w-1/3 flex flex-col items-center text-center space-y-3">
-          <Image
-            src="/assets/images/about_product/packeg_of_product.jpg"
-            alt="Packaged product"
-            width={200}
-            height={200}
-            className="rounded-lg md:rounded-2xl object-cover h-24 md:h-32 w-40 md:w-56"
-          />
-          <p className="text-sm md:text-base font-medium text-grey">
-            Made from Grade A coffee, roasted in small batches.
-          </p>
-          <Link href="#" className="text-blue-600 hover:underline text-xs md:text-sm">
-            Learn More
-          </Link>
-        </div>
-      </div>
-    </div>
+      <ol className="mt-14 grid gap-8 md:grid-cols-3 md:gap-6">
+        {steps.map((step, i) => (
+          <li key={step.title} className="group">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-crema">
+              <Image
+                src={step.image}
+                alt={step.title}
+                fill
+                sizes="(min-width: 768px) 33vw, 100vw"
+                className={`object-cover transition-transform duration-700 group-hover:scale-105 ${step.position ?? ""}`}
+              />
+              <span className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-cream font-heading text-lg text-caffia shadow-md">
+                {i + 1}
+              </span>
+            </div>
+            <h3 className="mt-5 font-heading text-2xl text-espresso">{step.title}</h3>
+            <p className="mt-2 leading-relaxed text-roast">{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
   );
-};
-
-
+}

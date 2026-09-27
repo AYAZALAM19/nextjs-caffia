@@ -19,9 +19,9 @@ export default function CartPage() {
   return (
     <>
       <section className="py-4 md:py-6">
-        <div className="mx-auto max-w-7xl px-3 md:px-4">
+        <div className="page-container">
           <Breadcrumb
-            separator={<span> <ChevronRight /> </span>}
+            separator={<ChevronRight size={14} />}
             capitalizeLinks
           />
           <h1 className="text-center text-caffia font-semibold lg:text-4xl text-xl md:text-2xl uppercase text-shadow-2xs mt-2 md:mt-4">

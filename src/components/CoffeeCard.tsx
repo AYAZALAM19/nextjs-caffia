@@ -1,49 +1,57 @@
 'use client'
-import { ProductResponse } from '@/lib/types/product'
-import { IndianRupee } from 'lucide-react'
-import AddToCart from './ui/AddToCart'
-import Image from 'next/image'
+import Image from '@/components/ui/AppImage';
 import Link from 'next/link'
+import { ProductResponse } from '@/lib/types/product'
+import AddToCart from './ui/AddToCart'
 
 interface ProductCardProps {
   product: ProductResponse
 }
 
-function CoffeeCard({product}:ProductCardProps) {
+function CoffeeCard({ product }: ProductCardProps) {
+  const weight = product.defaultVariant?.weightGrams
+  const outOfStock = product.totalStock === 0
+
   return (
-    <div className="w-full max-w-xs bg-caffia/10 px-2.5 py-2.5 rounded-lg">
-      {/* Image - Fixed aspect ratio */}
-      <div className="relative w-full aspect-square bg-gray-200 rounded-md overflow-hidden mb-2">
-        <Link href={`/product/${product.slug}`} className="text-Greytext hover:underline block w-full h-full">
+    <article className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-latte/70 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-espresso/10">
+      <Link href={`/product/${product.slug}`} className="relative block aspect-square overflow-hidden bg-crema">
         <Image
           src={product.imageUrl}
           alt={product.name}
           fill
-          priority={true}
-          className="object-cover object-center hover:scale-105 transition-transform duration-300"
+          sizes="(min-width: 1024px) 25vw, 50vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
+        {product.category && (
+          <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-roast backdrop-blur">
+            {product.category}
+          </span>
+        )}
+        {outOfStock && (
+          <span className="absolute inset-x-3 bottom-3 rounded-full bg-espresso/85 py-1.5 text-center text-xs font-semibold text-cream">
+            Out of stock
+          </span>
+        )}
+      </Link>
+
+      <div className="flex flex-1 flex-col p-3 sm:p-4">
+        <Link href={`/product/${product.slug}`}>
+          <h3 className="line-clamp-2 font-heading text-base leading-snug text-espresso transition-colors group-hover:text-caffia sm:text-lg">
+            {product.name}
+          </h3>
         </Link>
-      </div>
 
-      {/* Info */}
-      <div className="flex flex-col justify-between px-2 py-2">
-        <h2 className="lg:text-base text-sm font-semibold text-caffia line-clamp-2">{product.name}</h2>
-
-        <div className="flex justify-between items-center py-2 gap-4 mt-1">
-          <p className="text-base md:text-lg font-semibold inline-flex items-center gap-0.5"><IndianRupee strokeWidth={2} size={16} />{product.startingPrice}</p>
-        </div>
-
-        <div className="flex justify-between items-center gap-2 mt-2 flex-wrap">
-          <Link href={`/product/${product.slug}`} className="text-Greytext font-semibold text-xs md:text-sm hover:underline">
-            View Product
-          </Link>
+        <div className="mt-auto flex flex-wrap items-end justify-between gap-2 pt-4">
           <div>
-            {/* We will need to fix AddToCart to accept ProductResponse or map it here */}
-            <AddToCart product={product as any}/>
+            <p className="text-[11px] uppercase tracking-wide text-roast">
+              {weight ? `${weight}g · from` : 'from'}
+            </p>
+            <p className="text-lg font-bold text-espresso">₹{product.startingPrice}</p>
           </div>
+          {!outOfStock && <AddToCart product={product as any} />}
         </div>
       </div>
-    </div>
+    </article>
   )
 }
 

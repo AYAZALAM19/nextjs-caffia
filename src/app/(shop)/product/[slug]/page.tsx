@@ -31,8 +31,8 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
 
   return (
     <>
-      <div className=" container mx-auto max-w-7xl">
-        <Breadcrumb separator={<ChevronRight />}
+      <div className="page-container pt-6">
+        <Breadcrumb separator={<ChevronRight size={14} />}
           capitalizeLinks />
         <ProductDetail productdetails={productData} />
       </div>

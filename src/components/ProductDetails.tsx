@@ -2,7 +2,7 @@
 import { ProductDetailsResponse, ProductVariant } from "@/lib/types/product";
 import { IndianRupee, Leaf, Truck, BadgeCheck } from "lucide-react";
 import { useCartStore } from "@/lib/stores/cartStore";
-import Image from "next/image";
+import Image from '@/components/ui/AppImage';
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { toast } from "@/components/ui/sonner";

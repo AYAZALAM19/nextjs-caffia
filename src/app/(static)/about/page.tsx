@@ -1,517 +1,282 @@
-"use client";
-import { motion } from "framer-motion";
-import Breadcrumb from "@/components/layout/Breadcrumb";
-import React, { useState } from "react";
-import Timeline from "../../../components/ui/Timeline";
-import HeroBanner from "../../../components/HeroBanner";
-import { useId } from "react";
-import {
-  Heart,
-  Globe,
-  Leaf,
-  Award,
-  Users,
-  Coffee,
-  Calendar,
-  Target,
-  MapPin,
- ChevronRight,
-} from "lucide-react";
-import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Award, ChevronRight, Heart, Leaf, Users } from "lucide-react";
+import Breadcrumb from "@/components/layout/Breadcrumb";
+import HeroBanner from "@/components/HeroBanner";
+import SectionHeading from "@/components/landing/SectionHeading";
 
-function AboutPage() {
-  const [activeTab, setActiveTab] = useState("story");
+export const metadata = {
+  title: "About Us - Caffia",
+  description:
+    "From a small neighbourhood coffee shop to a premium coffee experience — discover the story, values and people behind Caffia.",
+};
 
-  const id = useId();
+// TODO: replace with real milestones and dates
+const journey = [
+  {
+    label: "2015",
+    title: "It started with a single cup",
+    text: "Caffia opened as a small neighbourhood coffee shop with one simple idea — make every cup feel like comfort.",
+  },
+  {
+    label: "Chapter 02",
+    title: "Finding the right beans",
+    text: "We built direct partnerships with coffee farmers, so we know exactly where our beans come from and how they're grown.",
+  },
+  {
+    label: "Chapter 03",
+    title: "Roasting our own",
+    text: "We began roasting in small batches, perfecting each profile until it brought out the full body and aroma of the bean.",
+  },
+  {
+    label: "Today",
+    title: "From our cafe to your doorstep",
+    text: "With 5 locations and online ordering, we now deliver freshly roasted Caffia coffee to homes across India.",
+  },
+];
 
-  const storyData = [
-    {
-      id: 1,
-      year: "2021",
-      title: "Started Learning Web Development",
-      description: "HTML, CSS aur basic JavaScript se journey shuru ki.",
-      img: "/assets/images/about_banner1.webp",
-    },
-    {
-      id: 2,
-      year: "2022",
-      title: "Built First Project",
-      description: "Ek portfolio website banaya aur GitHub pe dala.",
-      img: "/assets/images/about_banner1.webp",
-    },
-    {
-      id: 3,
-      year: "2022",
-      title: "Built First Project",
-      description: "Ek portfolio website banaya aur GitHub pe dala.",
-      img: "/assets/images/about_banner1.webp",
-    },
-    {
-      id: 4,
-      year: "2022",
-      title: "Built First Project",
-      description: "Ek portfolio website banaya aur GitHub pe dala.",
-      img: "/assets/images/about_banner1.webp",
-    },
-  ];
-  const owners = [
-    {
-      id: 1,
-      name: "Arjun Mehta",
-      role: "Product Designer",
-      status: { text: "Available for collab", color: "bg-green-500" },
-      img: "/assets/images/about_img/owners_1.jpg",
-      badge: "Co-Founder",
-      bio: "6+ years in UX/UI. Coffee-fueled creator focused on accessible, conversion-friendly interfaces across web and mobile.",
-      links: [
-        { label: "LinkedIn", href: "#" },
-        { label: "GitHub", href: "#" },
-      ],
-    },
-    {
-      id: 2,
-      name: "Sara Khan",
-      role: "Frontend Engineer",
-      status: { text: "Mentoring interns", color: "bg-gray-400" },
-      img: "/assets/images/about_img/owner_2.jpg",
-      badge: "Co-Founder",
-      bio: "React/Next.js specialist. Builds fast, accessible UIs with a strong focus on DX and performance budgets.",
-      links: [
-        { label: "Twitter", href: "#" },
-        { label: "Portfolio", href: "#" },
-      ],
-    },
-  ];
-  const value = [
-    {
-      id: "leaf",
-      icon: <Leaf />,
-      title: "Sustainability",
-      description:
-        "We're committed to ethical sourcing and environmental responsibility in every step of our process.",
-      description2:
-        "100% sustainable farming practices with direct farmer partnerships",
-      color: {
-        text: "text-green-700",
-        bg: "bg-green-500/10",
-      },
-    },
-    {
-      id: "award",
-      icon: <Award size={32} />,
-      title: " Quality Excellence",
-      description:
-        "Our expert roasters ensure every batch meets the highest standards of flavor and aroma.",
-      description2: "Award-winning roasting techniques perfected over 8 years",
-      color: {
-        text: "text-caffia",
-        bg: "bg-amberLight/45",
-      },
-    },
-    {
-      id: "heart",
-      icon: <Heart size={32} />,
-      title: "Passion Driven",
-      description:
-        " Coffee isn't just our business—it's our passion, and it shows in every cup we serve.",
-      description2: "Handcrafted with love by our passionate coffee artisans",
-      color: {
-        text: "text-red-700",
-        bg: "bg-red-600/20",
-      },
-    },
-    {
-      id: "users",
-      icon: <Users size={32} />,
-      title: "Community Focus",
-      description:
-        "We believe in building strong relationships with our farmers, customers, and local community.",
-      description2: "Supporting 50+ farming communities worldwide",
-      color: {
-        text: "text-blue-700",
-        bg: "bg-blue-700/30",
-      },
-    },
-  ];
-  const impact = [
-    {
-      icons: <Users size={32} />,
-      value: "50K+",
-      label: "Happy Customers",
-    },
-    {
-      icons: <Globe size={32} />,
-      value: "15",
-      label: "Coffee Origins",
-    },
-    {
-      icons: <Calendar size={32} />,
-      value: "8",
-      label: "Years Experience",
-    },
-    {
-      icons: <Target size={32} />,
-      value: "100%",
-      label: "Satisfaction Rate",
-    },
-    {
-      icons: <Coffee size={32} />,
-      value: "24/7",
-      label: "Fresh Roasting",
-    },
-    {
-      icons: <MapPin size={32} />,
-      value: "5",
-      label: "Store Locations",
-    },
-  ];
+const values = [
+  {
+    icon: Leaf,
+    title: "Sustainability",
+    text: "We're committed to ethical sourcing and environmental responsibility in every step of our process.",
+    highlight: "Sustainable farming with direct farmer partnerships",
+  },
+  {
+    icon: Award,
+    title: "Quality excellence",
+    text: "Our expert roasters make sure every batch meets the highest standards of flavour and aroma.",
+    highlight: "Roasting techniques perfected over 8 years",
+  },
+  {
+    icon: Heart,
+    title: "Passion driven",
+    text: "Coffee isn't just our business — it's our passion, and it shows in every cup we serve.",
+    highlight: "Handcrafted by passionate coffee artisans",
+  },
+  {
+    icon: Users,
+    title: "Community focus",
+    text: "We believe in strong relationships with our farmers, our customers and our local community.",
+    highlight: "Supporting 50+ farming communities",
+  },
+];
 
-  // const [] = useState('')
-  const stats = [
-    { icon: <Users size={32} />, value: "50K+", label: "Happy Customers" },
-    { icon: <Globe size={32} />, value: "15", label: "Coffee Origins" },
-    { icon: <Calendar size={32} />, value: "8", label: "Years Experience" },
-    { icon: <Target size={32} />, value: "100%", label: "Satisfaction Rate" },
-    { icon: <Coffee size={32} />, value: "24/7", label: "Fresh Roasting" },
-    { icon: <MapPin size={32} />, value: "5", label: "Store Locations" },
-  ];
+const impact = [
+  { value: "2015", label: "Founded" },
+  { value: "15K+", label: "Happy customers" },
+  { value: "25+", label: "Coffee origins" },
+  { value: "5", label: "Store locations" },
+];
+
+// TODO: add the real team here (name, role, photo). The section stays hidden while empty.
+const team: { name: string; role: string; img: string }[] = [];
+
+export default function AboutPage() {
   return (
     <>
-      <div>
-        <Breadcrumb 
-        separator={<span> <ChevronRight /> </span>} 
-        capitalizeLinks
-        />
-        <HeroBanner
-          title="Our Story"
-          img="/assets/images/about_img/about_banner.jpg"
-          description="From a small neighborhood coffee shop to a premium coffee experience, discover the journey that makes Caffie special."
-          subTitle="About Caffie"
-        />
+      <div className="page-container pt-6">
+        <Breadcrumb separator={<ChevronRight size={14} />} capitalizeLinks />
       </div>
 
-      <section className="my-20">
-        <div className=" flex justify-center md:mx-auto mx-2 px-4 rounded-xl bg-caffia py-4 w-auto md:w-4xl  ">
-          <div className="flex justify-center gap-3.5">
-            <button
-              className={`md:px-4 px-2 py-2 md:py-2 ${
-                activeTab === "story" ? "bg-amberLight" : "bg-amber-200"
-              } transition duration-300 rounded-xl font-semibold font-heading uppercase md:text-lg text-base cursor-pointer`}
-              onClick={() => setActiveTab("story")}
-            >
-              Story
-            </button>
-            <button
-              className={`md:px-4 px-2 py-2 md:py-2 ${
-                activeTab === "teams" ? "bg-amberLight" : "bg-amber-200"
-              } transition duration-300 rounded-xl font-semibold font-heading uppercase md:text-lg text-base cursor-pointer`}
-              onClick={() => setActiveTab("teams")}
-            >
-              Teams
-            </button>
-            <button
-              className={`md:px-4 px-2 py-2 md:py-2  ${
-                activeTab === "values" ? "bg-amberLight" : "bg-amber-200"
-              } transition duration-300 rounded-xl font-semibold uppercase font-heading md:text-lg text-base cursor-pointer`}
-              onClick={() => setActiveTab("values")}
-            >
-              Values
-            </button>
-            <button
-              className={`md:px-4 px-2 py-2 md:py-2  ${
-                activeTab === "impact" ? "bg-amberLight" : "bg-amber-200"
-              } transition duration-300 rounded-xl font-semibold uppercase font-heading md:text-lg text-base cursor-pointer`}
-              onClick={() => setActiveTab("impact")}
-            >
-              Impact
-            </button>
-          </div>
-        </div>
-        {/* Tab Content  */}
-        <div
-          className={` ${
-            activeTab == "story" ? "flex justify-center" : "hidden"
-          }`}
-        >
-          <div className="relative mx-auto my-10">
-            <div className="flex flex-col md:flex-row md:mx-20 md:gap-8 justify-center items-center">
-              <motion.div
-                className="w-full md:w-1/2"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
-                <div className="md:px-10 px-4">
-                  <h2 className="text-4xl font-bold text-caffia mb-4">
-                    Where Coffee Meets Comfort
-                  </h2>
-                  <p className="mb-4 font-semibold text-Greytext md:text-xl text-lg">
-                    At Caffie, every sip tells a story. Whether you're rushing
-                    into a busy morning or slowing down for an afternoon
-                    breather, we're here to make each moment special. Our brews
-                    aren't just drinks — they're comfort in a cup, carefully
-                    crafted with ethically sourced beans and served with heart.
-                  </p>
-                  <p className="mb-6 font-semibold text-Greytext md:text-xl text-lg">
-                    Step inside, breathe in the aroma, and discover your new
-                    favorite ritual. From single-origin masterpieces to
-                    signature blends, we're passionate about delivering the
-                    perfect cup that speaks to your soul.
-                  </p>
-                  <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, amount: 0.2 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="flex justify-between"
-                  >
-                    <div>
-                      <h3 className="text-xl font-bold text-center text-caffia">
-                        2015
-                      </h3>
-                      <p className="font-semibold text-Greytext">Founded</p>
-                    </div>
-                    <div>
-                      <h3 className="text-xl text-center font-bold text-caffia ">
-                        5
-                      </h3>
-                      <p className="font-semibold text-Greytext">Locations</p>
-                    </div>
-                  </motion.div>
-                </div>
-              </motion.div>
-              <motion.div
-                className="w-full md:w-1/2 h-auto my-6 md:my-0"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.2 }}
-                transition={{ duration: 0.9, ease: "easeOut" }}
-              >
-                
-                  <Image
-                    src="/assets/images/about_banner1.webp"
-                    alt="Caffie ambiance"
-                    width={500}
-                    height={500}
-                    className="rounded-xl shadow-lg w-full object-cover h-64 md:h-auto"
-                  />
-              </motion.div>
-            </div>
-            {/* Vertical line */}
-            <Timeline storyData={storyData} />
-          </div>
-        </div>
+      <HeroBanner
+        title="Our Story"
+        img="/assets/images/home-banner/top-view-coffee-with-copy-space.jpg"
+        description="From a small neighbourhood coffee shop to a premium coffee experience — discover the journey that makes Caffia special."
+        subTitle="About Caffia"
+      />
 
-        <div
-          className={activeTab == "teams" ? "flex justify-center" : "hidden"}
-        >
-          <div className="w-full max-w-5xl mx-2 md:mx-4 my-10">
-            <h2 className="text-center text-caffia md:text-4xl font-bold uppercase text-base">
-              Meet Our Team
-            </h2>
-            <p className="md:px-24 md:mt-6 md:mb-10 text-center font-semibold text-Greytext md:text-xl text-base">
-              Behind every great cup of coffee is a passionate team dedicated to
-              excellence. Meet the people who make Caffie special.
+      {/* Intro */}
+      <section className="page-container grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2 lg:gap-20">
+        <div>
+          <SectionHeading
+            align="left"
+            eyebrow="Who we are"
+            title="Where coffee meets comfort"
+          />
+          <div className="mt-6 space-y-4 text-base leading-relaxed text-roast md:text-lg">
+            <p>
+              At Caffia, every sip tells a story. Whether you&apos;re rushing into a busy morning or
+              slowing down for an afternoon breather, we&apos;re here to make each moment special.
+              Our brews aren&apos;t just drinks — they&apos;re comfort in a cup, carefully crafted
+              with ethically sourced beans and served with heart.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {owners.map((item, idx) => (
-                <motion.article
-                  key={item.id}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.2 }}
-                  transition={{ duration: 0.6 + idx * 0.15, ease: "easeOut" }}
-                  className="overflow-hidden rounded-2xl bg-amberLight shadow-md ring-1 ring-amber-200/40 hover:-translate-y-0.5 hover:shadow-lg transition"
-                >
-                  <div className="relative">
-                    <Image
-                      src={item.img}
-                      alt={`${item.name} portrait`}
-                      className="h-auto w-full object-fil object-center"
-                      width={500}
-                      height={500}
-                    />
-                    {item.badge && (
-                      <span className="absolute left-3 top-3 rounded-full bg-caffia px-3 py-1 text-xs font-semibold text-amber-900 shadow">
-                        {item.badge}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="p-5">
-                    <h3 className="md:text-2xl text-base font-bold text-Greytext text-center">
-                      {item.name}
-                    </h3>
-                    <p className=" text-center font-semibold text-Greytext md:text-xl text-base">
-                      {item.role}
-                    </p>
-
-                    {item.bio && (
-                      <p className="mt-3 md:text-lg text-base font-semibold text-Greytext">
-                        {item.bio}
-                      </p>
-                    )}
-
-                    <div className="mt-5 flex items-center justify-between">
-                      {/* Status */}
-                      <div className="flex items-center font-semibold md:text-base gap-2 text-xs text-white">
-                        <span
-                          className={`inline-block shadow-sm shadow-Greytext/70 h-2 w-2 rounded-full ${
-                            item.status?.color || "bg-gray-300"
-                          }`}
-                        ></span>
-                        {item.status?.text || "—"}
-                      </div>
-
-                      {/* Links */}
-                      <div className="flex items-center gap-2">
-                        {item.links?.map((l) => (
-                          <a
-                            key={l.label}
-                            href={l.href}
-                            className="rounded-lg bg-caffia/90 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:shadow transition"
-                            aria-label={`Open ${l.label}`}
-                          >
-                            {l.label}
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
+            <p>
+              Step inside, breathe in the aroma, and discover your new favourite ritual. From
+              single-origin coffees to signature blends, we&apos;re passionate about delivering the
+              perfect cup.
+            </p>
           </div>
         </div>
 
-        <div className={` ${activeTab == "values" ? "block" : "hidden"}`}>
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <h3 className="text-center text-caffia font-bold md:text-4xl text-base mt-14 uppercase">
-              Our Core Values
-            </h3>
-            <p className=" text-center md:px-52 font-semibold text-Greytext md:text-xl my-6 text-base">
-              These principles guide everything we do, from sourcing beans to
-              serving customers, ensuring we deliver excellence in every aspect
-              of our business.
-            </p>
-          </motion.div>
-          {value.map((item, idx) => (
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              key={`${id}-${idx}`}
-              className="md:mx-auto mx-3 px-4 py-8 inset-shadow-2xs md:gap-3 rounded-xl my-4 md:max-w-6xl flex flex-col sm:flex-col md:flex-row justify-start"
-            >
-              <div
-                className={`${item.color.text} ${item.color.bg} rounded-full w-14 h-14 md:ml-0 ml-40 justify-center inline-flex items-center  `}
-              >
-                {item.icon}
-              </div>
-              <div>
-                <h3 className="my-3 md:text-2xl text-lg text-caffia md:text-start text-center uppercase">
-                  {item.title}
-                </h3>
-                <p className="font-semibold text-Greytext md:text-xl md:text-start text-center text-base">
-                  {item.description}
-                </p>
-                <p
-                  className={`${item.color.text} text-center py-2 md:py-3  px-4 my-4 font-semibold rounded-full ${item.color.bg}`}
-                >
-                  {item.description2}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        <div className={`${activeTab == "impact" ? "block" : "hidden"}`}>
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <div>
-              <h2 className="text-center uppercase my-7 font-bold text-caffia md:text-4xl text-lg">
-                Our Impact
-              </h2>
-              <p className="font-semibold md:text-xl text-lg text-Greytext text-center md:px-60 px-4">
-                We measure our success not just in cups sold, but in the
-                positive impact we create for our community, farmers, and
-                environment.
-              </p>
-            </div>
-
-            <div className="grid mx-auto md:px-24 md:grid-cols-2 my-10 grid-cols-1 lg:grid-cols-3 gap-6">
-              {impact.map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, amount: 0.2 }}
-                  transition={{ duration: 0.6 + idx * 0.15, ease: "easeOut" }}
-                  className="flex mx-auto items-center justify-center flex-col my-4 w-72 p-6 bg-amberLight/15 shadow-md rounded-xl transform transition-transform duration-300 hover:scale-105"
-                >
-                  <div className="text-caffia mb-2">{item.icons}</div>
-                  <h3 className="text-2xl font-bold text-caffia mb-1">
-                    {item.value}
-                  </h3>
-                  <p className="text-center font-semibold text-Greytext md:text-xl text-base">
-                    {item.label}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}>
-                <div className="flex gap-4 items-center ">
-                  <p className="bg-green-600/20 inline-flex items-center justify-center px-4 py-4 rounded-full text-green-700 font-semibold text-lg">
-                  <Leaf className="text-green-700" />
-                  </p>
-                  <p className="text-center font-semibold text-Greytext md:text-xl text-base px-4 md:px-60">
-                    Environmental Impact
-                  </p>
-                </div>
-                <p className="font-semibold text-Greytext md:text-xl text-base px-4 md:px-60 my-4">
-                  We've reduced our carbon footprint by 40% through sustainable practices, renewable energy, and eco-friendly packaging. Our commitment to the planet is as strong as our commitment to great coffee.
-                </p>
-              </motion.div>
-          </motion.div>
+        <div className="relative">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem]">
+            <Image
+              src="/assets/images/about_banner1.webp"
+              alt="Ripe coffee cherries on the branch"
+              fill
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="absolute -bottom-6 left-4 rounded-2xl border border-latte bg-cream px-6 py-5 shadow-xl sm:left-8">
+            <p className="font-heading text-4xl text-caffia">8+ years</p>
+            <p className="text-sm text-roast">of roasting and brewing</p>
+          </div>
         </div>
       </section>
 
-      <section className="bg-amberLight py-10">
-        <div>
-          <h3 className=" my-4 font-semibold md:text-4xl uppercase text-lg text-caffia text-center ">
-            Ready to Experience Caffie?
-          </h3>
-          <p className="my-4 text-center font-semibold text-Greytext md:text-xl text-base px-4 md:px-60">
-            Join thousands of coffee lovers who have made Caffie their daily
-            ritual. Visit us today and taste the difference passion makes.
-          </p>
+      {/* Impact numbers */}
+      <section className="border-y border-latte bg-white">
+        <dl className="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4">
+          {impact.map((item) => (
+            <div
+              key={item.label}
+              className="border-latte px-4 py-10 text-center odd:border-r md:border-r md:last:border-r-0"
+            >
+              <dt className="sr-only">{item.label}</dt>
+              <dd className="font-heading text-4xl text-caffia md:text-5xl">{item.value}</dd>
+              <dd className="mt-2 text-sm text-roast">{item.label}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      {/* Journey */}
+      <section className="bg-crema/60 py-16 md:py-24">
+        <div className="mx-auto max-w-5xl px-4 md:px-6">
+          <SectionHeading
+            eyebrow="Our journey"
+            title="How Caffia came to be"
+            description="Every great cup has a story behind it. Here's ours."
+          />
+
+          <ol className="relative mt-14 space-y-10 before:absolute before:bottom-2 before:left-[19px] before:top-2 before:w-px before:bg-latte md:before:left-1/2">
+            {journey.map((step, i) => (
+              <li key={step.title} className="relative grid gap-4 pl-14 md:grid-cols-2 md:gap-16 md:pl-0">
+                <span className="absolute left-0 top-1 grid h-10 w-10 place-items-center rounded-full border-4 border-cream bg-caffia font-heading text-sm text-cream md:left-1/2 md:-translate-x-1/2">
+                  {i + 1}
+                </span>
+                <div
+                  className={
+                    i % 2 === 0
+                      ? "md:col-start-1 md:text-right"
+                      : "md:col-start-2"
+                  }
+                >
+                  <div className="rounded-2xl border border-latte/70 bg-white p-6 shadow-sm">
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-caramel">{step.label}</p>
+                    <h3 className="mt-2 font-heading text-2xl text-espresso">{step.title}</h3>
+                    <p className="mt-2 leading-relaxed text-roast">{step.text}</p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
-        <div className="flex justify-center gap-5 my-3 mt-3">
-          <button className=" px-4 py-3 bg-caffia rounded-md text-white font-semibold md:text-lg text-base">
-            Find the location
-          </button>
-          <button className=" px-4 py-3 font-semibold rounded-md text-white md:text-lg text-base border border-white ">
-            shop online
-          </button>
+      </section>
+
+      {/* Values */}
+      <section className="page-container py-16 md:py-24">
+        <SectionHeading
+          eyebrow="Our values"
+          title="What we stand for"
+          description="These principles guide everything we do — from sourcing beans to serving you."
+        />
+
+        <div className="mt-14 grid gap-5 md:grid-cols-2">
+          {values.map(({ icon: Icon, title, text, highlight }) => (
+            <article
+              key={title}
+              className="group flex gap-5 rounded-2xl border border-latte/70 bg-white p-6 transition-shadow duration-300 hover:shadow-xl hover:shadow-espresso/5 md:p-8"
+            >
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-crema text-caffia transition-colors group-hover:bg-caffia group-hover:text-cream">
+                <Icon size={22} strokeWidth={1.75} />
+              </span>
+              <div>
+                <h3 className="font-heading text-2xl text-espresso">{title}</h3>
+                <p className="mt-2 leading-relaxed text-roast">{text}</p>
+                <p className="mt-4 inline-block rounded-full bg-crema px-3 py-1 text-xs font-semibold text-caffia">
+                  {highlight}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Team (renders once real team data is added) */}
+      {team.length > 0 && (
+        <section className="page-container pb-16 md:pb-24">
+          <SectionHeading
+            eyebrow="Our people"
+            title="Meet the team"
+            description="Behind every great cup is a passionate team dedicated to getting it right."
+          />
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {team.map((person) => (
+              <article key={person.name} className="overflow-hidden rounded-2xl border border-latte/70 bg-white">
+                <div className="relative aspect-[4/5] bg-crema">
+                  <Image src={person.img} alt={person.name} fill sizes="(min-width: 1024px) 33vw, 50vw" className="object-cover" />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-heading text-xl text-espresso">{person.name}</h3>
+                  <p className="text-sm text-roast">{person.role}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Environmental impact */}
+      <section className="page-container pb-16 md:pb-24">
+        <div className="grid items-center gap-8 overflow-hidden rounded-[2rem] bg-espresso p-8 md:grid-cols-[auto_1fr] md:gap-12 md:p-14">
+          <div className="text-center md:text-left">
+            <p className="font-heading text-6xl text-caramel md:text-7xl">40%</p>
+            <p className="mt-1 text-sm text-crema/70">lower carbon footprint</p>
+          </div>
+          <div>
+            <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-caramel">
+              <Leaf size={14} /> Environmental impact
+            </p>
+            <p className="mt-3 text-lg leading-relaxed text-crema/85 md:text-xl">
+              We&apos;ve reduced our carbon footprint through sustainable practices, renewable energy
+              and eco-friendly packaging. Our commitment to the planet is as strong as our commitment
+              to great coffee.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="page-container pb-16 md:pb-24">
+        <div className="relative overflow-hidden rounded-[2rem] bg-caffia px-6 py-14 text-center md:py-20">
+          <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-caramel/25 blur-3xl" />
+          <div className="relative mx-auto max-w-2xl">
+            <h2 className="font-heading text-3xl text-cream md:text-5xl">Ready to experience Caffia?</h2>
+            <p className="mt-4 text-crema/80 md:text-lg">
+              Join the coffee lovers who have made Caffia their daily ritual. Visit us or order online
+              and taste the difference passion makes.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/product"
+                className="group inline-flex items-center gap-2 rounded-full bg-cream px-7 py-3.5 text-sm font-semibold text-caffia transition-colors hover:bg-white"
+              >
+                Shop online
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full border border-cream/40 px-7 py-3.5 text-sm font-semibold text-cream transition-colors hover:border-cream hover:bg-cream/10"
+              >
+                Find our cafe
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </>
   );
 }
-
-export default AboutPage;

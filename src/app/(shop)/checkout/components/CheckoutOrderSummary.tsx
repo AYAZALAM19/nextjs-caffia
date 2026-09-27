@@ -1,6 +1,6 @@
 import { useCartStore, type cartItem } from '@/lib/stores/cartStore'
 import { ShieldCheck, Loader2 } from 'lucide-react'
-import Image from 'next/image'
+import Image from '@/components/ui/AppImage';
 
 interface CheckoutOrderSummaryProps {
   shippingCost?: number

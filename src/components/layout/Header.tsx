@@ -1,292 +1,235 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
-import { Phone, Menu, MapPin, UserRound, Search, ShoppingCart, Coffee, X, ChevronRight } from 'lucide-react';
-import { usePathname } from 'next/navigation';
-import { TopTickers } from '@/components/ui/TopTickers';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { useSession } from "next-auth/react";
+import { Phone, Menu, MapPin, UserRound, Search, ShoppingBag, Coffee, X, ArrowRight, Truck } from 'lucide-react';
 import { useCartStore } from '@/lib/stores/cartStore';
 import ToastNotification from '../ui/ToastNotification';
 import LoginDrawer from '../auth/LoginDrawer';
-import { useSession } from "next-auth/react";
+import { cn } from '@/lib/utils';
+
+const navigation = [
+  { name: "Home", href: "/" },
+  { name: "Shop", href: "/product" },
+  { name: "Menu", href: "/menu" },
+  { name: "About", href: "/about" },
+  { name: "Blog", href: "/blog" },
+  { name: "Contact", href: "/contact" },
+]
+
+const announcements = [
+  { icon: Coffee, text: "Get 30% off on coffee — limited time offer" },
+  { icon: Truck, text: "Freshly roasted & shipped across India" },
+  { icon: MapPin, text: "Visit our cafe at MG Road, Pune" },
+  { icon: Phone, text: "+91 99875 45874", href: "tel:+919987545874" },
+]
+
+function AnnouncementBar() {
+  // Rendered twice so the -50% marquee translation loops seamlessly
+  const row = (hidden: boolean) => (
+    <div className="flex shrink-0 items-center" aria-hidden={hidden}>
+      {announcements.map(({ icon: Icon, text, href }) => (
+        <span key={text} className="mx-8 inline-flex items-center gap-2 text-xs font-medium tracking-wide text-crema">
+          <Icon size={13} className="text-caramel" />
+          {href ? <a href={href} className="hover:underline" tabIndex={hidden ? -1 : 0}>{text}</a> : text}
+        </span>
+      ))}
+    </div>
+  )
+
+  return (
+    <div className="group overflow-hidden bg-caffia py-2">
+      <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
+        {row(false)}
+        {row(true)}
+      </div>
+    </div>
+  )
+}
 
 function Header() {
   const [mounted, setMounted] = useState(false)
-  const [toggle, setToggle] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
   const { status } = useSession()
-  const cartData = useCartStore((state) => state.cartData)
-  const totalCount = cartData?.totalItems || 0
-
+  const totalCount = useCartStore((state) => state.cartData?.totalItems) || 0
   const fetchCart = useCartStore((state) => state.fetchCart)
+
   useEffect(() => {
     setMounted(true)
     fetchCart()
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener('scroll', handleScroll)
+    const handleScroll = () => setIsScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  function Toggle() {
-    setToggle(prev => !prev)
-  }
-  const newsItems = [
-    <span key="1" className="mx-4 inline-flex items-center gap-2 text-white font-semibold text-sm">
-      <Phone size={14} className='text-white' />
-      <a href="tel:+919987545874" className="hover:underline">+91 99875 45874</a>
-    </span>,
+  // Close the mobile menu on navigation and lock body scroll while open
+  useEffect(() => setMenuOpen(false), [pathname])
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
 
-    <span key="2" className="mx-4 inline-flex items-center gap-2 text-white font-semibold text-sm">
-      <MapPin size={14} className="text-white" />
-      <span>Visit our cafe at MG Road, Pune</span>
-    </span>,
+  const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href)
 
-    <span key="3" className="mx-4 inline-flex items-center gap-2 text-white font-semibold text-sm">
-      <Coffee size={14} className="text-white" />
-      <span>Get 30% off on coffee - Limited time offer!</span>
-    </span>
-  ];
-
-  const navigation = [
-    { name: "Home", href: "/" },
-    { name: "About Us", href: "/about" },
-    { name: "Menu", href: "/menu" },
-    { name: "Products", href: "/product" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/contact" },
-  ]
+  const accountIcon = <UserRound size={20} strokeWidth={1.75} />
+  const iconButton = 'grid h-10 w-10 place-items-center rounded-full text-espresso transition-colors duration-200 hover:bg-crema hover:text-caffia'
 
   return (
     <>
+      <AnnouncementBar />
 
-      <TopTickers items={newsItems} speed={0.5} />
-      {/* Desktop Navigation */}
-      <nav className={`md:block hidden sticky top-0 z-40 transition-all duration-300 ${isScrolled ? 'shadow-lg bg-white/95 backdrop-blur-sm' : 'bg-white'
-        }`}>
-        <div className='flex px-6 items-center py-2 mx-auto max-w-7xl'>
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link href='/'>
-              <Image
-                src="/assets/images/caffia.png"
-                width={100}
-                height={100}
-                className='w-36 hover:scale-105 transition-transform duration-200'
-                priority={true}
-                alt="Caffia Logo"
-              />
-            </Link>
-          </div>
-
-          {/* Center: Navigation Menu */}
-          <div className='flex-1 flex justify-center'>
-            <ul className="flex gap-8 font-extrabold text-lg text-Greytext ">
-
-              <li className={`${pathname === '/' ? 'text-caffia' : ''} relative group`}>
-                <Link href='/'>
-                  <span className="hover:text-caffia uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
-                    Home
-                    <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-caffia/90  transition-all duration-300 group-hover:w-full ${pathname === '/' ? 'w-full' : 'group-hover:w-full'}`}></span>
-                  </span>
-                </Link>
-              </li>
-
-              <li className={`${pathname === '/about' ? 'text-caffia' : ''} relative group`}>
-                <Link href='/about'>
-                  <span className="hover:text-caffia uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
-                    About Us
-                    <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-caffia transition-all duration-300 group-hover:w-full ${pathname === '/about' ? 'w-full' : 'group-hover:w-full'}`}></span>
-                  </span>
-                </Link>
-              </li>
-              <li className={`${pathname === '/menu' ? 'text-caffia' : ''} relative group`}>
-                <Link href='/menu'>
-                  <span className="hover:text-caffia uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
-                    Menu
-                    <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-caffia transition-all duration-300 group-hover:w-full ${pathname === '/menu' ? 'w-full' : 'group-hover:w-full'}`}></span>
-                  </span>
-                </Link>
-              </li>
-              <li className={`${pathname === '/product' ? 'text-caffia' : ''} relative group`}>
-                <Link href='/product'>
-                  <span className="hover:text-caffia uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
-                    Product
-                    <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-caffia transition-all duration-300 group-hover:w-full ${pathname === '/product' ? 'w-full' : 'group-hover:w-full'}`}></span>
-                  </span>
-                </Link>
-              </li>
-              <li className={`${pathname === '/blog' ? 'text-caffia' : ''} relative group`}>
-                <Link href='/blog'>
-                  <span className="hover:text-caffia uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
-                    Blog
-                    <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-caffia transition-all duration-300 group-hover:w-full ${pathname === '/blog' ? 'w-full' : 'group-hover:w-full'}`}></span>
-                  </span>
-                </Link>
-              </li>
-              <li className={`${pathname === '/contact' ? 'text-caffia' : ''} relative group`}>
-                <Link href='/contact'>
-                  <span className="hover:text-caffia uppercase cursor-pointer transition-all duration-200 py-2 px-1 relative">
-                    Contact
-                    <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-caffia transition-all duration-300 group-hover:w-full ${pathname === '/contact' ? 'w-full' : 'group-hover:w-full'}`}></span>
-                  </span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Right side: Search and Cart */}
-          <div className='flex gap-4 items-center'>
-            {mounted && (status === "authenticated" ? (
-              <Link href="/profile" className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative group">
-                <UserRound className='text-caffia font-bold group-hover:text-amberLight transition-colors' size={22} />
-              </Link>
-            ) : (
-              <LoginDrawer>
-                <button className='p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative group'>
-                  <UserRound className='text-caffia font-bold group-hover:text-amberLight transition-colors' size={22} />
-                </button>
-              </LoginDrawer>
-            ))}
-
-            <button className='p-2 hover:bg-gray-100 rounded-full transition-colors duration-200 relative group'>
-              <Search className='text-caffia font-bold group-hover:text-amberLight transition-colors' size={22} />
-            </button>
-            <Link href='/cart' className='p-2 hover:bg-gray-100 inline-flex items-center rounded-full transition-colors duration-200 relative group'>
-              <ShoppingCart className='text-caffia font-bold group-hover:textamberLight transition-colors' size={22} />
-              <span className="absolute -top-0.5 -right-1 bg-caffia text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-                {mounted ? totalCount : '0'}
-              </span>
-              <div className='lg:mt-10'>
-                <ToastNotification />
-              </div>
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      {/* Mobile Header */}
-      <div className={`md:hidden sticky top-0 z-40 transition-all duration-300 ${isScrolled ? 'shadow-lg bg-white/95 backdrop-blur-sm' : 'bg-white'
-        }`}>
-        <div className='flex mx-auto justify-between items-center px-4 py-3'>
+      <header
+        className={cn(
+          'sticky top-0 z-40 border-b transition-all duration-300',
+          isScrolled ? 'border-latte/70 bg-cream/85 shadow-sm backdrop-blur-md' : 'border-transparent bg-cream'
+        )}
+      >
+        <div className="page-container flex h-16 items-center justify-between gap-4 md:h-20">
+          {/* Mobile menu toggle */}
           <button
-            onClick={Toggle}
-            className='p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-300'
-            aria-label="Toggle menu"
+            onClick={() => setMenuOpen(true)}
+            className={cn(iconButton, 'md:hidden')}
+            aria-label="Open menu"
           >
-            {toggle ? (
-              <X className="w-6 h-6 text-gray-700" />
-            ) : (
-              <Menu className="w-6 h-6 text-gray-700" />
-            )}
+            <Menu size={22} />
           </button>
 
-          <Image
-            src="/assets/images/caffia.png"
-            width={100}
-            height={100}
-            priority={true}
-            className='w-28 hover:scale-105 transition-transform duration-200'
-            alt="Caffia Logo"
-          />
-
-          <div className="flex gap-2">
-            <button className='p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200'>
-              <Search className="w-5 h-5 text-gray-700" />
-            </button>
-            <button className='p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 relative'>
-              <Link href='/cart' className='inline-flex items-center'>
-                <ShoppingCart className="w-5 h-5 text-gray-700" />
-                <span className="absolute -top-1 -right-1 bg-amber-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
-                  {mounted ? totalCount : 0}
-                </span>
-              </Link>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Navigation Menu */}
-      <nav className={`md:hidden fixed top-0 left-0 right-0 bottom-0 z-50 transition-all duration-300 ${toggle ? 'opacity-100 visible' : 'opacity-0 invisible'
-        }`}>
-        {/* Backdrop */}
-        <div
-          className={`absolute inset-0 bg-white/20 transition-opacity duration-300 ${toggle ? 'bg-opacity-50' : 'bg-opacity-0'
-            }`}
-          onClick={Toggle}
-        />
-
-        {/* Menu Panel */}
-        <div className={`absolute top-0 left-0 w-80 max-w-[85vw] h-full bg-white shadow-2xl transform transition-transform duration-300 ${toggle ? 'translate-x-0' : '-translate-x-full'
-          }`}>
-          {/* Menu Header */}
-          <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-amber-50 to-amber-100">
+          <Link href="/" className="shrink-0" aria-label="Caffia home">
             <Image
               src="/assets/images/caffia.png"
-              className='w-24'
-              width={100}
-              height={100}
-              alt="Caffia Logo"
+              width={144}
+              height={48}
+              className="h-auto w-28 md:w-32"
+              priority
+              alt="Caffia"
             />
-            <button
-              onClick={Toggle}
-              className='p-2 hover:bg-white rounded-lg transition-colors duration-200'
-            >
-              <X className="w-6 h-6 text-gray-700" />
+          </Link>
+
+          {/* Desktop navigation */}
+          <nav className="hidden md:block" aria-label="Main">
+            <ul className="flex items-center gap-1 lg:gap-2">
+              {navigation.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      'relative rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200',
+                      isActive(item.href)
+                        ? 'bg-caffia text-cream'
+                        : 'text-espresso/80 hover:bg-crema hover:text-caffia'
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Actions */}
+          <div className="flex items-center gap-1">
+            <Link href="/product" className={cn(iconButton, 'hidden sm:grid')} aria-label="Browse products">
+              <Search size={20} strokeWidth={1.75} />
+            </Link>
+
+            <div className="hidden md:block">
+              {mounted && (status === "authenticated" ? (
+                <Link href="/profile" className={iconButton} aria-label="My account">{accountIcon}</Link>
+              ) : (
+                <LoginDrawer>
+                  <button className={iconButton} aria-label="Login">{accountIcon}</button>
+                </LoginDrawer>
+              ))}
+            </div>
+
+            <Link href="/cart" className={cn(iconButton, 'relative')} aria-label={`Cart, ${mounted ? totalCount : 0} items`}>
+              <ShoppingBag size={20} strokeWidth={1.75} />
+              <span className="absolute right-0.5 top-0.5 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-caramel px-1 text-[10px] font-bold text-white">
+                {mounted ? totalCount : 0}
+              </span>
+            </Link>
+            <ToastNotification />
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile navigation drawer */}
+      <div
+        className={cn(
+          'fixed inset-0 z-50 md:hidden transition-[visibility] duration-300',
+          menuOpen ? 'visible' : 'invisible'
+        )}
+        aria-hidden={!menuOpen}
+      >
+        <div
+          className={cn(
+            'absolute inset-0 bg-espresso/50 backdrop-blur-sm transition-opacity duration-300',
+            menuOpen ? 'opacity-100' : 'opacity-0'
+          )}
+          onClick={() => setMenuOpen(false)}
+        />
+
+        <nav
+          className={cn(
+            'absolute inset-y-0 left-0 flex w-80 max-w-[85vw] flex-col bg-cream shadow-2xl transition-transform duration-300 ease-out',
+            menuOpen ? 'translate-x-0' : '-translate-x-full'
+          )}
+          aria-label="Mobile"
+        >
+          <div className="flex items-center justify-between border-b border-latte px-5 py-4">
+            <Image src="/assets/images/caffia.png" className="h-auto w-24" width={96} height={32} alt="Caffia" />
+            <button onClick={() => setMenuOpen(false)} className={iconButton} aria-label="Close menu">
+              <X size={22} />
             </button>
           </div>
 
-          {/* Navigation Items */}
-          <ul className='py-4'>
-            {navigation.map((item, index) => (
-              <li key={item.name}>
-                <a
+          <ul className="flex-1 overflow-y-auto px-3 py-4">
+            {navigation.map((item) => (
+              <li key={item.href}>
+                <Link
                   href={item.href}
-                  className='group flex items-center justify-between px-6 py-4 text-gray-800 hover:bg-amber-50 hover:textamberLight transition-all duration-200 font-medium border-b border-gray-100 last:border-b-0'
-                  style={{
-                    animationDelay: toggle ? `${index * 50}ms` : '0ms'
-                  }}
-                  onClick={Toggle}
+                  onClick={() => setMenuOpen(false)}
+                  className={cn(
+                    'flex items-center justify-between rounded-xl px-4 py-3.5 font-heading text-xl transition-colors',
+                    isActive(item.href) ? 'bg-caffia text-cream' : 'text-espresso hover:bg-crema'
+                  )}
                 >
-                  <span className="group-hover:translate-x-1  font-semibold transition-transform duration-200">
-                    {item.name}
-                  </span>
-                  <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all duration-200" />
-                </a>
+                  {item.name}
+                  <ArrowRight size={18} className="opacity-50" />
+                </Link>
               </li>
             ))}
           </ul>
 
-          {/* Mobile Menu Footer */}
-          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-amber-50 to-amber-100 border-t border-gray-200">
-            <div className="flex flex-col space-y-3">
-              {mounted && (status === "authenticated" ? (
-                <Link href="/profile" onClick={Toggle} className="flex items-center space-x-3 text-gray-700 cursor-pointer">
-                  <div className="w-8 h-8 bg-amber-200 rounded-full flex items-center justify-center">
-                    <span className="text-sm font-semibold bg-amber-100/10 rounded-full p-3 "><UserRound /></span>
-                  </div>
-                  <span className="font-medium">My Account</span>
-                </Link>
-              ) : (
-                <LoginDrawer>
-                  <div className="flex items-center space-x-3 text-gray-700 cursor-pointer">
-                    <div className="w-8 h-8 bg-amber-200 rounded-full flex items-center justify-center">
-                      <span className="text-sm font-semibold bg-amber-100/10 rounded-full p-3 "><UserRound /></span>
-                    </div>
-                    <span className="font-medium">My Account</span>
-                  </div>
-                </LoginDrawer>
-              ))}
+          <div className="space-y-3 border-t border-latte bg-crema/60 p-5">
+            {mounted && (status === "authenticated" ? (
+              <Link href="/profile" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 font-semibold text-espresso">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-latte">{accountIcon}</span>
+                My Account
+              </Link>
+            ) : (
+              <LoginDrawer>
+                <button className="flex items-center gap-3 font-semibold text-espresso">
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-latte">{accountIcon}</span>
+                  Login / Sign up
+                </button>
+              </LoginDrawer>
+            ))}
 
-              <button className="w-full bg-gradient-to-r from-amber-500 toamberLight hover:fromamberLight hover:to-amber-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-[1.02]">
-                Order Now ☕
-              </button>
-            </div>
+            <Link
+              href="/product"
+              onClick={() => setMenuOpen(false)}
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-caffia py-3 font-semibold text-cream transition-colors hover:bg-caffia-dark"
+            >
+              Shop Coffee <ArrowRight size={16} />
+            </Link>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </>
   )
 }

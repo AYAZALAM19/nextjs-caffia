@@ -4,6 +4,7 @@ import HeroBanner from "../../../components/HeroBanner";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import ContactInfo from "./components/ContactInfo";
 import ContactForm from "./components/ContactForm";
+import SectionHeading from "@/components/landing/SectionHeading";
 
 function Contact() {
   const orderType = [
@@ -15,22 +16,23 @@ function Contact() {
 
   return (
     <>
-      <Breadcrumb separator={<ChevronRight />} capitalizeLinks />
+      <div className="page-container pt-6">
+        <Breadcrumb separator={<ChevronRight size={14} />} capitalizeLinks />
+      </div>
       <HeroBanner
         title="Get in Touch"
         img="/assets/images/home-banner/Banner_1.jpeg"
         description="Have questions about our coffee or want to place a custom order? We'd love to hear from you and help you find your perfect cup."
-        subTitle="About Caffie"
+        subTitle="Contact Caffia"
       />
-      <div className="my-2 md:my-4 px-3 md:px-4">
-         <h2 className="md:text-5xl text-lg text-center text-caffia">
-              Contact Us
-            </h2>
-            <p className="md:text-3xl text-base my-3 md:my-5 text-center text-Greytext font-semibold">
-              Leave us a message!
-            </p>
+      <div className="page-container pt-16 md:pt-24">
+        <SectionHeading
+          eyebrow="Contact us"
+          title="Leave us a message"
+          description="Questions, bulk orders or gifting — drop us a line and we'll get back to you."
+        />
       </div>
-      <section className="grid container mx-auto lg:grid-cols-2 grid-cols-1 gap-4 md:gap-6 px-3 md:px-4 mb-4 md:mb-6">
+      <section className="page-container grid grid-cols-1 gap-6 py-12 md:py-16 lg:grid-cols-2">
         <div>
         <ContactInfo />
         </div>

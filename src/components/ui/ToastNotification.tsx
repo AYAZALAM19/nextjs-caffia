@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect } from 'react'
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
+import Image from '@/components/ui/AppImage';
 import { useCartStore } from '@/lib/stores/cartStore'
 export default function ToastNotification() {
     const toastMessage = useCartStore((state) => state.toastMessage)

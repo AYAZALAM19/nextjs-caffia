@@ -142,7 +142,7 @@ export default function Checkout() {
   }
   return (
     <>
-      <div className="container mx-auto px-3 md:px-4 py-4 md:py-6">
+      <div className="page-container py-4 md:py-6">
         <form onSubmit={handleSubmit(OnSubmit)}>
           <div className="flex flex-col lg:flex-row gap-6 md:gap-8 items-start">
             {/* LEFT SIDE: Form (8 columns on large screens) */}

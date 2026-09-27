@@ -38,7 +38,7 @@ const methods = [
 export function BrewingGuide() {
   return (
     <section className="py-12 bg-red-950/25 w-full">
-      <div className="px-6 container mx-auto text-center">
+      <div className="page-container text-center">
         <h2 className="lg:text-3xl text-xl font-semibold text-caffia">
           Brewing Guide
         </h2>

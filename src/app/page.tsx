@@ -1,30 +1,23 @@
-import CoffeeSliderBanner from "../components/CoffeeSliderBanner";
-import Newsletter from "../components/Newsletter";
-import BestOptions from "../components/landing/BestOption";
-import Stats from "../components/landing/Stats";
-import PremiumCollection from "../components/landing/PremiumCollection";
-import AboutCaffie from "../components/landing/AboutCaffie";
-import Qualities from "../components/landing/Qualities";
-import AboutProduct from "../components/landing/AboutProduct";
+import Hero from "@/components/landing/Hero";
+import TrustBar from "@/components/landing/TrustBar";
+import BestOptions from "@/components/landing/BestOption";
+import PremiumCollection from "@/components/landing/PremiumCollection";
+import AboutCaffie from "@/components/landing/AboutCaffie";
+import Qualities from "@/components/landing/Qualities";
+import AboutProduct from "@/components/landing/AboutProduct";
+import Newsletter from "@/components/Newsletter";
 
 export default function HomePage() {
   return (
     <>
-      <CoffeeSliderBanner />
-
-      <div className="mx-auto container">
-        <BestOptions />
-      </div>
+      <Hero />
+      <TrustBar />
+      <BestOptions />
       <PremiumCollection />
-
       <AboutCaffie />
-
       <Qualities />
-
-      <Stats />
       <AboutProduct />
       <Newsletter />
     </>
   );
 }
-;

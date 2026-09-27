@@ -101,7 +101,7 @@ const ThankYouContent = () => {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="page-container">
         <div className="flex lg:flex-row flex-col justify-center gap-4 md:gap-6 px-3 md:px-4 py-4 md:py-6">
           {/* LEFT */}
           <div className="flex-1 lg:basis-[70%] text-center lg:text-left">

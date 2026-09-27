@@ -1,29 +1,39 @@
 import React from "react";
 import Image from "next/image";
 
-function HeroBanner({ img, title, description, subTitle }) {
+interface HeroBannerProps {
+  img: string;
+  title: string;
+  description?: string;
+  subTitle?: string;
+}
+
+function HeroBanner({ img, title, description, subTitle }: HeroBannerProps) {
   return (
-    <div className="relative bg-gradient-to-br from-amber to-amberLight">
-      <Image
-        src={img}
-        className="object-cover object-center  w-full h-[350px] md:h-[500px]"
-        priority={true}
-        width={1000}
-        height={400}
-        alt={title}
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-darkAmber/55 via-black/40 to-transparent"></div>
-      <div className="absolute inset-0 z-10 flex items-center ">
-        <div className="py-4 px-4 md:px-16">
-          <h1 className=" font-heading font-bold text-3xl md:text-5xl lg:text-6xl mb-4 uppercase text-caffia">
-            {title}
-          </h1>
-          <p className="font-body md:text-xl lg:text-2xl max-w-3xl text-start text-lg font-semibold  text-white">
-            {description}
-          </p>
+    <section className="page-container pt-4">
+      <div className="relative h-[320px] overflow-hidden rounded-[2rem] md:h-[440px] lg-short:h-[min(440px,calc(100svh-15rem))]">
+        <Image
+          src={img}
+          alt={title}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-espresso/85 via-espresso/50 to-transparent" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-2xl px-6 md:px-14">
+            {subTitle && (
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-caramel">{subTitle}</p>
+            )}
+            <h1 className="font-heading text-4xl leading-tight text-cream md:text-6xl">{title}</h1>
+            {description && (
+              <p className="mt-4 text-base leading-relaxed text-crema/85 md:text-lg">{description}</p>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

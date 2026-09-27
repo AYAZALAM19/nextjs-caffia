@@ -6,6 +6,8 @@ const nextConfig = {
         protocol: "http",
         hostname: "localhost",
       },
+      // Product images. Rendered via <AppImage>, which lets Cloudinary resize them
+      // (Next's optimizer times out after 7s on large Cloudinary originals).
       {
         protocol: "https",
         hostname: "res.cloudinary.com",

@@ -4,7 +4,7 @@
 export const site = {
   name: "Caffia",
   url: "https://caffia.in",
-  title: "Caffia — Premium Instant Coffee, Delivered Across India",
+  title: "Caffia | Premium Instant Coffee, Delivered Across India",
   description:
     "Shop Caffia's 100% Arabica flavoured instant coffees — Turkish Hazelnut, French Vanilla and Original Classic. Small-batch roasted, delivered across India. Visit our cafe on MG Road, Pune.",
   ogImage: "/assets/images/home-banner/Home_Banner_1.jpg",

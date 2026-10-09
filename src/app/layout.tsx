@@ -40,11 +40,18 @@ export const metadata: Metadata = {
     "buy coffee online India",
     "cafe MG Road Pune",
   ],
-  icons: { icon: "/assets/images/caffia.png" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "/",
+    url: site.url,
     siteName: site.name,
     title: site.title,
     description: site.description,

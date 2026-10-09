@@ -6,7 +6,8 @@ import HeroBanner from "@/components/HeroBanner";
 import SectionHeading from "@/components/landing/SectionHeading";
 
 export const metadata = {
-  title: "About Us - Caffia",
+  title: "About Us — Our Coffee Story",
+  alternates: { canonical: "/about" },
   description:
     "From a small neighbourhood coffee shop to a premium coffee experience — discover the story, values and people behind Caffia.",
 };

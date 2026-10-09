@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Instagram, Facebook, Youtube, Twitter, Mail, Phone, MapPin } from "lucide-react"
+import { site } from '@/lib/site'
 
 const columns = [
   {
@@ -29,13 +30,13 @@ const columns = [
   },
 ]
 
-// TODO: replace "#" with the real social profile URLs
+// Only platforms with a real URL in site.social are rendered
 const socials = [
-  { icon: Instagram, label: "Instagram", href: "#" },
-  { icon: Facebook, label: "Facebook", href: "#" },
-  { icon: Youtube, label: "YouTube", href: "#" },
-  { icon: Twitter, label: "Twitter", href: "#" },
-]
+  { icon: Instagram, label: "Instagram", href: site.social.instagram },
+  { icon: Facebook, label: "Facebook", href: site.social.facebook },
+  { icon: Youtube, label: "YouTube", href: site.social.youtube },
+  { icon: Twitter, label: "Twitter", href: site.social.twitter },
+].filter((s) => s.href)
 
 function Footer() {
   return (
@@ -58,7 +59,9 @@ function Footer() {
               <a
                 key={label}
                 href={href}
-                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Caffia on ${label}`}
                 className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-crema/80 transition-colors hover:border-caramel hover:bg-caramel hover:text-espresso"
               >
                 <Icon size={17} />

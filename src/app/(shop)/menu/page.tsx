@@ -9,7 +9,8 @@ import { getProducts } from "@/lib/api/products";
 import { ProductResponse } from "@/lib/types/product";
 
 export const metadata = {
-  title: "Menu - Caffia",
+  title: "Coffee Menu",
+  alternates: { canonical: "/menu" },
   description: "Browse the full Caffia coffee menu — signature blends and instant coffees, crafted with care.",
 };
 

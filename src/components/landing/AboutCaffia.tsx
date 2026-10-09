@@ -9,7 +9,7 @@ const points = [
   "Crafted for your morning rush and slow afternoons",
 ];
 
-export default function AboutCaffie() {
+export default function AboutCaffia() {
   return (
     <section className="page-container grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2 lg:gap-20">
       <div className="relative order-2 lg:order-1">

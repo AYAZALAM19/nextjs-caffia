@@ -6,6 +6,13 @@ import ContactInfo from "./components/ContactInfo";
 import ContactForm from "./components/ContactForm";
 import SectionHeading from "@/components/landing/SectionHeading";
 
+export const metadata = {
+  title: "Contact Us — Bulk Orders, Gifting & Queries",
+  description:
+    "Get in touch with Caffia for bulk orders, gifting or questions about our coffee. Call +91 99875 45874 or visit our cafe on MG Road, Pune.",
+  alternates: { canonical: "/contact" },
+};
+
 function Contact() {
   const orderType = [
     { id: "Bulk Order", value: "Bulk Order" },

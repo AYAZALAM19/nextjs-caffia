@@ -5,6 +5,13 @@ import { ChevronRight } from 'lucide-react';
 import ProductsUnavailable from "@/components/ProductsUnavailable";
 import { getProducts } from "@/lib/api/products";
 
+export const metadata = {
+  title: "Shop Coffee Online — Flavoured Instant Coffee",
+  description:
+    "Buy Caffia 100% Arabica flavoured instant coffee online — Turkish Hazelnut, French Vanilla, Original Classic and more. Delivered across India.",
+  alternates: { canonical: "/product" },
+};
+
 async function ProductsPage() {
   const productsResponse = await getProducts();
   const products = productsResponse.data;

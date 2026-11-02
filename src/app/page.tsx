@@ -16,7 +16,7 @@ export default function HomePage() {
     <>
       <Hero />
       <TrustBar />
-      <BestOptions />
+      {/* <BestOptions /> */}
       <PremiumCollection />
       <AboutCaffia />
       <Qualities />

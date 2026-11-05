@@ -4,12 +4,12 @@
 export const site = {
   name: "Caffia",
   url: "https://caffia.in",
-  title: "Caffia | Premium Instant Coffee, Delivered Across India",
+  title: "Buy Premium Instant Coffee Online in India | Caffia",
   description:
-    "Shop Caffia's 100% Arabica flavoured instant coffees — Turkish Hazelnut, French Vanilla and Original Classic. Small-batch roasted, delivered across India. Visit our cafe on MG Road, Pune.",
+    "Explore Caffia's range of instant coffee, including Original Classic, Turkish Hazelnut, French Vanilla and Extra Strong. Discover your favourite coffee and order online.",
   ogImage: "/assets/images/home-banner/Home_Banner_1.jpg",
   phone: "+91-99875-45874",
-  email: "hello@caffia.com",
+  email: "salescaffia.co@gmail.comm",
   address: {
     streetAddress: "MG Road",
     addressLocality: "Pune",

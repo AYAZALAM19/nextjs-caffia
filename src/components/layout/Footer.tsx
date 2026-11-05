@@ -103,9 +103,9 @@ function Footer() {
               </a>
             </li>
             <li>
-              <a href="mailto:hello@caffia.com" className="flex items-center gap-3 transition-colors hover:text-caramel">
+              <a href="mailto:salescaffia.co@gmail.comm" className="flex items-center gap-3 transition-colors hover:text-caramel">
                 <Mail size={17} className="shrink-0 text-caramel" />
-                hello@caffia.com
+                salescaffia.co@gmail.comm
               </a>
             </li>
           </ul>
